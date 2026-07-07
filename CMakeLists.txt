@@ -11,17 +11,17 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(RAYLIB_VERSION 6.0)
 
 FetchContent_Declare(
-        raylib
-        DOWNLOAD_EXTRACT_TIMESTAMP OFF
-        URL https://github.com/raysan5/raylib/archive/refs/tags/${RAYLIB_VERSION}.tar.gz
-        FIND_PACKAGE_ARGS
+    raylib
+    DOWNLOAD_EXTRACT_TIMESTAMP OFF
+    URL https://github.com/raysan5/raylib/archive/refs/tags/${RAYLIB_VERSION}.tar.gz
+    FIND_PACKAGE_ARGS
 )
 
 FetchContent_MakeAvailable(raylib)
 
 FetchContent_Declare(box3d
-  GIT_REPOSITORY https://github.com/erincatto/box3d.git
-  GIT_TAG v0.1.0
+    GIT_REPOSITORY https://github.com/erincatto/box3d.git
+    GIT_TAG v0.1.0
 )
 
 FetchContent_MakeAvailable(box3d)
@@ -36,7 +36,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(imgui)
 
 # Create your imgui library target
-add_library(imgui STATIC 
+add_library(imgui STATIC
     ${imgui_SOURCE_DIR}/imgui.cpp
     ${imgui_SOURCE_DIR}/imgui_demo.cpp
     ${imgui_SOURCE_DIR}/imgui_draw.cpp
@@ -71,16 +71,15 @@ target_link_libraries(rlImGui PUBLIC raylib)
 
 
 
-add_executable(${PROJECT_NAME} )
+add_executable(${PROJECT_NAME})
 add_subdirectory(src)
 
-add_executable(MapToJsonConverter tools/map_to_json_converter.cpp)
-target_compile_features(MapToJsonConverter PRIVATE cxx_std_20)
+
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/resources
-        $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
+    ${CMAKE_SOURCE_DIR}/resources
+    $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
 )
 add_custom_command(
     TARGET ${PROJECT_NAME} POST_BUILD
