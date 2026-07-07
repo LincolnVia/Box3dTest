@@ -35,7 +35,7 @@ jobs:
         run: |
           rm -rf public
           mkdir -p public
-          cp -r doc/html/* public/
+          cp -r docs/html/* public/
           touch public/.nojekyll
 
       - name: Upload Pages artifact
