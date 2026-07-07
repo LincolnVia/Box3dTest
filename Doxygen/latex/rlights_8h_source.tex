@@ -1,0 +1,176 @@
+\doxysection{rlights.\+h}
+\hypertarget{rlights_8h_source}{}\label{rlights_8h_source}\index{src/rlights.h@{src/rlights.h}}
+\doxymbox{\hyperlink{rlights_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00001}00001\ \textcolor{comment}{/**********************************************************************************************}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00002}00002\ \textcolor{comment}{*}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00003}00003\ \textcolor{comment}{*\ \ \ raylib.lights\ -\/\ Some\ useful\ functions\ to\ deal\ with\ lights\ data}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00004}00004\ \textcolor{comment}{*}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00005}00005\ \textcolor{comment}{*\ \ \ CONFIGURATION:}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00006}00006\ \textcolor{comment}{*}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00007}00007\ \textcolor{comment}{*\ \ \ \#define\ RLIGHTS\_IMPLEMENTATION}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00008}00008\ \textcolor{comment}{*\ \ \ \ \ \ \ Generates\ the\ implementation\ of\ the\ library\ into\ the\ included\ file.}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00009}00009\ \textcolor{comment}{*\ \ \ \ \ \ \ If\ not\ defined,\ the\ library\ is\ in\ header\ only\ mode\ and\ can\ be\ included\ in\ other\ headers\ }}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00010}00010\ \textcolor{comment}{*\ \ \ \ \ \ \ or\ source\ files\ without\ problems.\ But\ only\ ONE\ file\ should\ hold\ the\ implementation.}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00011}00011\ \textcolor{comment}{*}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00012}00012\ \textcolor{comment}{*\ \ \ LICENSE:\ zlib/libpng}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00013}00013\ \textcolor{comment}{*}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00014}00014\ \textcolor{comment}{*\ \ \ Copyright\ (c)\ 2017-\/2024\ Victor\ Fisac\ (@victorfisac)\ and\ Ramon\ Santamaria\ (@raysan5)}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00015}00015\ \textcolor{comment}{*}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00016}00016\ \textcolor{comment}{*\ \ \ This\ software\ is\ provided\ "{}as-\/is"{},\ without\ any\ express\ or\ implied\ warranty.\ In\ no\ event}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00017}00017\ \textcolor{comment}{*\ \ \ will\ the\ authors\ be\ held\ liable\ for\ any\ damages\ arising\ from\ the\ use\ of\ this\ software.}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00018}00018\ \textcolor{comment}{*}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00019}00019\ \textcolor{comment}{*\ \ \ Permission\ is\ granted\ to\ anyone\ to\ use\ this\ software\ for\ any\ purpose,\ including\ commercial}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00020}00020\ \textcolor{comment}{*\ \ \ applications,\ and\ to\ alter\ it\ and\ redistribute\ it\ freely,\ subject\ to\ the\ following\ restrictions:}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00021}00021\ \textcolor{comment}{*}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00022}00022\ \textcolor{comment}{*\ \ \ \ \ 1.\ The\ origin\ of\ this\ software\ must\ not\ be\ misrepresented;\ you\ must\ not\ claim\ that\ you}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00023}00023\ \textcolor{comment}{*\ \ \ \ \ wrote\ the\ original\ software.\ If\ you\ use\ this\ software\ in\ a\ product,\ an\ acknowledgment}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00024}00024\ \textcolor{comment}{*\ \ \ \ \ in\ the\ product\ documentation\ would\ be\ appreciated\ but\ is\ not\ required.}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00025}00025\ \textcolor{comment}{*}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00026}00026\ \textcolor{comment}{*\ \ \ \ \ 2.\ Altered\ source\ versions\ must\ be\ plainly\ marked\ as\ such,\ and\ must\ not\ be\ misrepresented}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00027}00027\ \textcolor{comment}{*\ \ \ \ \ as\ being\ the\ original\ software.}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00028}00028\ \textcolor{comment}{*}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00029}00029\ \textcolor{comment}{*\ \ \ \ \ 3.\ This\ notice\ may\ not\ be\ removed\ or\ altered\ from\ any\ source\ distribution.}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00030}00030\ \textcolor{comment}{*}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00031}00031\ \textcolor{comment}{**********************************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00033}00033\ \textcolor{preprocessor}{\#ifndef\ RLIGHTS\_H}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00034}00034\ \textcolor{preprocessor}{\#define\ RLIGHTS\_H}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00036}00036\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00037}00037\ \textcolor{comment}{//\ Defines\ and\ Macros}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00038}00038\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00039}\doxymbox{\hyperlink{rlights_8h_a737b417f16ea225cf15e8d4c23df53dc}{00039}}\ \textcolor{preprocessor}{\#define\ MAX\_LIGHTS\ \ 4\ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ Max\ dynamic\ lights\ supported\ by\ shader}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00041}00041\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00042}00042\ \textcolor{comment}{//\ Types\ and\ Structures\ Definition}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00043}00043\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00045}00045\ \textcolor{comment}{//\ Light\ data}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00046}\doxymbox{\hyperlink{struct_light}{00046}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{\ \ \ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00047}\doxymbox{\hyperlink{struct_light_ad5c0b51a5d09ab56d1119706b58a6941}{00047}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_light_ad5c0b51a5d09ab56d1119706b58a6941}{type}};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00048}\doxymbox{\hyperlink{struct_light_a6dfed8051e33dde2baaef3e50d74084e}{00048}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{struct_light_a6dfed8051e33dde2baaef3e50d74084e}{enabled}};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00049}\doxymbox{\hyperlink{struct_light_aaf0e960606cf34ba827b5fef2c74b042}{00049}}\ \ \ \ \ \doxymbox{\hyperlink{struct_vector3}{Vector3}}\ \doxymbox{\hyperlink{struct_light_aaf0e960606cf34ba827b5fef2c74b042}{position}};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00050}\doxymbox{\hyperlink{struct_light_ada0bd72079232cbfaba34001229e8cfa}{00050}}\ \ \ \ \ \doxymbox{\hyperlink{struct_vector3}{Vector3}}\ \doxymbox{\hyperlink{struct_light_ada0bd72079232cbfaba34001229e8cfa}{target}};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00051}\doxymbox{\hyperlink{struct_light_ad7a168d26aed1bf7cca1a8d8e6f8ada4}{00051}}\ \ \ \ \ \doxymbox{\hyperlink{struct_color}{Color}}\ \doxymbox{\hyperlink{struct_light_ad7a168d26aed1bf7cca1a8d8e6f8ada4}{color}};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00052}\doxymbox{\hyperlink{struct_light_af8b645352e549c52ace8731a3aca34c4}{00052}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{struct_light_af8b645352e549c52ace8731a3aca34c4}{attenuation}};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00053}00053\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00054}00054\ \ \ \ \ \textcolor{comment}{//\ Shader\ locations}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00055}\doxymbox{\hyperlink{struct_light_af606501e4853296552b5cfb03f37fae8}{00055}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_light_af606501e4853296552b5cfb03f37fae8}{enabledLoc}};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00056}\doxymbox{\hyperlink{struct_light_a69074799494a828b60170d962675fb90}{00056}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_light_a69074799494a828b60170d962675fb90}{typeLoc}};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00057}\doxymbox{\hyperlink{struct_light_a448d502e227576d9ffa8627e050065ef}{00057}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_light_a448d502e227576d9ffa8627e050065ef}{positionLoc}};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00058}\doxymbox{\hyperlink{struct_light_a39192f609cfe392cca178e4a7f36937b}{00058}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_light_a39192f609cfe392cca178e4a7f36937b}{targetLoc}};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00059}\doxymbox{\hyperlink{struct_light_a98df12cebc437d739f22dd809b66878c}{00059}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_light_a98df12cebc437d739f22dd809b66878c}{colorLoc}};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00060}\doxymbox{\hyperlink{struct_light_a45d4a94a276ab0870a108f4a4a460e0a}{00060}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_light_a45d4a94a276ab0870a108f4a4a460e0a}{attenuationLoc}};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00061}00061\ \}\ \doxymbox{\hyperlink{struct_light}{Light}};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00063}00063\ \textcolor{comment}{//\ Light\ type}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00064}\doxymbox{\hyperlink{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638}{00064}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00065}\doxymbox{\hyperlink{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638ab12dea138375f6dfacbd2ffbb98135a0}{00065}}\ \ \ \ \ \doxymbox{\hyperlink{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638ab12dea138375f6dfacbd2ffbb98135a0}{LIGHT\_DIRECTIONAL}}\ =\ 0,}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00066}\doxymbox{\hyperlink{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638abdec4858df81ac7fc719321ed2b4fe7c}{00066}}\ \ \ \ \ \doxymbox{\hyperlink{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638abdec4858df81ac7fc719321ed2b4fe7c}{LIGHT\_POINT}}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00067}00067\ \}\ \doxymbox{\hyperlink{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638}{LightType}};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00069}00069\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00070}00070\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Prevents\ name\ mangling\ of\ functions}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00071}00071\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00073}00073\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00074}00074\ \textcolor{comment}{//\ Module\ Functions\ Declaration}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00075}00075\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00076}\doxymbox{\hyperlink{rlights_8h_afc243bc3de16abf2627f9ae16dd484de}{00076}}\ \doxymbox{\hyperlink{struct_light}{Light}}\ \doxymbox{\hyperlink{rlights_8h_afc243bc3de16abf2627f9ae16dd484de}{CreateLight}}(\textcolor{keywordtype}{int}\ type,\ \doxymbox{\hyperlink{struct_vector3}{Vector3}}\ position,\ \doxymbox{\hyperlink{struct_vector3}{Vector3}}\ target,\ \doxymbox{\hyperlink{struct_color}{Color}}\ color,\ \doxymbox{\hyperlink{struct_shader}{Shader}}\ shader);\ \ \ \textcolor{comment}{//\ Create\ a\ light\ and\ get\ shader\ locations}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00077}\doxymbox{\hyperlink{rlights_8h_a147b7e5788024577fc8abb7df32e4c5c}{00077}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{rlights_8h_a147b7e5788024577fc8abb7df32e4c5c}{UpdateLightValues}}(\doxymbox{\hyperlink{struct_shader}{Shader}}\ shader,\ \doxymbox{\hyperlink{struct_light}{Light}}\ light);\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Send\ light\ properties\ to\ shader}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00079}00079\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00080}00080\ \}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00081}00081\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00083}00083\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ RLIGHTS\_H}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00086}00086\ \textcolor{comment}{/***********************************************************************************}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00087}00087\ \textcolor{comment}{*}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00088}00088\ \textcolor{comment}{*\ \ \ RLIGHTS\ IMPLEMENTATION}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00089}00089\ \textcolor{comment}{*}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00090}00090\ \textcolor{comment}{************************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00092}00092\ \textcolor{preprocessor}{\#if\ defined(RLIGHTS\_IMPLEMENTATION)}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00094}00094\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{raylib_8h}{raylib.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00096}00096\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00097}00097\ \textcolor{comment}{//\ Defines\ and\ Macros}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00098}00098\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00099}00099\ \textcolor{comment}{//\ ...}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00101}00101\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00102}00102\ \textcolor{comment}{//\ Types\ and\ Structures\ Definition}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00103}00103\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00104}00104\ \textcolor{comment}{//\ ...}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00106}00106\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00107}00107\ \textcolor{comment}{//\ Global\ Variables\ Definition}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00108}00108\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00109}00109\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ lightsCount\ =\ 0;\ \ \ \ \textcolor{comment}{//\ Current\ amount\ of\ created\ lights}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00111}00111\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00112}00112\ \textcolor{comment}{//\ Module\ Internal\ Functions\ Declaration}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00113}00113\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00114}00114\ \textcolor{comment}{//\ ...}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00116}00116\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00117}00117\ \textcolor{comment}{//\ Module\ Functions\ Definition}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00118}00118\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00120}00120\ \textcolor{comment}{//\ Create\ a\ light\ and\ get\ shader\ locations}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00121}00121\ \doxymbox{\hyperlink{struct_light}{Light}}\ \doxymbox{\hyperlink{rlights_8h_afc243bc3de16abf2627f9ae16dd484de}{CreateLight}}(\textcolor{keywordtype}{int}\ type,\ \doxymbox{\hyperlink{struct_vector3}{Vector3}}\ position,\ \doxymbox{\hyperlink{struct_vector3}{Vector3}}\ target,\ \doxymbox{\hyperlink{struct_color}{Color}}\ color,\ \doxymbox{\hyperlink{struct_shader}{Shader}}\ shader)}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00122}00122\ \{}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00123}00123\ \ \ \ \ \doxymbox{\hyperlink{struct_light}{Light}}\ light\ =\ \{\ 0\ \};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00125}00125\ \ \ \ \ \textcolor{keywordflow}{if}\ (lightsCount\ <\ \doxymbox{\hyperlink{rlights_8h_a737b417f16ea225cf15e8d4c23df53dc}{MAX\_LIGHTS}})}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00126}00126\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00127}00127\ \ \ \ \ \ \ \ \ light.\doxymbox{\hyperlink{struct_light_a6dfed8051e33dde2baaef3e50d74084e}{enabled}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00128}00128\ \ \ \ \ \ \ \ \ light.\doxymbox{\hyperlink{struct_light_ad5c0b51a5d09ab56d1119706b58a6941}{type}}\ =\ type;}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00129}00129\ \ \ \ \ \ \ \ \ light.\doxymbox{\hyperlink{struct_light_aaf0e960606cf34ba827b5fef2c74b042}{position}}\ =\ position;}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00130}00130\ \ \ \ \ \ \ \ \ light.\doxymbox{\hyperlink{struct_light_ada0bd72079232cbfaba34001229e8cfa}{target}}\ =\ target;}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00131}00131\ \ \ \ \ \ \ \ \ light.\doxymbox{\hyperlink{struct_light_ad7a168d26aed1bf7cca1a8d8e6f8ada4}{color}}\ =\ color;}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00133}00133\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NOTE:\ Lighting\ shader\ naming\ must\ be\ the\ provided\ ones}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00134}00134\ \ \ \ \ \ \ \ \ light.\doxymbox{\hyperlink{struct_light_af606501e4853296552b5cfb03f37fae8}{enabledLoc}}\ =\ \doxymbox{\hyperlink{raylib_8h_a14366d40e4a57227af1191850cbafebb}{GetShaderLocation}}(shader,\ \doxymbox{\hyperlink{raylib_8h_a04f6dce52328f8287caab282ad4235ee}{TextFormat}}(\textcolor{stringliteral}{"{}lights[\%i].enabled"{}},\ lightsCount));}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00135}00135\ \ \ \ \ \ \ \ \ light.\doxymbox{\hyperlink{struct_light_a69074799494a828b60170d962675fb90}{typeLoc}}\ =\ \doxymbox{\hyperlink{raylib_8h_a14366d40e4a57227af1191850cbafebb}{GetShaderLocation}}(shader,\ \doxymbox{\hyperlink{raylib_8h_a04f6dce52328f8287caab282ad4235ee}{TextFormat}}(\textcolor{stringliteral}{"{}lights[\%i].type"{}},\ lightsCount));}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00136}00136\ \ \ \ \ \ \ \ \ light.\doxymbox{\hyperlink{struct_light_a448d502e227576d9ffa8627e050065ef}{positionLoc}}\ =\ \doxymbox{\hyperlink{raylib_8h_a14366d40e4a57227af1191850cbafebb}{GetShaderLocation}}(shader,\ \doxymbox{\hyperlink{raylib_8h_a04f6dce52328f8287caab282ad4235ee}{TextFormat}}(\textcolor{stringliteral}{"{}lights[\%i].position"{}},\ lightsCount));}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00137}00137\ \ \ \ \ \ \ \ \ light.\doxymbox{\hyperlink{struct_light_a39192f609cfe392cca178e4a7f36937b}{targetLoc}}\ =\ \doxymbox{\hyperlink{raylib_8h_a14366d40e4a57227af1191850cbafebb}{GetShaderLocation}}(shader,\ \doxymbox{\hyperlink{raylib_8h_a04f6dce52328f8287caab282ad4235ee}{TextFormat}}(\textcolor{stringliteral}{"{}lights[\%i].target"{}},\ lightsCount));}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00138}00138\ \ \ \ \ \ \ \ \ light.\doxymbox{\hyperlink{struct_light_a98df12cebc437d739f22dd809b66878c}{colorLoc}}\ =\ \doxymbox{\hyperlink{raylib_8h_a14366d40e4a57227af1191850cbafebb}{GetShaderLocation}}(shader,\ \doxymbox{\hyperlink{raylib_8h_a04f6dce52328f8287caab282ad4235ee}{TextFormat}}(\textcolor{stringliteral}{"{}lights[\%i].color"{}},\ lightsCount));}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00140}00140\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{rlights_8h_a147b7e5788024577fc8abb7df32e4c5c}{UpdateLightValues}}(shader,\ light);}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00141}00141\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00142}00142\ \ \ \ \ \ \ \ \ lightsCount++;}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00143}00143\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00145}00145\ \ \ \ \ \textcolor{keywordflow}{return}\ light;}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00146}00146\ \}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00148}00148\ \textcolor{comment}{//\ Send\ light\ properties\ to\ shader}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00149}00149\ \textcolor{comment}{//\ NOTE:\ Light\ shader\ locations\ should\ be\ available\ }}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00150}00150\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{rlights_8h_a147b7e5788024577fc8abb7df32e4c5c}{UpdateLightValues}}(\doxymbox{\hyperlink{struct_shader}{Shader}}\ shader,\ \doxymbox{\hyperlink{struct_light}{Light}}\ light)}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00151}00151\ \{}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00152}00152\ \ \ \ \ \textcolor{comment}{//\ Send\ to\ shader\ light\ enabled\ state\ and\ type}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00153}00153\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_affa89df7fde907b7bcee31241b9c2745}{SetShaderValue}}(shader,\ light.\doxymbox{\hyperlink{struct_light_af606501e4853296552b5cfb03f37fae8}{enabledLoc}},\ \&light.\doxymbox{\hyperlink{struct_light_a6dfed8051e33dde2baaef3e50d74084e}{enabled}},\ \doxymbox{\hyperlink{raylib_8h_a07d130f18cd87014440169171235e01ca3dd95fb095f6908247e44a96d3046b14}{SHADER\_UNIFORM\_INT}});}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00154}00154\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_affa89df7fde907b7bcee31241b9c2745}{SetShaderValue}}(shader,\ light.\doxymbox{\hyperlink{struct_light_a69074799494a828b60170d962675fb90}{typeLoc}},\ \&light.\doxymbox{\hyperlink{struct_light_ad5c0b51a5d09ab56d1119706b58a6941}{type}},\ \doxymbox{\hyperlink{raylib_8h_a07d130f18cd87014440169171235e01ca3dd95fb095f6908247e44a96d3046b14}{SHADER\_UNIFORM\_INT}});}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00156}00156\ \ \ \ \ \textcolor{comment}{//\ Send\ to\ shader\ light\ position\ values}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00157}00157\ \ \ \ \ \textcolor{keywordtype}{float}\ position[3]\ =\ \{\ light.\doxymbox{\hyperlink{struct_light_aaf0e960606cf34ba827b5fef2c74b042}{position}}.\doxymbox{\hyperlink{struct_vector3_a7e2d3237b29a2f29d7b3d8b2934e35f2}{x}},\ light.\doxymbox{\hyperlink{struct_light_aaf0e960606cf34ba827b5fef2c74b042}{position}}.\doxymbox{\hyperlink{struct_vector3_a86eb35a9fa2d5a49e7fad66a35fa9c13}{y}},\ light.\doxymbox{\hyperlink{struct_light_aaf0e960606cf34ba827b5fef2c74b042}{position}}.\doxymbox{\hyperlink{struct_vector3_aa8c9461eb24bd2c364258078811a3e9d}{z}}\ \};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00158}00158\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_affa89df7fde907b7bcee31241b9c2745}{SetShaderValue}}(shader,\ light.\doxymbox{\hyperlink{struct_light_a448d502e227576d9ffa8627e050065ef}{positionLoc}},\ position,\ \doxymbox{\hyperlink{raylib_8h_a07d130f18cd87014440169171235e01cad798d1003d637c37fe14fd92e45e22dc}{SHADER\_UNIFORM\_VEC3}});}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00160}00160\ \ \ \ \ \textcolor{comment}{//\ Send\ to\ shader\ light\ target\ position\ values}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00161}00161\ \ \ \ \ \textcolor{keywordtype}{float}\ target[3]\ =\ \{\ light.\doxymbox{\hyperlink{struct_light_ada0bd72079232cbfaba34001229e8cfa}{target}}.\doxymbox{\hyperlink{struct_vector3_a7e2d3237b29a2f29d7b3d8b2934e35f2}{x}},\ light.\doxymbox{\hyperlink{struct_light_ada0bd72079232cbfaba34001229e8cfa}{target}}.\doxymbox{\hyperlink{struct_vector3_a86eb35a9fa2d5a49e7fad66a35fa9c13}{y}},\ light.\doxymbox{\hyperlink{struct_light_ada0bd72079232cbfaba34001229e8cfa}{target}}.\doxymbox{\hyperlink{struct_vector3_aa8c9461eb24bd2c364258078811a3e9d}{z}}\ \};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00162}00162\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_affa89df7fde907b7bcee31241b9c2745}{SetShaderValue}}(shader,\ light.\doxymbox{\hyperlink{struct_light_a39192f609cfe392cca178e4a7f36937b}{targetLoc}},\ target,\ \doxymbox{\hyperlink{raylib_8h_a07d130f18cd87014440169171235e01cad798d1003d637c37fe14fd92e45e22dc}{SHADER\_UNIFORM\_VEC3}});}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00164}00164\ \ \ \ \ \textcolor{comment}{//\ Send\ to\ shader\ light\ color\ values}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00165}00165\ \ \ \ \ \textcolor{keywordtype}{float}\ color[4]\ =\ \{\ (float)light.\doxymbox{\hyperlink{struct_light_ad7a168d26aed1bf7cca1a8d8e6f8ada4}{color}}.\doxymbox{\hyperlink{struct_color_ab9a9c7134511f9b116a6fcc81a303ba6}{r}}/(\textcolor{keywordtype}{float})255,\ (float)light.\doxymbox{\hyperlink{struct_light_ad7a168d26aed1bf7cca1a8d8e6f8ada4}{color}}.\doxymbox{\hyperlink{struct_color_adc506c5063609cacdda2c007da3b7a5f}{g}}/(\textcolor{keywordtype}{float})255,\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (float)light.\doxymbox{\hyperlink{struct_light_ad7a168d26aed1bf7cca1a8d8e6f8ada4}{color}}.\doxymbox{\hyperlink{struct_color_a9f00605f7024dcb79342e97fae52c1bd}{b}}/(\textcolor{keywordtype}{float})255,\ (float)light.\doxymbox{\hyperlink{struct_light_ad7a168d26aed1bf7cca1a8d8e6f8ada4}{color}}.\doxymbox{\hyperlink{struct_color_a39bb1f3f9a514ac1a581ca27fddebebc}{a}}/(\textcolor{keywordtype}{float})255\ \};}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00167}00167\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_affa89df7fde907b7bcee31241b9c2745}{SetShaderValue}}(shader,\ light.\doxymbox{\hyperlink{struct_light_a98df12cebc437d739f22dd809b66878c}{colorLoc}},\ color,\ \doxymbox{\hyperlink{raylib_8h_a07d130f18cd87014440169171235e01caaaf5284900697b3ac36b02ec8e8e4415}{SHADER\_UNIFORM\_VEC4}});}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00168}00168\ \}}
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{rlights_8h_source_l00170}00170\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ RLIGHTS\_IMPLEMENTATION}}
+
+\end{DoxyCode}

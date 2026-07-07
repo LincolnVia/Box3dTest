@@ -1,0 +1,51 @@
+\doxysection{engine.\+hpp}
+\hypertarget{engine_8hpp_source}{}\label{engine_8hpp_source}\index{src/Engine/engine.hpp@{src/Engine/engine.hpp}}
+\doxymbox{\hyperlink{engine_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ ENGINE\_H}}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00002}00002\ \textcolor{preprocessor}{\#define\ ENGINE\_H}}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{player_8hpp}{../player/player.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{world_8hpp}{../world/world.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{debugger_8hpp}{../Debug/debugger.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <cstdio>}}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <ostream>}}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{raylib_8h}{raylib.h}}>}}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{raymath_8h}{raymath.h}}>}}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00015}00015\ \textcolor{preprocessor}{\#if\ defined(PLATFORM\_DESKTOP)}}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00016}00016\ \textcolor{preprocessor}{\ \ \ \ \#define\ GLSL\_VERSION\ \ \ \ \ \ \ \ \ \ \ \ 330}}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00017}00017\ \textcolor{preprocessor}{\#else\ \ \ }\textcolor{comment}{//\ PLATFORM\_ANDROID,\ PLATFORM\_WEB}}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00018}\doxymbox{\hyperlink{engine_8hpp_aaba262429a637565be50b2f1580d42a4}{00018}}\ \textcolor{preprocessor}{\ \ \ \ \#define\ GLSL\_VERSION\ \ \ \ \ \ \ \ \ \ \ \ 100}}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00019}00019\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00022}\doxymbox{\hyperlink{class_engine}{00022}}\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_engine_a8c98683b0a3aa28d8ab72a8bcd0d52f2}{Engine}}\ }
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00023}00023\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00024}00024\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00025}\doxymbox{\hyperlink{class_engine_a4b0d76da47b8bfc061e8b6fc287a5fc5}{00025}}\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_vector2}{Vector2}}\ \doxymbox{\hyperlink{class_engine_a4b0d76da47b8bfc061e8b6fc287a5fc5}{winSize}}\ =\ \{1280,720\};}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00026}\doxymbox{\hyperlink{class_engine_a925000ff096c98f1647bba8162a61d59}{00026}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \doxymbox{\hyperlink{class_engine_a925000ff096c98f1647bba8162a61d59}{winTitle}}\ =\ \textcolor{stringliteral}{"{}Box3D"{}};}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00027}\doxymbox{\hyperlink{class_engine_aaceb485e95598bcc96e8c57bfbf2bf24}{00027}}\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_shader}{Shader}}\ \doxymbox{\hyperlink{class_engine_aaceb485e95598bcc96e8c57bfbf2bf24}{shader}}\ =\ \{\};\ }
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00028}\doxymbox{\hyperlink{class_engine_a68f6fb0da3216083db4411a34c699488}{00028}}\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_vector4}{Vector4}}\ \doxymbox{\hyperlink{class_engine_a68f6fb0da3216083db4411a34c699488}{ambient}}\ =\ \{\ 1.0f,\ 1.0f,\ 1.0f,\ 1.0f\ \};}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_engine_a8c98683b0a3aa28d8ab72a8bcd0d52f2}{Engine}}();}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_engine_aa737bcad7d3e99079cdb5a85486e0237}{Process}}();}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_engine_a8ef7030a089ecb30bbfcb9e43094717a}{\string~Engine}}();}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00034}00034\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_player}{Player}}\ player;}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_debugger}{Debugger}}\ debugger;}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_world}{World}}\ world;}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00042}00042\ \};}
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{engine_8hpp_source_l00045}00045\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

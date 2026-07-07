@@ -1,0 +1,251 @@
+\doxysection{player.\+cpp}
+\hypertarget{player_8cpp_source}{}\label{player_8cpp_source}\index{src/player/player.cpp@{src/player/player.cpp}}
+\doxymbox{\hyperlink{player_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{player_8hpp}{player.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{global_8hpp}{../Engine/global.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{graphics_8hpp}{../graphics.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{utils_8hpp}{../utils.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{movement_8hpp}{movement.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <box3d/box3d.h>}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <box3d/types.h>}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{raylib_8h}{raylib.h}}>}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00009}\doxymbox{\hyperlink{class_player_abbe773887dd40afba0fe811e5dc5e399}{00009}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_abbe773887dd40afba0fe811e5dc5e399}{Player::CreatePhysicsBody}}()\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00010}00010\ \ \ b3BodyDef\ bodyDef\ =\ b3DefaultBodyDef();}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00011}00011\ \ \ bodyDef.type\ =\ b3\_dynamicBody;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00012}00012\ \ \ bodyDef.position\ =\ b3ToPos(\{0.0f,\ 2.0f,\ 0.0f\});}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00013}00013\ \ \ bodyDef.motionLocks.angularX\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00014}00014\ \ \ bodyDef.motionLocks.angularZ\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00016}00016\ \ \ bodyDef.motionLocks.angularY\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00017}00017\ \ \ collider.bodyId\ =\ b3CreateBody(\_world-\/>GetWorldId(),\ \&bodyDef);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00019}00019\ \ \ collider.halfExtents\ =\ \{1.0f,\ 2.5f,\ 1.0f\};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00020}00020\ \ \ collider.hull\ =\ b3MakeBoxHull(collider.halfExtents.x,\ collider.halfExtents.y,}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ collider.halfExtents.z);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00023}00023\ \ \ b3ShapeDef\ shapeDef\ =\ b3DefaultShapeDef();}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00024}00024\ \ \ shapeDef.density\ =\ 1.5f;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00025}00025\ \ \ shapeDef.baseMaterial.friction\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00026}00026\ \ \ shapeDef.filter.categoryBits\ =\ \doxymbox{\hyperlink{namespace_collision_category_a01bcdd2c4eaeb6e59a7d70d74572602a}{CollisionCategory::Player}};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00027}00027\ \ \ shapeDef.filter.maskBits\ =\ \doxymbox{\hyperlink{namespace_collision_category_aa9f8d1251ba652d5234a07b8e1a88df6}{CollisionCategory::World}};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00028}00028\ \ \ collider.shapeId\ =}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00029}00029\ \ \ \ \ \ \ b3CreateHullShape(collider.bodyId,\ \&shapeDef,\ \&collider.hull.base);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00030}00030\ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00032}\doxymbox{\hyperlink{class_player_afafae3565d10d63dc9136904e7b7bdd0}{00032}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_afafae3565d10d63dc9136904e7b7bdd0}{Player::Init}}(\doxymbox{\hyperlink{class_world}{World}}\ \&world)\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00033}00033\ \ \ \_world\ =\ \&world;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00035}00035\ \ \ \doxymbox{\hyperlink{class_player_abbe773887dd40afba0fe811e5dc5e399}{CreatePhysicsBody}}();}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00037}00037\ \ \ camera.position\ =\ \doxymbox{\hyperlink{graphics_8hpp_a99ae3f818c362c2dbfd21fa840bafe7e}{B3PosToVector3}}(\doxymbox{\hyperlink{class_player_aa89f9db5ea8856012607d8882d513f81}{getPosition}}());}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00038}00038\ \ \ camera.target\ =\ \{0.0f,\ 2.0f,\ 1.0f\};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00039}00039\ \ \ camera.up\ =\ \{0.0f,\ 1.0f,\ 0.0f\};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00040}00040\ \ \ camera.fovy\ =\ 60.0f;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00041}00041\ \ \ camera.projection\ =\ \doxymbox{\hyperlink{raylib_8h_a2d3e98136f7933519abb019705f0d2d8acbb2df9c79c81eae7447f379bac5aa7e}{CAMERA\_PERSPECTIVE}};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00043}00043\ \ \ \doxymbox{\hyperlink{raylib_8h_ac911ba72896bda9254a42a3d2338a0e5}{DisableCursor}}();}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00045}00045\ \ \ gunModel\ =\ \doxymbox{\hyperlink{raylib_8h_a7e2e3f17ffa0e92e305a0621952cde92}{LoadModel}}(\textcolor{stringliteral}{"{}resources/models/portalgun.gltf"{}});}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00047}00047\ \ \ gunTarget\ =\ \doxymbox{\hyperlink{raylib_8h_ae19cb5c8e10b7fe5a37095f43c6db9e2}{LoadRenderTexture}}(\doxymbox{\hyperlink{raylib_8h_a9eafc763049750ce847ac9b1fb41dfcd}{GetScreenWidth}}(),\ \doxymbox{\hyperlink{raylib_8h_ac535bf92354455f81ff741dc13c704cf}{GetScreenHeight}}());}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00049}00049\ \ \ gunCamera.position\ =\ \{0.0f,\ 0.0f,\ 4.0f\};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00050}00050\ \ \ gunCamera.target\ =\ \{0.0f,\ 0.0f,\ 0.0f\};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00051}00051\ \ \ gunCamera.up\ =\ \{0.0f,\ 1.0f,\ 0.0f\};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00052}00052\ \ \ gunCamera.fovy\ =\ 45.0f;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00053}00053\ \ \ gunCamera.projection\ =\ \doxymbox{\hyperlink{raylib_8h_a2d3e98136f7933519abb019705f0d2d8acbb2df9c79c81eae7447f379bac5aa7e}{CAMERA\_PERSPECTIVE}};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00054}00054\ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00055}\doxymbox{\hyperlink{class_player_a749d2c00e1fe0f5c2746f7505a58c062}{00055}}\ \doxymbox{\hyperlink{class_player_a749d2c00e1fe0f5c2746f7505a58c062}{Player::\string~Player}}()\ \{\ \doxymbox{\hyperlink{raylib_8h_a1ec1c29c42c6cf2093880fb3e3d03942}{UnloadModel}}(gunModel);\ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00056}\doxymbox{\hyperlink{class_player_a65a76094cff6f149d5847d2110fe443d}{00056}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_a65a76094cff6f149d5847d2110fe443d}{Player::Input}}()\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00057}00057\ \ \ \doxymbox{\hyperlink{class_player_a12a53a63160dbce0b564108fa404c125}{HandleCameraLook}}();}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00058}00058\ \ \ \doxymbox{\hyperlink{class_player_a5023977f728abedce5478bb608e4e582}{PickupPhysicsObject}}();}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00059}00059\ \ \ \doxymbox{\hyperlink{class_player_a723502fffdd0d0711898f3cea4ab1b15}{HandlePlayerMovement}}();}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00060}00060\ \ \ \doxymbox{\hyperlink{class_player_a7fe4844ffaa01b3b598beb9e0df01e56}{HandleMouseInput}}();}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00061}00061\ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00063}\doxymbox{\hyperlink{class_player_a05b60cac1922c5be5c1be16baffa4497}{00063}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_a05b60cac1922c5be5c1be16baffa4497}{Player::Update}}()\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00064}00064\ \ \ \doxymbox{\hyperlink{class_player_a65a76094cff6f149d5847d2110fe443d}{Input}}();}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00065}00065\ \ \ \textcolor{keyword}{const}\ b3Vec3\ bodyPosition\ =\ b3ToVec3(b3Body\_GetPosition(collider.bodyId));}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00066}00066\ \ \ \textcolor{keyword}{const}\ b3Vec3\ cameraPosition\ =\ b3Add(bodyPosition,\ \{0.0f,\ 1.0f,\ 0.0f\});}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00068}00068\ \ \ \textcolor{keyword}{const}\ b3CosSin\ pitchTrig\ =\ b3ComputeCosSin(pitch);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00069}00069\ \ \ \textcolor{keyword}{const}\ b3CosSin\ yawTrig\ =\ b3ComputeCosSin(yaw);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00070}00070\ \ \ \textcolor{keyword}{const}\ b3Vec3\ view\ =\ \{pitchTrig.cosine\ *\ yawTrig.sine,\ pitchTrig.sine,}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pitchTrig.cosine\ *\ yawTrig.cosine\};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00073}00073\ \ \ camera.position\ =\ \doxymbox{\hyperlink{graphics_8hpp_a4f6811e829efce99994acb0f195386f1}{B3Vec3ToVector3}}(cameraPosition);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00074}00074\ \ \ camera.target\ =\ \doxymbox{\hyperlink{graphics_8hpp_a4f6811e829efce99994acb0f195386f1}{B3Vec3ToVector3}}(b3Add(cameraPosition,\ view));}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00075}00075\ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00077}\doxymbox{\hyperlink{class_player_a0b391a1f90c466ed8e85372e9e0346a3}{00077}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_a0b391a1f90c466ed8e85372e9e0346a3}{Player::RenderGun}}()\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00078}00078\ \ \ \doxymbox{\hyperlink{raylib_8h_a51ab6514d6399491b82116f3965414c2}{BeginTextureMode}}(gunTarget);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00079}00079\ \ \ \doxymbox{\hyperlink{raylib_8h_a2a13b1782563e1cad3f415c4b4feacdd}{ClearBackground}}(\{0,\ 0,\ 0,\ 0\});\ \textcolor{comment}{//\ transparent}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00080}00080\ \ \ \doxymbox{\hyperlink{raylib_8h_a79f032ac46bf8183afa9cac1ffa32612}{BeginMode3D}}(gunCamera);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00081}00081\ \ \ \doxymbox{\hyperlink{raylib_8h_aa5550a8579e522a3532b466fe08727aa}{DrawModel}}(gunModel,\ \{1,\ -\/1,\ 0\},\ 0.02f,\ \doxymbox{\hyperlink{raylib_8h_a87b537f5fa5c109d3c05c13d6b18f382}{WHITE}});}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00082}00082\ \ \ \doxymbox{\hyperlink{raylib_8h_aadf528216a460154f639f00b7fe7ea82}{EndMode3D}}();}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00083}00083\ \ \ \doxymbox{\hyperlink{raylib_8h_a34b33e134823ba0a7e4767418e3a4dd0}{EndTextureMode}}();}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00085}00085\ \ \ \textcolor{comment}{//\ Draw\ the\ gun\ texture\ over\ the\ screen}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00086}00086\ \ \ \doxymbox{\hyperlink{struct_rectangle}{Rectangle}}\ src\ =\ \{0.0f,\ 0.0f,\ (float)gunTarget.texture.width,}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/(\textcolor{keywordtype}{float})gunTarget.texture.height\};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00088}00088\ \ \ \doxymbox{\hyperlink{struct_rectangle}{Rectangle}}\ dst\ =\ \{0.0f,\ 0.0f,\ (float)\doxymbox{\hyperlink{raylib_8h_a9eafc763049750ce847ac9b1fb41dfcd}{GetScreenWidth}}(),}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (float)\doxymbox{\hyperlink{raylib_8h_ac535bf92354455f81ff741dc13c704cf}{GetScreenHeight}}()\};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00090}00090\ \ \ \doxymbox{\hyperlink{struct_vector2}{Vector2}}\ origin\ =\ \{0.0f,\ 0.0f\};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00092}00092\ \ \ \doxymbox{\hyperlink{raylib_8h_aafc576d1a5e411af06bf95d5e39fa95b}{DrawTexturePro}}(gunTarget.texture,\ src,\ dst,\ origin,\ 0.0f,\ \doxymbox{\hyperlink{raylib_8h_a87b537f5fa5c109d3c05c13d6b18f382}{WHITE}});}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00093}00093\ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00095}\doxymbox{\hyperlink{class_player_ad141ea844ac82f2447d986d964d1e8a7}{00095}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_ad141ea844ac82f2447d986d964d1e8a7}{Player::Render}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00097}\doxymbox{\hyperlink{class_player_a12a53a63160dbce0b564108fa404c125}{00097}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_a12a53a63160dbce0b564108fa404c125}{Player::HandleCameraLook}}()\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00098}00098\ \ \ \doxymbox{\hyperlink{struct_vector2}{Vector2}}\ mouseDelta\ =\ \doxymbox{\hyperlink{raylib_8h_ae3463dc8c8c683ad36989ee49ad53735}{GetMouseDelta}}();}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00100}00100\ \ \ yaw\ -\/=\ mouseDelta.\doxymbox{\hyperlink{struct_vector2_a046bb8d17a876acc49415128dc0502f2}{x}}\ *\ sensitivity;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00101}00101\ \ \ pitch\ -\/=\ mouseDelta.\doxymbox{\hyperlink{struct_vector2_a0e07bad05f01ed811b909a2eef97f9e2}{y}}\ *\ sensitivity;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00103}00103\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ maxPitch\ =\ 89.0f\ *\ B3\_DEG\_TO\_RAD;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00104}00104\ \ \ pitch\ =\ b3ClampFloat(pitch,\ -\/maxPitch,\ maxPitch);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00105}00105\ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00107}\doxymbox{\hyperlink{class_player_a723502fffdd0d0711898f3cea4ab1b15}{00107}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_a723502fffdd0d0711898f3cea4ab1b15}{Player::HandlePlayerMovement}}()\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00108}00108\ \ \ \textcolor{keywordtype}{float}\ dt\ =\ \doxymbox{\hyperlink{raylib_8h_a5e8918fbad9c5d1baf78cf96d971ce58}{GetFrameTime}}();}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00110}00110\ \ \ \textcolor{keyword}{const}\ b3Vec3\ bodyPos\ =\ b3ToVec3(b3Body\_GetPosition(collider.bodyId));}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00112}00112\ \ \ \textcolor{keyword}{const}\ b3Vec3\ feetPos\ =\ \{bodyPos.x,\ bodyPos.y\ -\/\ collider.halfExtents.y\ -\/\ 0.05f,}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bodyPos.z\};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00115}00115\ \ \ \doxymbox{\hyperlink{struct_ray_fire_result}{RayFireResult}}\ groundRay\ =}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00116}00116\ \ \ \ \ \ \ \doxymbox{\hyperlink{utils_8hpp_a0d47cce2c9f48618ea97ecec84e1b827}{FireRay}}(bodyPos,\ \{0,\ -\/1,\ 0\},\ *\_world,\ 3,\ \doxymbox{\hyperlink{namespace_collision_category_aa9f8d1251ba652d5234a07b8e1a88df6}{CollisionCategory::World}});}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00117}00117\ \ \ isGrounded\ =\ groundRay.\doxymbox{\hyperlink{struct_ray_fire_result_afbe28760c5595282a3a7b97af172ed52}{hit}}.hit;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00119}00119\ \ \ \textcolor{keyword}{const}\ b3CosSin\ yawTrig\ =\ b3ComputeCosSin(yaw);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00120}00120\ \ \ \textcolor{keyword}{const}\ b3Vec3\ forward\ =\ \{yawTrig.sine,\ 0.0f,\ yawTrig.cosine\};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00121}00121\ \ \ \textcolor{keyword}{const}\ b3Vec3\ right\ =\ \{yawTrig.cosine,\ 0.0f,\ -\/yawTrig.sine\};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00123}00123\ \ \ b3Vec3\ wishMove\ =\ b3Vec3\_zero;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00125}00125\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{raylib_8h_aa452c026db4f0f42d59d6af8a612979e}{IsKeyDown}}(\doxymbox{\hyperlink{raylib_8h_a94b4a5e76ed30c0af90a1bbbdc214b2ba2e6a652ccd7afc5ce75ac4d902b6a60a}{KEY\_W}}))}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00126}00126\ \ \ \ \ wishMove\ =\ b3Add(wishMove,\ forward);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00127}00127\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{raylib_8h_aa452c026db4f0f42d59d6af8a612979e}{IsKeyDown}}(\doxymbox{\hyperlink{raylib_8h_a94b4a5e76ed30c0af90a1bbbdc214b2babb2f0ce8efc3067757dbf091437f89f5}{KEY\_S}}))}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00128}00128\ \ \ \ \ wishMove\ =\ b3Sub(wishMove,\ forward);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00129}00129\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{raylib_8h_aa452c026db4f0f42d59d6af8a612979e}{IsKeyDown}}(\doxymbox{\hyperlink{raylib_8h_a94b4a5e76ed30c0af90a1bbbdc214b2baa7b3a3d0503a46bec51c6e3da95747cc}{KEY\_A}}))}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00130}00130\ \ \ \ \ wishMove\ =\ b3Add(wishMove,\ right);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00131}00131\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{raylib_8h_aa452c026db4f0f42d59d6af8a612979e}{IsKeyDown}}(\doxymbox{\hyperlink{raylib_8h_a94b4a5e76ed30c0af90a1bbbdc214b2ba2fd73a4d527efe137e8f259db2092766}{KEY\_D}}))}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00132}00132\ \ \ \ \ wishMove\ =\ b3Sub(wishMove,\ right);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00134}00134\ \ \ \textcolor{keywordflow}{if}\ (b3LengthSquared(wishMove)\ >\ 0.0f)}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00135}00135\ \ \ \ \ wishMove\ =\ b3Normalize(wishMove);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00137}00137\ \ \ b3Vec3\ vel\ =\ b3Body\_GetLinearVelocity(collider.bodyId);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00138}00138\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ wantsMove\ =\ b3LengthSquared(wishMove)\ >\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00140}00140\ \ \ \textcolor{keywordflow}{if}\ (isGrounded)\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00141}00141\ \ \ \ \ ApplyFriction(vel,\ groundFriction,\ dt);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00143}00143\ \ \ \ \ \textcolor{keywordflow}{if}\ (wantsMove)}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00144}00144\ \ \ \ \ \ \ Accelerate(vel,\ wishMove,\ moveSpeed,\ groundAccel,\ dt);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00146}00146\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{raylib_8h_a0e0fe3d0f97dcbd87a163dd33e97d425}{IsKeyPressed}}(\doxymbox{\hyperlink{raylib_8h_a94b4a5e76ed30c0af90a1bbbdc214b2ba01d2889f9a7550008ad6140c41e733de}{KEY\_SPACE}}))\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00147}00147\ \ \ \ \ \ \ vel.y\ =\ jumpSpeed;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00148}00148\ \ \ \ \ \ \ isGrounded\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00149}00149\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00150}00150\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00151}00151\ \ \ \ \ \textcolor{keywordflow}{if}\ (wantsMove)}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00152}00152\ \ \ \ \ \ \ Accelerate(vel,\ wishMove,\ moveSpeed,\ airAccel,\ dt);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00153}00153\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00155}00155\ \ \ b3Body\_SetLinearVelocity(collider.bodyId,\ vel);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00156}00156\ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00157}00157\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00158}00158\ \textcolor{comment}{//\ Refactor\ for\ walls\ instead\ of\ companion\ cube}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00159}\doxymbox{\hyperlink{class_player_a7fe4844ffaa01b3b598beb9e0df01e56}{00159}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_a7fe4844ffaa01b3b598beb9e0df01e56}{Player::HandleMouseInput}}()\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00160}00160\ \ \ \doxymbox{\hyperlink{struct_ray_fire_result}{RayFireResult}}\ ray\ =}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00161}00161\ \ \ \ \ \ \ \doxymbox{\hyperlink{utils_8hpp_ae3c7544913339b041888eebc1487dca2}{FireCameraRay}}(camera,\ *\_world,\ 100.0f,\ \doxymbox{\hyperlink{namespace_collision_category_aa9f8d1251ba652d5234a07b8e1a88df6}{CollisionCategory::World}});}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00163}00163\ \ \ \doxymbox{\hyperlink{graphics_8hpp_a7f9ee3b433337796f959ae3fd2eca919}{DrawRayDebug}}(ray.\doxymbox{\hyperlink{struct_ray_fire_result_ac65ea66744dfe763e6cbf29d79118c6d}{origin}},\ ray.\doxymbox{\hyperlink{struct_ray_fire_result_ac7fa911c856cb1cadea4cd8c0d7c2f82}{translation}});}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00165}00165\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{raylib_8h_ad2cec5ca39659dd5242e69843ecb638a}{IsMouseButtonPressed}}(\doxymbox{\hyperlink{raylib_8h_ac1ec3647c005eacad401b06e7e18f711a3c2e62b97b30d850c5539d0f3a6d0958}{MOUSE\_BUTTON\_LEFT}}))\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00166}00166\ \ \ \ \ \textcolor{keywordflow}{if}\ (ray.\doxymbox{\hyperlink{struct_ray_fire_result_afbe28760c5595282a3a7b97af172ed52}{hit}}.hit)\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00167}00167\ \ \ \ \ \ \ b3ShapeId\ shapeId\ =\ ray.\doxymbox{\hyperlink{struct_ray_fire_result_afbe28760c5595282a3a7b97af172ed52}{hit}}.shapeId;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00168}00168\ \ \ \ \ \ \ b3BodyId\ bodyId\ =\ b3Shape\_GetBody(shapeId);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00170}00170\ \ \ \ \ \ \ \textcolor{keyword}{const}\ b3Vec3\ hitPoint\ =\ b3ToVec3(ray.\doxymbox{\hyperlink{struct_ray_fire_result_afbe28760c5595282a3a7b97af172ed52}{hit}}.point);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00171}00171\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{global_8hpp_ae001cdfcbac88c147849262ab33349a8}{debugMode}})\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00172}00172\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Hit\ object!\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00173}00173\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Hit\ Point:\ \%.2f\ \%.2f\ \%.2f\(\backslash\)n"{}},\ hitPoint.x,\ hitPoint.y,}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hitPoint.z);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00175}00175\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Normal:\ \%.2f\ \%.2f\ \%.2f\(\backslash\)n"{}},\ ray.\doxymbox{\hyperlink{struct_ray_fire_result_afbe28760c5595282a3a7b97af172ed52}{hit}}.normal.x,\ ray.\doxymbox{\hyperlink{struct_ray_fire_result_afbe28760c5595282a3a7b97af172ed52}{hit}}.normal.y,}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ray.\doxymbox{\hyperlink{struct_ray_fire_result_afbe28760c5595282a3a7b97af172ed52}{hit}}.normal.z);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00177}00177\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00178}00178\ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ BoxDef\ from\ bodyId}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00179}00179\ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_box_def}{BoxDef}}\ *hitBox\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00181}00181\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&box\ :\ \_world-\/>GetSceneObjects())\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00182}00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (B3\_ID\_EQUALS(box.bodyId,\ bodyId))\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ hitBox\ =\ \&box;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00185}00185\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00186}00186\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00187}00187\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hitBox\ \&\&\ hitBox-\/>\doxymbox{\hyperlink{struct_box_def_a250df7ed8f2d622befd4f94affdf0a91}{name}}\ ==\ \textcolor{stringliteral}{"{}companion\_cube"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00188}00188\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Hit\ companion\ cube\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00189}00189\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00190}00190\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00191}00191\ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}No\ hit.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00192}00192\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00193}00193\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00194}00194\ \ \ \textcolor{comment}{//\ void*\ userData\ =\ b3Shape\_GetUserData(ray.hit.shapeId);}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00195}00195\ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00197}\doxymbox{\hyperlink{class_player_a5023977f728abedce5478bb608e4e582}{00197}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_a5023977f728abedce5478bb608e4e582}{Player::PickupPhysicsObject}}()\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00198}00198\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{raylib_8h_a0e0fe3d0f97dcbd87a163dd33e97d425}{IsKeyPressed}}(\doxymbox{\hyperlink{raylib_8h_a94b4a5e76ed30c0af90a1bbbdc214b2ba2af9840d90c49239339bfd42f9f32868}{KEY\_E}})\ \&\&\ heldObject\ !=\ \textcolor{keyword}{nullptr}\ \&\&\ cooldownTimer\ >=\ 0.0f)\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00199}00199\ \ \ \ \ \textcolor{comment}{//\ Drop\ the\ held\ object}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00200}00200\ \ \ \ \ heldObject\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00201}00201\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00202}00202\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00203}00203\ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{raylib_8h_a0e0fe3d0f97dcbd87a163dd33e97d425}{IsKeyPressed}}(\doxymbox{\hyperlink{raylib_8h_a94b4a5e76ed30c0af90a1bbbdc214b2ba2af9840d90c49239339bfd42f9f32868}{KEY\_E}})\ \&\&\ heldObject\ ==\ \textcolor{keyword}{nullptr}\ \&\&\ cooldownTimer\ <=\ 0.0f)\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00204}00204\ \ \ \ \ \doxymbox{\hyperlink{struct_ray_fire_result}{RayFireResult}}\ ray\ =}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00205}00205\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{utils_8hpp_ae3c7544913339b041888eebc1487dca2}{FireCameraRay}}(camera,\ *\_world,\ 10.0f,\ \doxymbox{\hyperlink{namespace_collision_category_a2e9f246012e8801d2d8176d2280282b9}{CollisionCategory::Dynamic}});}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00207}00207\ \ \ \ \ \textcolor{keywordflow}{if}\ (ray.\doxymbox{\hyperlink{struct_ray_fire_result_afbe28760c5595282a3a7b97af172ed52}{hit}}.hit)\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00208}00208\ \ \ \ \ \ \ b3ShapeId\ shapeId\ =\ ray.\doxymbox{\hyperlink{struct_ray_fire_result_afbe28760c5595282a3a7b97af172ed52}{hit}}.shapeId;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00209}00209\ \ \ \ \ \ \ b3BodyId\ bodyId\ =\ b3Shape\_GetBody(shapeId);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00211}00211\ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_box_def}{BoxDef}}\ *hitBox\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00212}00212\ \ \ \ \ \ \ \textcolor{comment}{//\ simplify\ this\ by\ using\ a\ function\ in\ world\ to\ get\ the\ boxdef\ from}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00213}00213\ \ \ \ \ \ \ \textcolor{comment}{//\ bodyid}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00214}00214\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&box\ :\ \_world-\/>GetSceneObjects())\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00215}00215\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (B3\_ID\_EQUALS(box.bodyId,\ bodyId))\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ hitBox\ =\ \&box;}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00218}00218\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00219}00219\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00221}00221\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hitBox\ \&\&\ hitBox-\/>\doxymbox{\hyperlink{struct_box_def_a250df7ed8f2d622befd4f94affdf0a91}{name}}\ ==\ \textcolor{stringliteral}{"{}companion\_cube"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00222}00222\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Holding\ companion\ cube\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00223}00223\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ the\ cube\ to\ a\ position\ in\ front\ of\ the\ player}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ b3Vec3\ holdPosition\ =\ b3Add(}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ b3ToVec3(b3Body\_GetPosition(collider.bodyId)),\ \{0.0f,\ 1.0f,\ 2.0f\});}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00226}00226\ \ \ \ \ \ \ \ \ b3Body\_SetTransform(hitBox-\/>\doxymbox{\hyperlink{struct_box_def_a898625d29162ddafb311fe63b3da9820}{bodyId}},\ b3ToPos(holdPosition),}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ b3Quat\_identity);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00228}00228\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_player_a40895a97fb3c9b3d8651bb5da2874af1}{setHeldObject}}(hitBox);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00229}00229\ \ \ \ \ \ \ \ \ cooldownTimer\ =\ holdCooldown;\ \textcolor{comment}{//\ Reset\ the\ cooldown\ timer}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00230}00230\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00231}00231\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00232}00232\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00233}00233\ \ \ \textcolor{comment}{//\ If\ the\ player\ is\ holding\ an\ object,\ update\ its\ position\ to\ stay\ in\ front\ of}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00234}00234\ \ \ \textcolor{comment}{//\ the\ player}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00235}00235\ \ \ \textcolor{keywordflow}{if}\ (heldObject\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00236}00236\ \ \ \ \ \textcolor{keyword}{const}\ b3Vec3\ holdPosition\ =\ b3Add(}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00237}00237\ \ \ \ \ \ \ \ \ b3ToVec3(b3Body\_GetPosition(collider.bodyId)),\ \{0.0f,\ 1.0f,\ 2.0f\});}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00238}00238\ \ \ \ \ b3Body\_SetTransform(heldObject-\/>bodyId,\ b3ToPos(holdPosition),}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ b3Quat\_identity);}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00240}00240\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00241}00241\ \ \ \textcolor{comment}{//\ Update\ the\ cooldown\ timer}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00242}00242\ \ \ \textcolor{keywordflow}{if}\ (cooldownTimer\ >\ 0.0f\ \&\&\ heldObject\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00243}00243\ \ \ \ \ cooldownTimer\ -\/=\ \doxymbox{\hyperlink{raylib_8h_a5e8918fbad9c5d1baf78cf96d971ce58}{GetFrameTime}}();}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00244}00244\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8cpp_source_l00245}00245\ \}}
+
+\end{DoxyCode}

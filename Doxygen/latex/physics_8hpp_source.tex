@@ -1,0 +1,82 @@
+\doxysection{physics.\+hpp}
+\hypertarget{physics_8hpp_source}{}\label{physics_8hpp_source}\index{src/physics/physics.hpp@{src/physics/physics.hpp}}
+\doxymbox{\hyperlink{physics_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00001}00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <box3d/box3d.h>}}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <box3d/math\_functions.h>}}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00008}\doxymbox{\hyperlink{namespace_collision_category}{00008}}\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespace_collision_category}{CollisionCategory}}\ \{}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00009}\doxymbox{\hyperlink{namespace_collision_category_a698c6cdaf701651ccfcfefaa7a848b92}{00009}}\ \textcolor{keyword}{constexpr}\ uint64\_t\ \doxymbox{\hyperlink{namespace_collision_category_a698c6cdaf701651ccfcfefaa7a848b92}{Static}}\ =\ 1ull\ <<\ 0;}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00010}\doxymbox{\hyperlink{namespace_collision_category_a2e9f246012e8801d2d8176d2280282b9}{00010}}\ \textcolor{keyword}{constexpr}\ uint64\_t\ \doxymbox{\hyperlink{namespace_collision_category_a2e9f246012e8801d2d8176d2280282b9}{Dynamic}}\ =\ 1ull\ <<\ 1;}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00011}\doxymbox{\hyperlink{namespace_collision_category_a01bcdd2c4eaeb6e59a7d70d74572602a}{00011}}\ \textcolor{keyword}{constexpr}\ uint64\_t\ \doxymbox{\hyperlink{namespace_collision_category_a01bcdd2c4eaeb6e59a7d70d74572602a}{Player}}\ =\ 1ull\ <<\ 2;}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00012}\doxymbox{\hyperlink{namespace_collision_category_aa9f8d1251ba652d5234a07b8e1a88df6}{00012}}\ \textcolor{keyword}{constexpr}\ uint64\_t\ \doxymbox{\hyperlink{namespace_collision_category_aa9f8d1251ba652d5234a07b8e1a88df6}{World}}\ =\ \doxymbox{\hyperlink{namespace_collision_category_a698c6cdaf701651ccfcfefaa7a848b92}{Static}}\ |\ \doxymbox{\hyperlink{namespace_collision_category_a2e9f246012e8801d2d8176d2280282b9}{Dynamic}};}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00013}\doxymbox{\hyperlink{namespace_collision_category_ab32524b99221f5955216e1720b1262bf}{00013}}\ \textcolor{keyword}{constexpr}\ uint64\_t\ \doxymbox{\hyperlink{namespace_collision_category_ab32524b99221f5955216e1720b1262bf}{All}}\ =\ \doxymbox{\hyperlink{namespace_collision_category_a698c6cdaf701651ccfcfefaa7a848b92}{Static}}\ |\ \doxymbox{\hyperlink{namespace_collision_category_a2e9f246012e8801d2d8176d2280282b9}{Dynamic}}\ |\ \doxymbox{\hyperlink{namespace_collision_category_a01bcdd2c4eaeb6e59a7d70d74572602a}{Player}};}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00014}00014\ \}\ \textcolor{comment}{//\ namespace\ CollisionCategory}}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00016}\doxymbox{\hyperlink{namespace_companion_cube_stats}{00016}}\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespace_companion_cube_stats}{CompanionCubeStats}}\ \{}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00017}\doxymbox{\hyperlink{namespace_companion_cube_stats_a037069ecbe68d580eb38e47f782e739c}{00017}}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{namespace_companion_cube_stats_a037069ecbe68d580eb38e47f782e739c}{friction}}\ =\ 0.5f;}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00018}\doxymbox{\hyperlink{namespace_companion_cube_stats_a5def43216709edfadeae6c169df30546}{00018}}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{namespace_companion_cube_stats_a5def43216709edfadeae6c169df30546}{density}}\ =\ 1.0f;}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00020}00020\ \}\ \textcolor{comment}{//\ namespace\ CompanionCubeStats}}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00022}\doxymbox{\hyperlink{struct_box_def}{00022}}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_box_def}{BoxDef}}\ \{}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00023}\doxymbox{\hyperlink{struct_box_def_a250df7ed8f2d622befd4f94affdf0a91}{00023}}\ \ \ std::string\ \doxymbox{\hyperlink{struct_box_def_a250df7ed8f2d622befd4f94affdf0a91}{name}};}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00024}\doxymbox{\hyperlink{struct_box_def_a898625d29162ddafb311fe63b3da9820}{00024}}\ \ \ b3BodyId\ \doxymbox{\hyperlink{struct_box_def_a898625d29162ddafb311fe63b3da9820}{bodyId}}\{\};}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00025}\doxymbox{\hyperlink{struct_box_def_a24391f4c6a8b0d338f162c14371c07cb}{00025}}\ \ \ b3ShapeId\ \doxymbox{\hyperlink{struct_box_def_a24391f4c6a8b0d338f162c14371c07cb}{shapeId}}\{\};}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00026}\doxymbox{\hyperlink{struct_box_def_a4e04ba592ed1d99d23c5f81213ca77f8}{00026}}\ \ \ b3BoxHull\ \doxymbox{\hyperlink{struct_box_def_a4e04ba592ed1d99d23c5f81213ca77f8}{hull}}\{\};}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00027}\doxymbox{\hyperlink{struct_box_def_ab0182e7ae1585a981a0bce4a30bdd828}{00027}}\ \ \ b3Vec3\ \doxymbox{\hyperlink{struct_box_def_ab0182e7ae1585a981a0bce4a30bdd828}{halfExtents}}\{\};}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00028}00028\ \};}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00038}\doxymbox{\hyperlink{physics_8hpp_ac1eb895d3ee06b179432bb1c520359ad}{00038}}\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{struct_box_def}{BoxDef}}\ \doxymbox{\hyperlink{physics_8hpp_ac1eb895d3ee06b179432bb1c520359ad}{createStaticObject}}(b3Vec3\ position,\ b3Vec3\ scale,}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ b3WorldId\ worldID)\ \{}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00040}00040\ \ \ \doxymbox{\hyperlink{struct_box_def}{BoxDef}}\ staticObject\{\};}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00041}00041\ \ \ b3BodyDef\ staticBodyDef\ =\ b3DefaultBodyDef();}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00042}00042\ \ \ staticBodyDef.position\ =\ b3ToPos(position);}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00043}00043\ \ \ staticBodyDef.type\ =\ b3\_staticBody;}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00044}00044\ \ \ staticObject.\doxymbox{\hyperlink{struct_box_def_a898625d29162ddafb311fe63b3da9820}{bodyId}}\ =\ b3CreateBody(worldID,\ \&staticBodyDef);}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00046}00046\ \ \ staticObject.\doxymbox{\hyperlink{struct_box_def_ab0182e7ae1585a981a0bce4a30bdd828}{halfExtents}}\ =\ \{scale.x\ /\ 2,\ scale.y\ /\ 2,\ scale.z\ /\ 2\};}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00047}00047\ \ \ staticObject.\doxymbox{\hyperlink{struct_box_def_a4e04ba592ed1d99d23c5f81213ca77f8}{hull}}\ =}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00048}00048\ \ \ \ \ \ \ b3MakeBoxHull(staticObject.\doxymbox{\hyperlink{struct_box_def_ab0182e7ae1585a981a0bce4a30bdd828}{halfExtents}}.x,\ staticObject.\doxymbox{\hyperlink{struct_box_def_ab0182e7ae1585a981a0bce4a30bdd828}{halfExtents}}.y,}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ staticObject.\doxymbox{\hyperlink{struct_box_def_ab0182e7ae1585a981a0bce4a30bdd828}{halfExtents}}.z);}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00051}00051\ \ \ b3ShapeDef\ staticShapeDef\ =\ b3DefaultShapeDef();}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00052}00052\ \ \ staticShapeDef.filter.categoryBits\ =\ \doxymbox{\hyperlink{namespace_collision_category_a698c6cdaf701651ccfcfefaa7a848b92}{CollisionCategory::Static}};}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00053}00053\ \ \ staticShapeDef.filter.maskBits\ =}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00054}00054\ \ \ \ \ \ \ \doxymbox{\hyperlink{namespace_collision_category_a2e9f246012e8801d2d8176d2280282b9}{CollisionCategory::Dynamic}}\ |\ \doxymbox{\hyperlink{namespace_collision_category_a01bcdd2c4eaeb6e59a7d70d74572602a}{CollisionCategory::Player}};}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00055}00055\ \ \ staticObject.\doxymbox{\hyperlink{struct_box_def_a24391f4c6a8b0d338f162c14371c07cb}{shapeId}}\ =\ b3CreateHullShape(staticObject.\doxymbox{\hyperlink{struct_box_def_a898625d29162ddafb311fe63b3da9820}{bodyId}},\ \&staticShapeDef,}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&staticObject.\doxymbox{\hyperlink{struct_box_def_a4e04ba592ed1d99d23c5f81213ca77f8}{hull}}.base);}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00057}00057\ \ \ \textcolor{keywordflow}{return}\ staticObject;}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00058}00058\ \}}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00070}\doxymbox{\hyperlink{physics_8hpp_afd12b0d47be7954868e7bca58e80f279}{00070}}\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{struct_box_def}{BoxDef}}\ \doxymbox{\hyperlink{physics_8hpp_afd12b0d47be7954868e7bca58e80f279}{createDynamicObject}}(b3Vec3\ position,\ b3Vec3\ scale,\ \textcolor{keywordtype}{float}\ density,}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ friction,\ b3WorldId\ worldID)\ \{}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00072}00072\ \ \ \doxymbox{\hyperlink{struct_box_def}{BoxDef}}\ dynamicObject\{\};}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00074}00074\ \ \ b3BodyDef\ bodyDef\ =\ b3DefaultBodyDef();}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00075}00075\ \ \ bodyDef.type\ =\ b3\_dynamicBody;}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00076}00076\ \ \ bodyDef.position\ =\ b3ToPos(position);}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00077}00077\ \ \ dynamicObject.\doxymbox{\hyperlink{struct_box_def_a898625d29162ddafb311fe63b3da9820}{bodyId}}\ =\ b3CreateBody(worldID,\ \&bodyDef);}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00079}00079\ \ \ dynamicObject.\doxymbox{\hyperlink{struct_box_def_ab0182e7ae1585a981a0bce4a30bdd828}{halfExtents}}\ =\ \{scale.x\ /\ 2,\ scale.y\ /\ 2,\ scale.z\ /\ 2\};}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00080}00080\ \ \ dynamicObject.\doxymbox{\hyperlink{struct_box_def_a4e04ba592ed1d99d23c5f81213ca77f8}{hull}}\ =}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00081}00081\ \ \ \ \ \ \ b3MakeBoxHull(dynamicObject.\doxymbox{\hyperlink{struct_box_def_ab0182e7ae1585a981a0bce4a30bdd828}{halfExtents}}.x,\ dynamicObject.\doxymbox{\hyperlink{struct_box_def_ab0182e7ae1585a981a0bce4a30bdd828}{halfExtents}}.y,}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dynamicObject.\doxymbox{\hyperlink{struct_box_def_ab0182e7ae1585a981a0bce4a30bdd828}{halfExtents}}.z);}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00084}00084\ \ \ b3ShapeDef\ shapeDef\ =\ b3DefaultShapeDef();}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00085}00085\ \ \ shapeDef.density\ =\ density;}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00086}00086\ \ \ shapeDef.baseMaterial.friction\ =\ friction;}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00087}00087\ \ \ shapeDef.filter.categoryBits\ =\ \doxymbox{\hyperlink{namespace_collision_category_a2e9f246012e8801d2d8176d2280282b9}{CollisionCategory::Dynamic}};}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00088}00088\ \ \ shapeDef.filter.maskBits\ =\ \doxymbox{\hyperlink{namespace_collision_category_ab32524b99221f5955216e1720b1262bf}{CollisionCategory::All}};}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00090}00090\ \ \ dynamicObject.\doxymbox{\hyperlink{struct_box_def_a24391f4c6a8b0d338f162c14371c07cb}{shapeId}}\ =\ b3CreateHullShape(dynamicObject.\doxymbox{\hyperlink{struct_box_def_a898625d29162ddafb311fe63b3da9820}{bodyId}},\ \&shapeDef,}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&dynamicObject.\doxymbox{\hyperlink{struct_box_def_a4e04ba592ed1d99d23c5f81213ca77f8}{hull}}.base);}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00093}00093\ \ \ \textcolor{keywordflow}{return}\ dynamicObject;}
+\DoxyCodeLine{\Hypertarget{physics_8hpp_source_l00094}00094\ \};}
+
+\end{DoxyCode}

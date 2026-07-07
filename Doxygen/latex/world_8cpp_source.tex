@@ -1,0 +1,95 @@
+\doxysection{world.\+cpp}
+\hypertarget{world_8cpp_source}{}\label{world_8cpp_source}\index{src/world/world.cpp@{src/world/world.cpp}}
+\doxymbox{\hyperlink{world_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{world_8hpp}{world.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{graphics_8hpp}{../graphics.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{cube_brush_8hpp}{cubeBrush.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{utils_8hpp}{../utils.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <box3d/box3d.h>}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <box3d/math\_functions.h>}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <box3d/types.h>}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{raylib_8h}{raylib.h}}>}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00011}\doxymbox{\hyperlink{world_8cpp_ad66989d64e6ece8640dd28a9b0519d13}{00011}}\ \textcolor{keyword}{enum}\ \doxymbox{\hyperlink{world_8cpp_ad66989d64e6ece8640dd28a9b0519d13}{Materials}}\ \{}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00013}00013\ \};}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00015}\doxymbox{\hyperlink{class_world_afa39d4e6f714a7a3691ac0c656f5e8a8}{00015}}\ \doxymbox{\hyperlink{class_world_afa39d4e6f714a7a3691ac0c656f5e8a8}{World::World}}()\ \{}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00016}00016\ \ \ b3WorldDef\ worldDef\ =\ b3DefaultWorldDef();}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00017}00017\ \ \ worldDef.gravity\ =\ b3Vec3\{0.0f,\ -\/10.0f,\ 0.0f\};}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00018}00018\ \ \ worldId\ =\ b3CreateWorld(\&worldDef);}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00020}00020\ \ \ \textcolor{comment}{//\ Ground\ Plane}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00021}00021\ \ \ sceneObjects.push\_back(\doxymbox{\hyperlink{physics_8hpp_ac1eb895d3ee06b179432bb1c520359ad}{createStaticObject}}(\{0,\ -\/5,\ 0\},\ \{50,\ 10,\ 50\},\ worldId));}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00022}00022\ \ \ sceneObjects.push\_back(\doxymbox{\hyperlink{physics_8hpp_ac1eb895d3ee06b179432bb1c520359ad}{createStaticObject}}(\{20,\ 0,\ 0\},\ \{3,\ 10,\ 10\},\ worldId));}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00023}00023\ \ \ sceneObjects.push\_back(\doxymbox{\hyperlink{physics_8hpp_ac1eb895d3ee06b179432bb1c520359ad}{createStaticObject}}(\{-\/20,\ 0,\ 0\},\ \{3,\ 10,\ 10\},\ worldId));}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00024}00024\ \ \ sceneObjects.push\_back(\doxymbox{\hyperlink{physics_8hpp_ac1eb895d3ee06b179432bb1c520359ad}{createStaticObject}}(\{0,\ 0,\ -\/20\},\ \{10,\ 10,\ 3\},\ worldId));}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00025}00025\ \ \ sceneObjects.push\_back(\doxymbox{\hyperlink{physics_8hpp_ac1eb895d3ee06b179432bb1c520359ad}{createStaticObject}}(\{0,\ 0,\ 20\},\ \{10,\ 10,\ 3\},\ worldId));}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00026}00026\ \ \ sceneObjects[0].name\ =\ \textcolor{stringliteral}{"{}ground"{}};}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00028}00028\ \ \ sceneObjects[1].name\ =\ \textcolor{stringliteral}{"{}portalable\_wall"{}};}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00029}00029\ \ \ sceneObjects[2].name\ =\ \textcolor{stringliteral}{"{}portalable\_wall"{}};}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00030}00030\ \ \ sceneObjects[3].name\ =\ \textcolor{stringliteral}{"{}portalable\_wall"{}};}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00031}00031\ \ \ sceneObjects[4].name\ =\ \textcolor{stringliteral}{"{}portalable\_wall"{}};}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00033}00033\ \ \ sceneObjects.push\_back(}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00034}00034\ \ \ \ \ \ \ \doxymbox{\hyperlink{physics_8hpp_afd12b0d47be7954868e7bca58e80f279}{createDynamicObject}}(\{0,\ 2,\ 0\},\ \{2,\ 2,\ 2\},\ \doxymbox{\hyperlink{namespace_companion_cube_stats_a5def43216709edfadeae6c169df30546}{CompanionCubeStats::density}},}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{namespace_companion_cube_stats_a037069ecbe68d580eb38e47f782e739c}{CompanionCubeStats::friction}},\ worldId));}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00036}00036\ \ \ sceneObjects[5].name\ =\ \textcolor{stringliteral}{"{}companion\_cube"{}};}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00038}00038\ \ \ \textcolor{comment}{//\ END}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00040}00040\ \ \ \textcolor{comment}{//\ Dynamic\ Box}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00042}00042\ \ \ \textcolor{comment}{//\ End}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00043}00043\ \}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00045}\doxymbox{\hyperlink{class_world_a8f79652f07f99fa41b3db357c4efb895}{00045}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_world_a8f79652f07f99fa41b3db357c4efb895}{World::Init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00046}00046\ \ \ m\_world\ =\ \doxymbox{\hyperlink{raylib_8h_a7e2e3f17ffa0e92e305a0621952cde92}{LoadModel}}(\textcolor{stringliteral}{"{}resources/scenes/level\_01.obj"{}});}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00047}00047\ \ \ grassTex\ =\ \doxymbox{\hyperlink{raylib_8h_a2c829721a70dbd4794c2f426a6a6503d}{LoadTexture}}(\textcolor{stringliteral}{"{}resources/assets/grass.png"{}});}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00048}00048\ \ \ wallTex\ =\ \doxymbox{\hyperlink{raylib_8h_a2c829721a70dbd4794c2f426a6a6503d}{LoadTexture}}(\textcolor{stringliteral}{"{}resources/textures/Dark/texture\_01.png"{}});}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00049}00049\ \ \ m\_cube\ =\ \doxymbox{\hyperlink{raylib_8h_a7e2e3f17ffa0e92e305a0621952cde92}{LoadModel}}(\textcolor{stringliteral}{"{}resources/models/companion\_cube.glb"{}});}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00051}00051\ \ \ \doxymbox{\hyperlink{structcube_brush}{cubeBrush}}\ brush\ =\ \{}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00052}00052\ \ \ \ \ \ \ b3WorldTransform\{b3ToPos(\{0.0f,\ -\/2.0f,\ 50.0f\}),\ b3Quat\_identity\},}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00053}00053\ \ \ \ \ \ \ b3Vec3\{100.0f,\ 1.0f,\ 100.0f\},\ \doxymbox{\hyperlink{raylib_8h_a87b537f5fa5c109d3c05c13d6b18f382}{WHITE}}\};}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00055}00055\ \ \ meshs.push\_back(brush);}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00056}00056\ \}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00058}\doxymbox{\hyperlink{class_world_a8c73fba541a5817fff65147ba47cd827}{00058}}\ \doxymbox{\hyperlink{class_world_a8c73fba541a5817fff65147ba47cd827}{World::\string~World}}()\ \{}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00059}00059\ \ \ \doxymbox{\hyperlink{raylib_8h_a6f180a47c6cd65b31d4e0f5b9e1b2be7}{UnloadTexture}}(grassTex);}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00060}00060\ \ \ \doxymbox{\hyperlink{raylib_8h_a1ec1c29c42c6cf2093880fb3e3d03942}{UnloadModel}}(m\_cube);}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00061}00061\ \ \ b3DestroyWorld(worldId);}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00062}00062\ \}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00064}\doxymbox{\hyperlink{class_world_aec4c79eb3becec1110cc910bf1555181}{00064}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_world_aec4c79eb3becec1110cc910bf1555181}{World::Update}}()\ \{\ b3World\_Step(worldId,\ timeStep,\ subStepCount);\ \}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00066}\doxymbox{\hyperlink{class_world_a9b69dbbd736dfe1725f9facec1254a68}{00066}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_world_a9b69dbbd736dfe1725f9facec1254a68}{World::Draw}}()\ \{}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00067}00067\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\textcolor{keywordtype}{object}\ :\ \doxymbox{\hyperlink{class_world_a4dc772bacef142dcf5c7728fad881599}{GetSceneObjects}}())\ \{}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00068}00068\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{object}.name\ ==\ \textcolor{stringliteral}{"{}ground"{}})}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00069}00069\ \ \ \ \ \ \ \doxymbox{\hyperlink{graphics_8hpp_a5b9883a2ca3e01b639e0cfce37c4eaa6}{b3\_DrawCubeTex}}(grassTex,\ b3Body\_GetPosition(\textcolor{keywordtype}{object}.bodyId),}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{object}.halfExtents,\ \doxymbox{\hyperlink{raylib_8h_a87b537f5fa5c109d3c05c13d6b18f382}{WHITE}});}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00071}00071\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{object}.name\ ==\ \textcolor{stringliteral}{"{}portalable\_wall"{}})}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00072}00072\ \ \ \ \ \ \ \doxymbox{\hyperlink{graphics_8hpp_a5b9883a2ca3e01b639e0cfce37c4eaa6}{b3\_DrawCubeTex}}(wallTex,\ b3Body\_GetPosition(\textcolor{keywordtype}{object}.bodyId),}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{object}.halfExtents,\ \doxymbox{\hyperlink{raylib_8h_a87b537f5fa5c109d3c05c13d6b18f382}{WHITE}});}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00075}00075\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{object}.name\ ==\ \textcolor{stringliteral}{"{}companion\_cube"{}})}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00076}00076\ \ \ \ \ \ \ \doxymbox{\hyperlink{graphics_8hpp_a7d4aee0767692f7220ff2ebb83e621c5}{b3\_DrawModel}}(m\_cube,}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{graphics_8hpp_ab0558ff2d820e58f4a1ef6cd48d449ef}{B3WorldTransformToMatrix}}(b3Body\_GetTransform(\textcolor{keywordtype}{object}.bodyId),}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{object}.halfExtents));}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00079}00079\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00081}00081\ \ \ \textcolor{comment}{//\ const\ b3WorldTransform\ t\ =\ b3Body\_GetTransform(companionCube.bodyId);}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00082}00082\ \ \ \textcolor{comment}{//\ const\ b3Vec3\ renderScale\ =\ \{companionCube.halfExtents.x\ *\ 1.0f,}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00083}00083\ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ companionCube.halfExtents.y\ *\ 1.0f,}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00084}00084\ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ companionCube.halfExtents.z\ *\ 1.0f\};}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00086}00086\ \ \ \textcolor{comment}{//\ b3\_DrawModel(m\_cube,\ B3WorldTransformToMatrix(t,\ renderScale));}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00087}00087\ \ \ \textcolor{comment}{//\ \ DrawModel(m\_world,\{0,0,0\},.05\ \ \ ,WHITE);}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00088}00088\ \ \ \textcolor{comment}{//\ DrawBoxWireframe(t,\ companionCube.halfExtents,\ RED);}}
+\DoxyCodeLine{\Hypertarget{world_8cpp_source_l00089}00089\ \}}
+
+\end{DoxyCode}

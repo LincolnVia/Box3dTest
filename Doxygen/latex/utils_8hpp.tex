@@ -1,0 +1,45 @@
+\doxysection{src/\+utils.hpp File Reference}
+\hypertarget{utils_8hpp}{}\label{utils_8hpp}\index{src/utils.hpp@{src/utils.hpp}}
+{\ttfamily \+\#include "{}graphics.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}world/\+world.\+hpp"{}}\newline
+{\ttfamily \+\#include $<$box3d/\+box3d.\+h$>$}\newline
+{\ttfamily \+\#include $<$box3d/\+id.\+h$>$}\newline
+{\ttfamily \+\#include $<$box3d/\+math\+\_\+functions.\+h$>$}\newline
+{\ttfamily \+\#include $<$raylib.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_ray_fire_result}{Ray\+Fire\+Result}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{struct_ray_fire_result}{Ray\+Fire\+Result}} \doxymbox{\hyperlink{utils_8hpp_a0d47cce2c9f48618ea97ecec84e1b827}{Fire\+Ray}} (const b3\+Vec3 \&position, const b3\+Vec3 direction, const \doxymbox{\hyperlink{class_world}{World}} \&world, float distance, uint64\+\_\+t mask\+Bits=B3\+\_\+\+DEFAULT\+\_\+\+MASK\+\_\+\+BITS)
+\item 
+\doxymbox{\hyperlink{struct_ray_fire_result}{Ray\+Fire\+Result}} \doxymbox{\hyperlink{utils_8hpp_ae3c7544913339b041888eebc1487dca2}{Fire\+Camera\+Ray}} (const \doxymbox{\hyperlink{struct_camera3_d}{Camera3D}} \&camera, const \doxymbox{\hyperlink{class_world}{World}} \&world, float distance, uint64\+\_\+t mask\+Bits=B3\+\_\+\+DEFAULT\+\_\+\+MASK\+\_\+\+BITS)
+\end{DoxyCompactItemize}
+
+
+\label{utils_8hpp_doc-func-members}
+\Hypertarget{utils_8hpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{utils_8hpp_ae3c7544913339b041888eebc1487dca2}\index{utils.hpp@{utils.hpp}!FireCameraRay@{FireCameraRay}}
+\index{FireCameraRay@{FireCameraRay}!utils.hpp@{utils.hpp}}
+\doxysubsubsection{\texorpdfstring{FireCameraRay()}{FireCameraRay()}}
+{\footnotesize\ttfamily \label{utils_8hpp_ae3c7544913339b041888eebc1487dca2} 
+\doxymbox{\hyperlink{struct_ray_fire_result}{Ray\+Fire\+Result}} Fire\+Camera\+Ray (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_camera3_d}{Camera3D}} \&}]{camera}{, }\item[{const \doxymbox{\hyperlink{class_world}{World}} \&}]{world}{, }\item[{float}]{distance}{, }\item[{uint64\+\_\+t}]{mask\+Bits}{ = {\ttfamily B3\+\_\+DEFAULT\+\_\+MASK\+\_\+BITS}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{utils_8hpp_source_l00035}{35}} of file \doxymbox{\hyperlink{utils_8hpp_source}{utils.\+hpp}}.
+
+\Hypertarget{utils_8hpp_a0d47cce2c9f48618ea97ecec84e1b827}\index{utils.hpp@{utils.hpp}!FireRay@{FireRay}}
+\index{FireRay@{FireRay}!utils.hpp@{utils.hpp}}
+\doxysubsubsection{\texorpdfstring{FireRay()}{FireRay()}}
+{\footnotesize\ttfamily \label{utils_8hpp_a0d47cce2c9f48618ea97ecec84e1b827} 
+\doxymbox{\hyperlink{struct_ray_fire_result}{Ray\+Fire\+Result}} Fire\+Ray (\begin{DoxyParamCaption}\item[{const b3\+Vec3 \&}]{position}{, }\item[{const b3\+Vec3}]{direction}{, }\item[{const \doxymbox{\hyperlink{class_world}{World}} \&}]{world}{, }\item[{float}]{distance}{, }\item[{uint64\+\_\+t}]{mask\+Bits}{ = {\ttfamily B3\+\_\+DEFAULT\+\_\+MASK\+\_\+BITS}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{utils_8hpp_source_l00016}{16}} of file \doxymbox{\hyperlink{utils_8hpp_source}{utils.\+hpp}}.
+

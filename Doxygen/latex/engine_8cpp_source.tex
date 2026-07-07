@@ -1,0 +1,75 @@
+\doxysection{engine.\+cpp}
+\hypertarget{engine_8cpp_source}{}\label{engine_8cpp_source}\index{src/Engine/engine.cpp@{src/Engine/engine.cpp}}
+\doxymbox{\hyperlink{engine_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{engine_8hpp}{engine.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{raylib_8h}{raylib.h}}>}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00003}\doxymbox{\hyperlink{engine_8cpp_a2b623fe0eac7d5119008fb456fdc49f8}{00003}}\ \textcolor{preprocessor}{\#define\ RLIGHTS\_IMPLEMENTATION}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{rlights_8h}{../rlights.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00006}\doxymbox{\hyperlink{class_engine_a8c98683b0a3aa28d8ab72a8bcd0d52f2}{00006}}\ \doxymbox{\hyperlink{class_engine_a8c98683b0a3aa28d8ab72a8bcd0d52f2}{Engine::Engine}}()\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00007}00007\ \ \ \doxymbox{\hyperlink{raylib_8h_a46cd0626daa3738ad9f696645aa86c2e}{SetConfigFlags}}(\doxymbox{\hyperlink{raylib_8h_ac4a4cae9e8ab8532252f9b89c2c597d2aabd52f28002bbb0db01a80c419c86045}{FLAG\_MSAA\_4X\_HINT}});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00008}00008\ \ \ \doxymbox{\hyperlink{raylib_8h_a0cf9b0ddf8b9e2939b24085ed0d208c3}{InitWindow}}((\textcolor{keywordtype}{int})\doxymbox{\hyperlink{class_engine_a4b0d76da47b8bfc061e8b6fc287a5fc5}{winSize}}.x,\ (\textcolor{keywordtype}{int})\doxymbox{\hyperlink{class_engine_a4b0d76da47b8bfc061e8b6fc287a5fc5}{winSize}}.y,\ \doxymbox{\hyperlink{class_engine_a925000ff096c98f1647bba8162a61d59}{winTitle}});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00009}00009\ \ \ \doxymbox{\hyperlink{raylib_8h_a1ffc8aece4952bf99f488e192e77eb33}{SetTargetFPS}}(60);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00011}00011\ \ \ debugger.Init();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00012}00012\ \ \ \doxymbox{\hyperlink{class_engine_aaceb485e95598bcc96e8c57bfbf2bf24}{shader}}\ =\ \doxymbox{\hyperlink{raylib_8h_a7fb4c1ab85e440b988781e7277a1ce5c}{LoadShader}}(}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00013}00013\ \ \ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_a04f6dce52328f8287caab282ad4235ee}{TextFormat}}(\textcolor{stringliteral}{"{}resources/shaders/glsl\%i/lighting.vs"{}},\ \doxymbox{\hyperlink{engine_8hpp_aaba262429a637565be50b2f1580d42a4}{GLSL\_VERSION}}),}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00014}00014\ \ \ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_a04f6dce52328f8287caab282ad4235ee}{TextFormat}}(\textcolor{stringliteral}{"{}resources/shaders/glsl\%i/lighting.fs"{}},\ \doxymbox{\hyperlink{engine_8hpp_aaba262429a637565be50b2f1580d42a4}{GLSL\_VERSION}}));}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00016}00016\ \ \ \doxymbox{\hyperlink{class_engine_aaceb485e95598bcc96e8c57bfbf2bf24}{shader}}.locs[\doxymbox{\hyperlink{raylib_8h_a04338a0bace0288b57053da5e53762b4a1aec55934055010773000783d8c0c31f}{SHADER\_LOC\_MATRIX\_MODEL}}]\ =\ \doxymbox{\hyperlink{raylib_8h_a14366d40e4a57227af1191850cbafebb}{GetShaderLocation}}(\doxymbox{\hyperlink{class_engine_aaceb485e95598bcc96e8c57bfbf2bf24}{shader}},\ \textcolor{stringliteral}{"{}matModel"{}});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00017}00017\ \ \ \doxymbox{\hyperlink{class_engine_aaceb485e95598bcc96e8c57bfbf2bf24}{shader}}.locs[\doxymbox{\hyperlink{raylib_8h_a04338a0bace0288b57053da5e53762b4ad0a3e3c04328fdf62f00f6b9d48c0d39}{SHADER\_LOC\_VECTOR\_VIEW}}]\ =\ \doxymbox{\hyperlink{raylib_8h_a14366d40e4a57227af1191850cbafebb}{GetShaderLocation}}(\doxymbox{\hyperlink{class_engine_aaceb485e95598bcc96e8c57bfbf2bf24}{shader}},\ \textcolor{stringliteral}{"{}viewPos"{}});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00019}00019\ \ \ \textcolor{keywordtype}{int}\ ambientLoc\ =\ \doxymbox{\hyperlink{raylib_8h_a14366d40e4a57227af1191850cbafebb}{GetShaderLocation}}(\doxymbox{\hyperlink{class_engine_aaceb485e95598bcc96e8c57bfbf2bf24}{shader}},\ \textcolor{stringliteral}{"{}ambient"{}});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00020}00020\ \ \ \doxymbox{\hyperlink{raylib_8h_affa89df7fde907b7bcee31241b9c2745}{SetShaderValue}}(\doxymbox{\hyperlink{class_engine_aaceb485e95598bcc96e8c57bfbf2bf24}{shader}},\ ambientLoc,\ \&\doxymbox{\hyperlink{class_engine_a68f6fb0da3216083db4411a34c699488}{ambient}},\ \doxymbox{\hyperlink{raylib_8h_a07d130f18cd87014440169171235e01caaaf5284900697b3ac36b02ec8e8e4415}{SHADER\_UNIFORM\_VEC4}});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00022}00022\ \ \ \doxymbox{\hyperlink{rlights_8h_afc243bc3de16abf2627f9ae16dd484de}{CreateLight}}(\doxymbox{\hyperlink{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638ab12dea138375f6dfacbd2ffbb98135a0}{LIGHT\_DIRECTIONAL}},\ \{0,\ 0,\ 0\},\ \{-\/1,\ 0,\ -\/1\},\ \doxymbox{\hyperlink{raylib_8h_a87b537f5fa5c109d3c05c13d6b18f382}{WHITE}},\ \doxymbox{\hyperlink{class_engine_aaceb485e95598bcc96e8c57bfbf2bf24}{shader}});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00024}00024\ \ \ world.Init();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00025}00025\ \ \ player.Init(world);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00026}00026\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00027}\doxymbox{\hyperlink{class_engine_aa737bcad7d3e99079cdb5a85486e0237}{00027}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_engine_aa737bcad7d3e99079cdb5a85486e0237}{Engine::Process}}()\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00028}00028\ \ \ \textcolor{keywordflow}{while}\ (!\doxymbox{\hyperlink{raylib_8h_a14dab2feeb947c7810c3b8830ffee233}{WindowShouldClose}}())\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00029}00029\ \ \ \ \ world.Update();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00030}00030\ \ \ \ \ player.Update();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00032}00032\ \ \ \ \ \textcolor{comment}{//\ SetShaderValue(shader,\ fogDensityLoc,\ \&fogDensity,\ SHADER\_UNIFORM\_FLOAT);}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00033}00033\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_a6a5f60baaf1babaae6b0a6edcc55a46c}{BeginDrawing}}();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00034}00034\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_a2a13b1782563e1cad3f415c4b4feacdd}{ClearBackground}}(\doxymbox{\hyperlink{raylib_8h_a79d10e672abb49ad63eeaa8aaef57c38}{BLUE}});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00035}00035\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_a79f032ac46bf8183afa9cac1ffa32612}{BeginMode3D}}(player.getCamera());}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00036}00036\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_a18002b7b9315feeda94dedf5a123ca7f}{BeginShaderMode}}(\doxymbox{\hyperlink{class_engine_aaceb485e95598bcc96e8c57bfbf2bf24}{shader}});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00037}00037\ \ \ \ \ world.Draw();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00038}00038\ \ \ \ \ player.Render();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00040}00040\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_adecf18850c39927d337ab695ef374701}{EndShaderMode}}();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00041}00041\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_aadf528216a460154f639f00b7fe7ea82}{EndMode3D}}();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00043}00043\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_a18002b7b9315feeda94dedf5a123ca7f}{BeginShaderMode}}(\doxymbox{\hyperlink{class_engine_aaceb485e95598bcc96e8c57bfbf2bf24}{shader}});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00044}00044\ \ \ \ \ player.RenderGun();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00045}00045\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_adecf18850c39927d337ab695ef374701}{EndShaderMode}}();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00047}00047\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_a36e6619606c1a4d790a7a452152483cb}{DrawFPS}}(10,\ 10);}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{comment}{//\ DrawText("{}Press\ F1\ to\ toggle\ debug\ mode"{},\ 10,\ 30,\ 20,\ WHITE);}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00049}00049\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_a7f1d5b2cf25fe118146c0063313704b6}{DrawText}}(\doxymbox{\hyperlink{raylib_8h_a04f6dce52328f8287caab282ad4235ee}{TextFormat}}(\textcolor{stringliteral}{"{}Linear\ Velocity:\ \%.2f,\ \%.2f,\ \%.2f"{}},}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ player.getVelocity().x,\ player.getVelocity().y,}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ player.getVelocity().z),}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ 10,\ 50,\ 20,\ \doxymbox{\hyperlink{raylib_8h_a87b537f5fa5c109d3c05c13d6b18f382}{WHITE}});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00053}00053\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_a7f1d5b2cf25fe118146c0063313704b6}{DrawText}}(\doxymbox{\hyperlink{raylib_8h_a04f6dce52328f8287caab282ad4235ee}{TextFormat}}(\textcolor{stringliteral}{"{}Held\ Object:\ \%s"{}},}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ player.setHeldObject(\textcolor{keyword}{nullptr})\ ?\ \textcolor{stringliteral}{"{}Yes"{}}\ :\ \textcolor{stringliteral}{"{}No"{}}),}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ 10,\ 70,\ 20,\ \doxymbox{\hyperlink{raylib_8h_a87b537f5fa5c109d3c05c13d6b18f382}{WHITE}});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00056}00056\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_a7f1d5b2cf25fe118146c0063313704b6}{DrawText}}(\doxymbox{\hyperlink{raylib_8h_a04f6dce52328f8287caab282ad4235ee}{TextFormat}}(\textcolor{stringliteral}{"{}Held\ Object\ Cooldown:\ \%.2f"{}},}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *player.getHeldObjectCooldown()),}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ 10,\ 90,\ 20,\ \doxymbox{\hyperlink{raylib_8h_a87b537f5fa5c109d3c05c13d6b18f382}{WHITE}});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00059}00059\ \ \ \ \ \textcolor{comment}{//\ debugger.Render();}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00060}00060\ \ \ \ \ \doxymbox{\hyperlink{raylib_8h_a7631fc4ac264364a24241c83dfc98685}{EndDrawing}}();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00061}00061\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00062}00062\ \}}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00064}\doxymbox{\hyperlink{class_engine_a8ef7030a089ecb30bbfcb9e43094717a}{00064}}\ \doxymbox{\hyperlink{class_engine_a8ef7030a089ecb30bbfcb9e43094717a}{Engine::\string~Engine}}()\ \{}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00065}00065\ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Engine\ Shutting\ down"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00067}00067\ \ \ \doxymbox{\hyperlink{raylib_8h_a71672532534ba5beda6d117a0e09cb10}{UnloadShader}}(\doxymbox{\hyperlink{class_engine_aaceb485e95598bcc96e8c57bfbf2bf24}{shader}});}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00068}00068\ \ \ \doxymbox{\hyperlink{raylib_8h_a1382776f563b2e87d0c6ba5837fc2b8b}{CloseWindow}}();}
+\DoxyCodeLine{\Hypertarget{engine_8cpp_source_l00069}00069\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,87 @@
+\doxysection{src/\+rlights.h File Reference}
+\hypertarget{rlights_8h}{}\label{rlights_8h}\index{src/rlights.h@{src/rlights.h}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_light}{Light}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{rlights_8h_a737b417f16ea225cf15e8d4c23df53dc}{MAX\+\_\+\+LIGHTS}}~4
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638}{Light\+Type}} \{ \doxymbox{\hyperlink{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638ab12dea138375f6dfacbd2ffbb98135a0}{LIGHT\+\_\+\+DIRECTIONAL}} = 0
+, \doxymbox{\hyperlink{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638abdec4858df81ac7fc719321ed2b4fe7c}{LIGHT\+\_\+\+POINT}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{struct_light}{Light}} \doxymbox{\hyperlink{rlights_8h_afc243bc3de16abf2627f9ae16dd484de}{Create\+Light}} (int type, \doxymbox{\hyperlink{struct_vector3}{Vector3}} position, \doxymbox{\hyperlink{struct_vector3}{Vector3}} target, \doxymbox{\hyperlink{struct_color}{Color}} color, \doxymbox{\hyperlink{struct_shader}{Shader}} shader)
+\item 
+void \doxymbox{\hyperlink{rlights_8h_a147b7e5788024577fc8abb7df32e4c5c}{Update\+Light\+Values}} (\doxymbox{\hyperlink{struct_shader}{Shader}} shader, \doxymbox{\hyperlink{struct_light}{Light}} light)
+\end{DoxyCompactItemize}
+
+
+\label{rlights_8h_doc-define-members}
+\Hypertarget{rlights_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{rlights_8h_a737b417f16ea225cf15e8d4c23df53dc}\index{rlights.h@{rlights.h}!MAX\_LIGHTS@{MAX\_LIGHTS}}
+\index{MAX\_LIGHTS@{MAX\_LIGHTS}!rlights.h@{rlights.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_LIGHTS}{MAX\_LIGHTS}}
+{\footnotesize\ttfamily \label{rlights_8h_a737b417f16ea225cf15e8d4c23df53dc} 
+\+\#define MAX\+\_\+\+LIGHTS~4}
+
+
+
+Definition at line \doxymbox{\hyperlink{rlights_8h_source_l00039}{39}} of file \doxymbox{\hyperlink{rlights_8h_source}{rlights.\+h}}.
+
+
+
+\label{rlights_8h_doc-enum-members}
+\Hypertarget{rlights_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638}\index{rlights.h@{rlights.h}!LightType@{LightType}}
+\index{LightType@{LightType}!rlights.h@{rlights.h}}
+\doxysubsubsection{\texorpdfstring{LightType}{LightType}}
+{\footnotesize\ttfamily \label{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638} 
+enum \doxymbox{\hyperlink{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638}{Light\+Type}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIGHT\_DIRECTIONAL@{LIGHT\_DIRECTIONAL}!rlights.h@{rlights.h}}
+\index{rlights.h@{rlights.h}!LIGHT\_DIRECTIONAL@{LIGHT\_DIRECTIONAL}}
+}\Hypertarget{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638ab12dea138375f6dfacbd2ffbb98135a0}\label{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638ab12dea138375f6dfacbd2ffbb98135a0} 
+LIGHT\+\_\+\+DIRECTIONAL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LIGHT\_POINT@{LIGHT\_POINT}!rlights.h@{rlights.h}}
+\index{rlights.h@{rlights.h}!LIGHT\_POINT@{LIGHT\_POINT}}
+}\Hypertarget{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638abdec4858df81ac7fc719321ed2b4fe7c}\label{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638abdec4858df81ac7fc719321ed2b4fe7c} 
+LIGHT\+\_\+\+POINT&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{rlights_8h_source_l00064}{64}} of file \doxymbox{\hyperlink{rlights_8h_source}{rlights.\+h}}.
+
+
+
+\label{rlights_8h_doc-func-members}
+\Hypertarget{rlights_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{rlights_8h_afc243bc3de16abf2627f9ae16dd484de}\index{rlights.h@{rlights.h}!CreateLight@{CreateLight}}
+\index{CreateLight@{CreateLight}!rlights.h@{rlights.h}}
+\doxysubsubsection{\texorpdfstring{CreateLight()}{CreateLight()}}
+{\footnotesize\ttfamily \label{rlights_8h_afc243bc3de16abf2627f9ae16dd484de} 
+\doxymbox{\hyperlink{struct_light}{Light}} Create\+Light (\begin{DoxyParamCaption}\item[{int}]{type}{, }\item[{\doxymbox{\hyperlink{struct_vector3}{Vector3}}}]{position}{, }\item[{\doxymbox{\hyperlink{struct_vector3}{Vector3}}}]{target}{, }\item[{\doxymbox{\hyperlink{struct_color}{Color}}}]{color}{, }\item[{\doxymbox{\hyperlink{struct_shader}{Shader}}}]{shader}{}\end{DoxyParamCaption})}
+
+\Hypertarget{rlights_8h_a147b7e5788024577fc8abb7df32e4c5c}\index{rlights.h@{rlights.h}!UpdateLightValues@{UpdateLightValues}}
+\index{UpdateLightValues@{UpdateLightValues}!rlights.h@{rlights.h}}
+\doxysubsubsection{\texorpdfstring{UpdateLightValues()}{UpdateLightValues()}}
+{\footnotesize\ttfamily \label{rlights_8h_a147b7e5788024577fc8abb7df32e4c5c} 
+void Update\+Light\+Values (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_shader}{Shader}}}]{shader}{, }\item[{\doxymbox{\hyperlink{struct_light}{Light}}}]{light}{}\end{DoxyParamCaption})}
+

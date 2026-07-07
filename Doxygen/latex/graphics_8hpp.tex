@@ -1,0 +1,171 @@
+\doxysection{src/\+graphics.hpp File Reference}
+\hypertarget{graphics_8hpp}{}\label{graphics_8hpp}\index{src/graphics.hpp@{src/graphics.hpp}}
+{\ttfamily \+\#include $<$box3d/\+math\+\_\+functions.\+h$>$}\newline
+{\ttfamily \+\#include $<$box3d/\+types.\+h$>$}\newline
+{\ttfamily \+\#include $<$raylib.\+h$>$}\newline
+{\ttfamily \+\#include $<$raymath.\+h$>$}\newline
+{\ttfamily \+\#include $<$rlgl.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{struct_vector3}{Vector3}} \doxymbox{\hyperlink{graphics_8hpp_a4f6811e829efce99994acb0f195386f1}{B3\+Vec3\+To\+Vector3}} (const b3\+Vec3 \&v)
+\item 
+\doxymbox{\hyperlink{struct_vector3}{Vector3}} \doxymbox{\hyperlink{graphics_8hpp_a99ae3f818c362c2dbfd21fa840bafe7e}{B3\+Pos\+To\+Vector3}} (const b3\+Pos \&p)
+\item 
+b3\+Vec3 \doxymbox{\hyperlink{graphics_8hpp_a52eb85da42d76b28821472b5ced18b84}{Vector3\+To\+B3\+Vec3}} (const \doxymbox{\hyperlink{struct_vector3}{Vector3}} \&v)
+\item 
+void \doxymbox{\hyperlink{graphics_8hpp_a7f9ee3b433337796f959ae3fd2eca919}{Draw\+Ray\+Debug}} (b3\+Pos origin, b3\+Vec3 translation)
+\item 
+\doxymbox{\hyperlink{struct_vector3}{Vector3}} \doxymbox{\hyperlink{graphics_8hpp_acce4b0c07b993c164ed7b83781217c75}{B3\+World\+Transform\+Point}} (const b3\+World\+Transform \&t, b3\+Vec3 local)
+\item 
+void \doxymbox{\hyperlink{graphics_8hpp_a17e713bc477fbfd2265e3bbba863d13f}{Draw\+Box\+Wireframe}} (const b3\+World\+Transform \&t, b3\+Vec3 half\+Extents, \doxymbox{\hyperlink{struct_color}{Color}} color)
+\item 
+\doxymbox{\hyperlink{raylib_8h_a6dd5722261331a39205262505daaa349}{Quaternion}} \doxymbox{\hyperlink{graphics_8hpp_a16c1b16f4ada9398351dd5036c0142e4}{B3\+Quat\+To\+Quaternion}} (const b3\+Quat \&q)
+\item 
+\doxymbox{\hyperlink{struct_matrix}{Matrix}} \doxymbox{\hyperlink{graphics_8hpp_ab0558ff2d820e58f4a1ef6cd48d449ef}{B3\+World\+Transform\+To\+Matrix}} (const b3\+World\+Transform \&t, b3\+Vec3 scale)
+\item 
+void \doxymbox{\hyperlink{graphics_8hpp_a9e9625f8fb06bd2aee9216dd427dcbf3}{Draw\+Cube\+Texture}} (\doxymbox{\hyperlink{raylib_8h_a0f74897272c4257b58656025d91a16ed}{Texture2D}} texture, \doxymbox{\hyperlink{struct_vector3}{Vector3}} position, float width, float height, float length, \doxymbox{\hyperlink{struct_color}{Color}} color)
+\item 
+void \doxymbox{\hyperlink{graphics_8hpp_a67b13a357bf5a56b32d72e2c5fdf9b4f}{Draw\+Cube\+TextureV}} (\doxymbox{\hyperlink{raylib_8h_a0f74897272c4257b58656025d91a16ed}{Texture2D}} texture, \doxymbox{\hyperlink{struct_vector3}{Vector3}} position, \doxymbox{\hyperlink{struct_vector3}{Vector3}} scale, \doxymbox{\hyperlink{struct_color}{Color}} color)
+\item 
+void \doxymbox{\hyperlink{graphics_8hpp_a5b7fdc78a5ff7aa2a37fcf5a03d24d11}{b3\+\_\+\+Draw\+Cube}} (b3\+Pos position, b3\+Vec3 scale, \doxymbox{\hyperlink{struct_color}{Color}} color)
+\item 
+void \doxymbox{\hyperlink{graphics_8hpp_a7d4aee0767692f7220ff2ebb83e621c5}{b3\+\_\+\+Draw\+Model}} (\doxymbox{\hyperlink{struct_model}{Model}} model, \doxymbox{\hyperlink{struct_matrix}{Matrix}} transform)
+\item 
+void \doxymbox{\hyperlink{graphics_8hpp_a5b9883a2ca3e01b639e0cfce37c4eaa6}{b3\+\_\+\+Draw\+Cube\+Tex}} (\doxymbox{\hyperlink{raylib_8h_a0f74897272c4257b58656025d91a16ed}{Texture2D}} texture, b3\+Pos position, b3\+Vec3 scale, \doxymbox{\hyperlink{struct_color}{Color}} color)
+\end{DoxyCompactItemize}
+
+
+\label{graphics_8hpp_doc-func-members}
+\Hypertarget{graphics_8hpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{graphics_8hpp_a5b7fdc78a5ff7aa2a37fcf5a03d24d11}\index{graphics.hpp@{graphics.hpp}!b3\_DrawCube@{b3\_DrawCube}}
+\index{b3\_DrawCube@{b3\_DrawCube}!graphics.hpp@{graphics.hpp}}
+\doxysubsubsection{\texorpdfstring{b3\_DrawCube()}{b3\_DrawCube()}}
+{\footnotesize\ttfamily \label{graphics_8hpp_a5b7fdc78a5ff7aa2a37fcf5a03d24d11} 
+void b3\+\_\+\+Draw\+Cube (\begin{DoxyParamCaption}\item[{b3\+Pos}]{position}{, }\item[{b3\+Vec3}]{scale}{, }\item[{\doxymbox{\hyperlink{struct_color}{Color}}}]{color}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{graphics_8hpp_source_l00201}{201}} of file \doxymbox{\hyperlink{graphics_8hpp_source}{graphics.\+hpp}}.
+
+\Hypertarget{graphics_8hpp_a5b9883a2ca3e01b639e0cfce37c4eaa6}\index{graphics.hpp@{graphics.hpp}!b3\_DrawCubeTex@{b3\_DrawCubeTex}}
+\index{b3\_DrawCubeTex@{b3\_DrawCubeTex}!graphics.hpp@{graphics.hpp}}
+\doxysubsubsection{\texorpdfstring{b3\_DrawCubeTex()}{b3\_DrawCubeTex()}}
+{\footnotesize\ttfamily \label{graphics_8hpp_a5b9883a2ca3e01b639e0cfce37c4eaa6} 
+void b3\+\_\+\+Draw\+Cube\+Tex (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{raylib_8h_a0f74897272c4257b58656025d91a16ed}{Texture2D}}}]{texture}{, }\item[{b3\+Pos}]{position}{, }\item[{b3\+Vec3}]{scale}{, }\item[{\doxymbox{\hyperlink{struct_color}{Color}}}]{color}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{graphics_8hpp_source_l00215}{215}} of file \doxymbox{\hyperlink{graphics_8hpp_source}{graphics.\+hpp}}.
+
+\Hypertarget{graphics_8hpp_a7d4aee0767692f7220ff2ebb83e621c5}\index{graphics.hpp@{graphics.hpp}!b3\_DrawModel@{b3\_DrawModel}}
+\index{b3\_DrawModel@{b3\_DrawModel}!graphics.hpp@{graphics.hpp}}
+\doxysubsubsection{\texorpdfstring{b3\_DrawModel()}{b3\_DrawModel()}}
+{\footnotesize\ttfamily \label{graphics_8hpp_a7d4aee0767692f7220ff2ebb83e621c5} 
+void b3\+\_\+\+Draw\+Model (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_model}{Model}}}]{model}{, }\item[{\doxymbox{\hyperlink{struct_matrix}{Matrix}}}]{transform}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{graphics_8hpp_source_l00205}{205}} of file \doxymbox{\hyperlink{graphics_8hpp_source}{graphics.\+hpp}}.
+
+\Hypertarget{graphics_8hpp_a99ae3f818c362c2dbfd21fa840bafe7e}\index{graphics.hpp@{graphics.hpp}!B3PosToVector3@{B3PosToVector3}}
+\index{B3PosToVector3@{B3PosToVector3}!graphics.hpp@{graphics.hpp}}
+\doxysubsubsection{\texorpdfstring{B3PosToVector3()}{B3PosToVector3()}}
+{\footnotesize\ttfamily \label{graphics_8hpp_a99ae3f818c362c2dbfd21fa840bafe7e} 
+\doxymbox{\hyperlink{struct_vector3}{Vector3}} B3\+Pos\+To\+Vector3 (\begin{DoxyParamCaption}\item[{const b3\+Pos \&}]{p}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{graphics_8hpp_source_l00013}{13}} of file \doxymbox{\hyperlink{graphics_8hpp_source}{graphics.\+hpp}}.
+
+\Hypertarget{graphics_8hpp_a16c1b16f4ada9398351dd5036c0142e4}\index{graphics.hpp@{graphics.hpp}!B3QuatToQuaternion@{B3QuatToQuaternion}}
+\index{B3QuatToQuaternion@{B3QuatToQuaternion}!graphics.hpp@{graphics.hpp}}
+\doxysubsubsection{\texorpdfstring{B3QuatToQuaternion()}{B3QuatToQuaternion()}}
+{\footnotesize\ttfamily \label{graphics_8hpp_a16c1b16f4ada9398351dd5036c0142e4} 
+\doxymbox{\hyperlink{raylib_8h_a6dd5722261331a39205262505daaa349}{Quaternion}} B3\+Quat\+To\+Quaternion (\begin{DoxyParamCaption}\item[{const b3\+Quat \&}]{q}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{graphics_8hpp_source_l00064}{64}} of file \doxymbox{\hyperlink{graphics_8hpp_source}{graphics.\+hpp}}.
+
+\Hypertarget{graphics_8hpp_a4f6811e829efce99994acb0f195386f1}\index{graphics.hpp@{graphics.hpp}!B3Vec3ToVector3@{B3Vec3ToVector3}}
+\index{B3Vec3ToVector3@{B3Vec3ToVector3}!graphics.hpp@{graphics.hpp}}
+\doxysubsubsection{\texorpdfstring{B3Vec3ToVector3()}{B3Vec3ToVector3()}}
+{\footnotesize\ttfamily \label{graphics_8hpp_a4f6811e829efce99994acb0f195386f1} 
+\doxymbox{\hyperlink{struct_vector3}{Vector3}} B3\+Vec3\+To\+Vector3 (\begin{DoxyParamCaption}\item[{const b3\+Vec3 \&}]{v}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{graphics_8hpp_source_l00008}{8}} of file \doxymbox{\hyperlink{graphics_8hpp_source}{graphics.\+hpp}}.
+
+\Hypertarget{graphics_8hpp_acce4b0c07b993c164ed7b83781217c75}\index{graphics.hpp@{graphics.hpp}!B3WorldTransformPoint@{B3WorldTransformPoint}}
+\index{B3WorldTransformPoint@{B3WorldTransformPoint}!graphics.hpp@{graphics.hpp}}
+\doxysubsubsection{\texorpdfstring{B3WorldTransformPoint()}{B3WorldTransformPoint()}}
+{\footnotesize\ttfamily \label{graphics_8hpp_acce4b0c07b993c164ed7b83781217c75} 
+\doxymbox{\hyperlink{struct_vector3}{Vector3}} B3\+World\+Transform\+Point (\begin{DoxyParamCaption}\item[{const b3\+World\+Transform \&}]{t}{, }\item[{b3\+Vec3}]{local}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{graphics_8hpp_source_l00028}{28}} of file \doxymbox{\hyperlink{graphics_8hpp_source}{graphics.\+hpp}}.
+
+\Hypertarget{graphics_8hpp_ab0558ff2d820e58f4a1ef6cd48d449ef}\index{graphics.hpp@{graphics.hpp}!B3WorldTransformToMatrix@{B3WorldTransformToMatrix}}
+\index{B3WorldTransformToMatrix@{B3WorldTransformToMatrix}!graphics.hpp@{graphics.hpp}}
+\doxysubsubsection{\texorpdfstring{B3WorldTransformToMatrix()}{B3WorldTransformToMatrix()}}
+{\footnotesize\ttfamily \label{graphics_8hpp_ab0558ff2d820e58f4a1ef6cd48d449ef} 
+\doxymbox{\hyperlink{struct_matrix}{Matrix}} B3\+World\+Transform\+To\+Matrix (\begin{DoxyParamCaption}\item[{const b3\+World\+Transform \&}]{t}{, }\item[{b3\+Vec3}]{scale}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{graphics_8hpp_source_l00069}{69}} of file \doxymbox{\hyperlink{graphics_8hpp_source}{graphics.\+hpp}}.
+
+\Hypertarget{graphics_8hpp_a17e713bc477fbfd2265e3bbba863d13f}\index{graphics.hpp@{graphics.hpp}!DrawBoxWireframe@{DrawBoxWireframe}}
+\index{DrawBoxWireframe@{DrawBoxWireframe}!graphics.hpp@{graphics.hpp}}
+\doxysubsubsection{\texorpdfstring{DrawBoxWireframe()}{DrawBoxWireframe()}}
+{\footnotesize\ttfamily \label{graphics_8hpp_a17e713bc477fbfd2265e3bbba863d13f} 
+void Draw\+Box\+Wireframe (\begin{DoxyParamCaption}\item[{const b3\+World\+Transform \&}]{t}{, }\item[{b3\+Vec3}]{half\+Extents}{, }\item[{\doxymbox{\hyperlink{struct_color}{Color}}}]{color}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{graphics_8hpp_source_l00033}{33}} of file \doxymbox{\hyperlink{graphics_8hpp_source}{graphics.\+hpp}}.
+
+\Hypertarget{graphics_8hpp_a9e9625f8fb06bd2aee9216dd427dcbf3}\index{graphics.hpp@{graphics.hpp}!DrawCubeTexture@{DrawCubeTexture}}
+\index{DrawCubeTexture@{DrawCubeTexture}!graphics.hpp@{graphics.hpp}}
+\doxysubsubsection{\texorpdfstring{DrawCubeTexture()}{DrawCubeTexture()}}
+{\footnotesize\ttfamily \label{graphics_8hpp_a9e9625f8fb06bd2aee9216dd427dcbf3} 
+void Draw\+Cube\+Texture (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{raylib_8h_a0f74897272c4257b58656025d91a16ed}{Texture2D}}}]{texture}{, }\item[{\doxymbox{\hyperlink{struct_vector3}{Vector3}}}]{position}{, }\item[{float}]{width}{, }\item[{float}]{height}{, }\item[{float}]{length}{, }\item[{\doxymbox{\hyperlink{struct_color}{Color}}}]{color}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{graphics_8hpp_source_l00079}{79}} of file \doxymbox{\hyperlink{graphics_8hpp_source}{graphics.\+hpp}}.
+
+\Hypertarget{graphics_8hpp_a67b13a357bf5a56b32d72e2c5fdf9b4f}\index{graphics.hpp@{graphics.hpp}!DrawCubeTextureV@{DrawCubeTextureV}}
+\index{DrawCubeTextureV@{DrawCubeTextureV}!graphics.hpp@{graphics.hpp}}
+\doxysubsubsection{\texorpdfstring{DrawCubeTextureV()}{DrawCubeTextureV()}}
+{\footnotesize\ttfamily \label{graphics_8hpp_a67b13a357bf5a56b32d72e2c5fdf9b4f} 
+void Draw\+Cube\+TextureV (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{raylib_8h_a0f74897272c4257b58656025d91a16ed}{Texture2D}}}]{texture}{, }\item[{\doxymbox{\hyperlink{struct_vector3}{Vector3}}}]{position}{, }\item[{\doxymbox{\hyperlink{struct_vector3}{Vector3}}}]{scale}{, }\item[{\doxymbox{\hyperlink{struct_color}{Color}}}]{color}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{graphics_8hpp_source_l00140}{140}} of file \doxymbox{\hyperlink{graphics_8hpp_source}{graphics.\+hpp}}.
+
+\Hypertarget{graphics_8hpp_a7f9ee3b433337796f959ae3fd2eca919}\index{graphics.hpp@{graphics.hpp}!DrawRayDebug@{DrawRayDebug}}
+\index{DrawRayDebug@{DrawRayDebug}!graphics.hpp@{graphics.hpp}}
+\doxysubsubsection{\texorpdfstring{DrawRayDebug()}{DrawRayDebug()}}
+{\footnotesize\ttfamily \label{graphics_8hpp_a7f9ee3b433337796f959ae3fd2eca919} 
+void Draw\+Ray\+Debug (\begin{DoxyParamCaption}\item[{b3\+Pos}]{origin}{, }\item[{b3\+Vec3}]{translation}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{graphics_8hpp_source_l00023}{23}} of file \doxymbox{\hyperlink{graphics_8hpp_source}{graphics.\+hpp}}.
+
+\Hypertarget{graphics_8hpp_a52eb85da42d76b28821472b5ced18b84}\index{graphics.hpp@{graphics.hpp}!Vector3ToB3Vec3@{Vector3ToB3Vec3}}
+\index{Vector3ToB3Vec3@{Vector3ToB3Vec3}!graphics.hpp@{graphics.hpp}}
+\doxysubsubsection{\texorpdfstring{Vector3ToB3Vec3()}{Vector3ToB3Vec3()}}
+{\footnotesize\ttfamily \label{graphics_8hpp_a52eb85da42d76b28821472b5ced18b84} 
+b3\+Vec3 Vector3\+To\+B3\+Vec3 (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_vector3}{Vector3}} \&}]{v}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{graphics_8hpp_source_l00018}{18}} of file \doxymbox{\hyperlink{graphics_8hpp_source}{graphics.\+hpp}}.
+

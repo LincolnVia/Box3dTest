@@ -1,0 +1,103 @@
+\doxysection{src/\+physics/\+physics.hpp File Reference}
+\hypertarget{physics_8hpp}{}\label{physics_8hpp}\index{src/physics/physics.hpp@{src/physics/physics.hpp}}
+{\ttfamily \+\#include $<$box3d/\+box3d.\+h$>$}\newline
+{\ttfamily \+\#include $<$box3d/\+math\+\_\+functions.\+h$>$}\newline
+{\ttfamily \+\#include $<$cstdint$>$}\newline
+{\ttfamily \+\#include $<$string$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_box_def}{Box\+Def}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \doxymbox{\hyperlink{namespace_collision_category}{Collision\+Category}}
+\item 
+namespace \doxymbox{\hyperlink{namespace_companion_cube_stats}{Companion\+Cube\+Stats}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{struct_box_def}{Box\+Def}} \doxymbox{\hyperlink{physics_8hpp_ac1eb895d3ee06b179432bb1c520359ad}{create\+Static\+Object}} (b3\+Vec3 position, b3\+Vec3 scale, b3\+World\+Id world\+ID)
+\begin{DoxyCompactList}\small\item\em Create a Static Object object. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{struct_box_def}{Box\+Def}} \doxymbox{\hyperlink{physics_8hpp_afd12b0d47be7954868e7bca58e80f279}{create\+Dynamic\+Object}} (b3\+Vec3 position, b3\+Vec3 scale, float density, float friction, b3\+World\+Id world\+ID)
+\begin{DoxyCompactList}\small\item\em Create a Dynamic Object object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr uint64\+\_\+t \doxymbox{\hyperlink{namespace_collision_category_a698c6cdaf701651ccfcfefaa7a848b92}{Collision\+Category::\+\+Static}} = 1ull $<$$<$ 0
+\item 
+constexpr uint64\+\_\+t \doxymbox{\hyperlink{namespace_collision_category_a2e9f246012e8801d2d8176d2280282b9}{Collision\+Category::\+\+Dynamic}} = 1ull $<$$<$ 1
+\item 
+constexpr uint64\+\_\+t \doxymbox{\hyperlink{namespace_collision_category_a01bcdd2c4eaeb6e59a7d70d74572602a}{Collision\+Category::\+\+Player}} = 1ull $<$$<$ 2
+\item 
+constexpr uint64\+\_\+t \doxymbox{\hyperlink{namespace_collision_category_aa9f8d1251ba652d5234a07b8e1a88df6}{Collision\+Category::\+\+World}} = \doxymbox{\hyperlink{namespace_collision_category_a698c6cdaf701651ccfcfefaa7a848b92}{Static}} \texorpdfstring{$\vert$}{|} \doxymbox{\hyperlink{namespace_collision_category_a2e9f246012e8801d2d8176d2280282b9}{Dynamic}}
+\item 
+constexpr uint64\+\_\+t \doxymbox{\hyperlink{namespace_collision_category_ab32524b99221f5955216e1720b1262bf}{Collision\+Category::\+\+All}} = \doxymbox{\hyperlink{namespace_collision_category_a698c6cdaf701651ccfcfefaa7a848b92}{Static}} \texorpdfstring{$\vert$}{|} \doxymbox{\hyperlink{namespace_collision_category_a2e9f246012e8801d2d8176d2280282b9}{Dynamic}} \texorpdfstring{$\vert$}{|} \doxymbox{\hyperlink{class_player}{Player}}
+\item 
+constexpr float \doxymbox{\hyperlink{namespace_companion_cube_stats_a037069ecbe68d580eb38e47f782e739c}{Companion\+Cube\+Stats::\+friction}} = 0.\+5f
+\item 
+constexpr float \doxymbox{\hyperlink{namespace_companion_cube_stats_a5def43216709edfadeae6c169df30546}{Companion\+Cube\+Stats::\+density}} = 1.\+0f
+\end{DoxyCompactItemize}
+
+
+\label{physics_8hpp_doc-func-members}
+\Hypertarget{physics_8hpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{physics_8hpp_afd12b0d47be7954868e7bca58e80f279}\index{physics.hpp@{physics.hpp}!createDynamicObject@{createDynamicObject}}
+\index{createDynamicObject@{createDynamicObject}!physics.hpp@{physics.hpp}}
+\doxysubsubsection{\texorpdfstring{createDynamicObject()}{createDynamicObject()}}
+{\footnotesize\ttfamily \label{physics_8hpp_afd12b0d47be7954868e7bca58e80f279} 
+\doxymbox{\hyperlink{struct_box_def}{Box\+Def}} create\+Dynamic\+Object (\begin{DoxyParamCaption}\item[{b3\+Vec3}]{position}{, }\item[{b3\+Vec3}]{scale}{, }\item[{float}]{density}{, }\item[{float}]{friction}{, }\item[{b3\+World\+Id}]{world\+ID}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Create a Dynamic Object object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+{\em scale} & \\
+\hline
+{\em density} & \\
+\hline
+{\em friction} & \\
+\hline
+{\em world\+ID} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_box_def}{Box\+Def} 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{physics_8hpp_source_l00070}{70}} of file \doxymbox{\hyperlink{physics_8hpp_source}{physics.\+hpp}}.
+
+\Hypertarget{physics_8hpp_ac1eb895d3ee06b179432bb1c520359ad}\index{physics.hpp@{physics.hpp}!createStaticObject@{createStaticObject}}
+\index{createStaticObject@{createStaticObject}!physics.hpp@{physics.hpp}}
+\doxysubsubsection{\texorpdfstring{createStaticObject()}{createStaticObject()}}
+{\footnotesize\ttfamily \label{physics_8hpp_ac1eb895d3ee06b179432bb1c520359ad} 
+\doxymbox{\hyperlink{struct_box_def}{Box\+Def}} create\+Static\+Object (\begin{DoxyParamCaption}\item[{b3\+Vec3}]{position}{, }\item[{b3\+Vec3}]{scale}{, }\item[{b3\+World\+Id}]{world\+ID}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Create a Static Object object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+{\em scale} & \\
+\hline
+{\em world\+ID} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_box_def}{Box\+Def} 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{physics_8hpp_source_l00038}{38}} of file \doxymbox{\hyperlink{physics_8hpp_source}{physics.\+hpp}}.
+

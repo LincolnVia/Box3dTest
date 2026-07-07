@@ -1,0 +1,73 @@
+\doxysection{player.\+hpp}
+\hypertarget{player_8hpp_source}{}\label{player_8hpp_source}\index{src/player/player.hpp@{src/player/player.hpp}}
+\doxymbox{\hyperlink{player_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00001}00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{world_8hpp}{../world/world.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <box3d/box3d.h>}}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{raylib_8h}{raylib.h}}>}}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00007}\doxymbox{\hyperlink{class_player}{00007}}\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_player_aaa23b3bf80e8c0267cf08d4fe4d6ddc1}{Player}}\ \{}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00008}00008\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00009}\doxymbox{\hyperlink{class_player_aaa23b3bf80e8c0267cf08d4fe4d6ddc1}{00009}}\ \ \ \doxymbox{\hyperlink{class_player_aaa23b3bf80e8c0267cf08d4fe4d6ddc1}{Player}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00010}00010\ \ \ \doxymbox{\hyperlink{class_player_a749d2c00e1fe0f5c2746f7505a58c062}{\string~Player}}();}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00012}00012\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_afafae3565d10d63dc9136904e7b7bdd0}{Init}}(\doxymbox{\hyperlink{class_world}{World}}\ \&world);}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00013}00013\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_abbe773887dd40afba0fe811e5dc5e399}{CreatePhysicsBody}}();}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00015}00015\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_a65a76094cff6f149d5847d2110fe443d}{Input}}();}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00016}00016\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_a05b60cac1922c5be5c1be16baffa4497}{Update}}();}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00017}00017\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_ad141ea844ac82f2447d986d964d1e8a7}{Render}}();}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00019}00019\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_a723502fffdd0d0711898f3cea4ab1b15}{HandlePlayerMovement}}();}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00020}00020\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_a12a53a63160dbce0b564108fa404c125}{HandleCameraLook}}();}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00021}00021\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_a7fe4844ffaa01b3b598beb9e0df01e56}{HandleMouseInput}}();}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00023}00023\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_a5023977f728abedce5478bb608e4e582}{PickupPhysicsObject}}();}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00025}00025\ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_player_a0b391a1f90c466ed8e85372e9e0346a3}{RenderGun}}();}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00027}00027\ \ \ \textcolor{comment}{//\ Getter\ Setters\ for\ player\ variables}}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00028}\doxymbox{\hyperlink{class_player_aa89f9db5ea8856012607d8882d513f81}{00028}}\ \ \ b3Pos\ \doxymbox{\hyperlink{class_player_aa89f9db5ea8856012607d8882d513f81}{getPosition}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ b3Body\_GetPosition(collider.bodyId);\ \}}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00029}\doxymbox{\hyperlink{class_player_a40895a97fb3c9b3d8651bb5da2874af1}{00029}}\ \ \ \doxymbox{\hyperlink{struct_box_def}{BoxDef}}\ *\doxymbox{\hyperlink{class_player_a40895a97fb3c9b3d8651bb5da2874af1}{setHeldObject}}(\doxymbox{\hyperlink{struct_box_def}{BoxDef}}\ *\textcolor{keywordtype}{object})\ \{\ \textcolor{keywordflow}{return}\ heldObject\ =\ object;\ \}}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00031}\doxymbox{\hyperlink{class_player_a16c2fe7ce1e4c7d662b042012fa6f237}{00031}}\ \ \ \textcolor{keywordtype}{float}\ *\doxymbox{\hyperlink{class_player_a16c2fe7ce1e4c7d662b042012fa6f237}{getHeldObjectCooldown}}()\ \{\ \textcolor{keywordflow}{return}\ \&cooldownTimer;\ \}}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00033}\doxymbox{\hyperlink{class_player_a9e4af74e6717e7d06cb4c13218f1eaf7}{00033}}\ \ \ b3Vec3\ \doxymbox{\hyperlink{class_player_a9e4af74e6717e7d06cb4c13218f1eaf7}{getVelocity}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00034}00034\ \ \ \ \ \textcolor{keywordflow}{return}\ b3Body\_GetLinearVelocity(collider.bodyId);}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00035}00035\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00036}\doxymbox{\hyperlink{class_player_a4f47af5e096eb1dc9935c039fb11f204}{00036}}\ \ \ \doxymbox{\hyperlink{struct_camera3_d}{Camera3D}}\ \&\doxymbox{\hyperlink{class_player_a4f47af5e096eb1dc9935c039fb11f204}{getCamera}}()\ \{\ \textcolor{keywordflow}{return}\ camera;\ \}}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00037}\doxymbox{\hyperlink{class_player_a00628159a563ddd8fc1f77726cd74a43}{00037}}\ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_camera3_d}{Camera3D}}\ \&\doxymbox{\hyperlink{class_player_a00628159a563ddd8fc1f77726cd74a43}{getCamera}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ camera;\ \}}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00039}00039\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00040}00040\ \ \ \doxymbox{\hyperlink{struct_camera3_d}{Camera3D}}\ camera\{\};}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00041}00041\ \ \ \doxymbox{\hyperlink{namespace_collision_category_aa9f8d1251ba652d5234a07b8e1a88df6}{World}}\ *\_world\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00042}00042\ \ \ BoxDef\ collider;}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00043}00043\ \ \ \doxymbox{\hyperlink{raylib_8h_abcd4549833a89453835e140c870d93bc}{Model}}\ gunModel;}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00044}00044\ \ \ BoxDef\ *heldObject\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00046}00046\ \ \ \doxymbox{\hyperlink{raylib_8h_afad6567e09682ebf63176ff9e13848c9}{RenderTexture2D}}\ gunTarget;}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00048}00048\ \ \ \doxymbox{\hyperlink{raylib_8h_ace8af52fd3902ac3cc0c8dac99a1b268}{Camera3D}}\ gunCamera\ =\ \{0\};}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00050}00050\ \ \ \textcolor{comment}{//\ Camera\ Variables}}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00051}00051\ \ \ \textcolor{keywordtype}{float}\ pitch\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00052}00052\ \ \ \textcolor{keywordtype}{float}\ yaw\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00053}00053\ \ \ \textcolor{keywordtype}{float}\ sensitivity\ =\ 0.003f;}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00055}00055\ \ \ \textcolor{comment}{//\ Player\ Movement\ Variables}}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00056}00056\ \ \ \textcolor{keywordtype}{float}\ moveSpeed\ =\ 8.0f;}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00057}00057\ \ \ \textcolor{keywordtype}{float}\ groundAccel\ =\ 15.0f;}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00058}00058\ \ \ \textcolor{keywordtype}{float}\ airAccel\ =\ 3.0f;}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00059}00059\ \ \ \textcolor{keywordtype}{float}\ groundFriction\ =\ 8.0f;}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00060}00060\ \ \ \textcolor{keywordtype}{float}\ jumpSpeed\ =\ 5.0f;}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00061}00061\ \ \ \textcolor{keywordtype}{bool}\ isGrounded\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00063}00063\ \ \ \textcolor{comment}{//\ Physics\ object\ pickup\ variables}}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00064}00064\ \ \ \textcolor{keywordtype}{float}\ holdDistance\ =\ 2.0f;}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00065}00065\ \ \ \textcolor{keywordtype}{float}\ holdCooldown\ =\ 0.5f;}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00066}00066\ \ \ \textcolor{keywordtype}{float}\ cooldownTimer\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{player_8hpp_source_l00067}00067\ \};}
+
+\end{DoxyCode}

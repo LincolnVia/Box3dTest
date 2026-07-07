@@ -1,0 +1,40 @@
+\doxysection{debugger.\+cpp}
+\hypertarget{debugger_8cpp_source}{}\label{debugger_8cpp_source}\index{src/Debug/debugger.cpp@{src/Debug/debugger.cpp}}
+\doxymbox{\hyperlink{debugger_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{debugger_8hpp}{debugger.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <imgui.h>}}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00005}\doxymbox{\hyperlink{class_debugger_afcba0531ef7c68289d9a2f03b7e5d666}{00005}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_debugger_afcba0531ef7c68289d9a2f03b7e5d666}{Debugger::Init}}()}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00006}00006\ \{}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00007}00007\ \ \ \ \ \ rlImGuiSetup(\textcolor{keyword}{true});\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00008}00008\ \ \ \ \ ImGuiIO\&\ io\ =\ ImGui::GetIO();}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00009}00009\ \ \ \ \ io.ConfigFlags\ |=\ ImGuiConfigFlags\_DockingEnable;}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00010}00010\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00011}00011\ \}}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00012}\doxymbox{\hyperlink{class_debugger_a12f822c5d6749212d35a6ff006edcf31}{00012}}\ \doxymbox{\hyperlink{class_debugger_a12f822c5d6749212d35a6ff006edcf31}{Debugger::\string~Debugger}}()}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00013}00013\ \{}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00014}00014\ \ \ \ \ rlImGuiShutdown();}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00015}00015\ \}}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00017}\doxymbox{\hyperlink{class_debugger_a90f91173151e42ae59730cb77e4808ee}{00017}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_debugger_a90f91173151e42ae59730cb77e4808ee}{Debugger::Render}}()}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00018}00018\ \{}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00019}00019\ \ \ \ \ rlImGuiBegin();\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00020}00020\ \ \ \ \ \textcolor{comment}{//\ Create\ a\ window\ called\ "{}My\ First\ Tool"{},\ with\ a\ menu\ bar.}}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00021}00021\ ImGui::Begin(\textcolor{stringliteral}{"{}My\ First\ Tool"{}});}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00024}00024\ \textcolor{comment}{//\ Display\ contents\ in\ a\ scrolling\ region}}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00025}00025\ ImGui::TextColored(ImVec4(1,1,0,1),\ \textcolor{stringliteral}{"{}Important\ Stuff"{}});}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00026}00026\ ImGui::BeginChild(\textcolor{stringliteral}{"{}Scrolling"{}});}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00027}00027\ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ n\ =\ 0;\ n\ <\ 50;\ n++)}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00028}00028\ \ \ \ \ ImGui::Text(\textcolor{stringliteral}{"{}\%04d:\ Some\ text"{}},\ n);}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00029}00029\ ImGui::EndChild();}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00030}00030\ ImGui::End();}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00031}00031\ rlImGuiEnd();}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00032}00032\ \}}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00033}\doxymbox{\hyperlink{class_debugger_a0c58762b473a1eed704b586fa78bb557}{00033}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_debugger_a0c58762b473a1eed704b586fa78bb557}{Debugger::Update}}()}
+\DoxyCodeLine{\Hypertarget{debugger_8cpp_source_l00034}00034\ \{\}}
+
+\end{DoxyCode}
