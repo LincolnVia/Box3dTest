@@ -18,35 +18,27 @@ World::World() {
   worldId = b3CreateWorld(&worldDef);
 
   // Ground Plane
-  staticObjects.push_back(
-      createStaticObject({0, -5, 0}, {50, 10, 50}, worldId));
-  staticObjects.push_back(createStaticObject({20, 0, 0}, {3, 10, 10}, worldId));
-  staticObjects.push_back(
-      createStaticObject({-20, 0, 0}, {3, 10, 10}, worldId));
-  staticObjects.push_back(
-      createStaticObject({0, 0, -20}, {10, 10, 3}, worldId));
-  staticObjects.push_back(createStaticObject({0, 0, 20}, {10, 10, 3}, worldId));
-  staticObjects[0].name = "ground";
+  sceneObjects.push_back(createStaticObject({0, -5, 0}, {50, 10, 50}, worldId));
+  sceneObjects.push_back(createStaticObject({20, 0, 0}, {3, 10, 10}, worldId));
+  sceneObjects.push_back(createStaticObject({-20, 0, 0}, {3, 10, 10}, worldId));
+  sceneObjects.push_back(createStaticObject({0, 0, -20}, {10, 10, 3}, worldId));
+  sceneObjects.push_back(createStaticObject({0, 0, 20}, {10, 10, 3}, worldId));
+  sceneObjects[0].name = "ground";
+
+  sceneObjects[1].name = "portalable_wall";
+  sceneObjects[2].name = "portalable_wall";
+  sceneObjects[3].name = "portalable_wall";
+  sceneObjects[4].name = "portalable_wall";
+
+  sceneObjects.push_back(
+      createDynamicObject({0, 2, 0}, {2, 2, 2}, CompanionCubeStats::density,
+                          CompanionCubeStats::friction, worldId));
+  sceneObjects[5].name = "companion_cube";
 
   // END
 
   // Dynamic Box
-  b3BodyDef bodyDef = b3DefaultBodyDef();
-  bodyDef.type = b3_dynamicBody;
-  bodyDef.position = b3ToPos({0.0f, 4.0f, 5.0f});
-  companionCube.bodyId = b3CreateBody(worldId, &bodyDef);
 
-  companionCube.halfExtents = {1.5f, 1.5f, 1.5f};
-  companionCube.hull = b3MakeCubeHull(companionCube.halfExtents.x);
-
-  b3ShapeDef shapeDef = b3DefaultShapeDef();
-  shapeDef.density = 1.2f;
-  shapeDef.baseMaterial.friction = 1.0f;
-  shapeDef.filter.categoryBits = CollisionCategory::Dynamic;
-  shapeDef.filter.maskBits = CollisionCategory::All;
-
-  companionCube.shapeId = b3CreateHullShape(companionCube.bodyId, &shapeDef,
-                                            &companionCube.hull.base);
   // End
 }
 
@@ -72,22 +64,26 @@ World::~World() {
 void World::Update() { b3World_Step(worldId, timeStep, subStepCount); }
 
 void World::Draw() {
-  for (auto &object : staticObjects) {
+  for (auto &object : GetSceneObjects()) {
     if (object.name == "ground")
       b3_DrawCubeTex(grassTex, b3Body_GetPosition(object.bodyId),
                      object.halfExtents, WHITE);
-    else
+    if (object.name == "portalable_wall")
       b3_DrawCubeTex(wallTex, b3Body_GetPosition(object.bodyId),
                      object.halfExtents, WHITE);
-    ;
+
+    if (object.name == "companion_cube")
+      b3_DrawModel(m_cube,
+                   B3WorldTransformToMatrix(b3Body_GetTransform(object.bodyId),
+                                            object.halfExtents));
   }
 
-  const b3WorldTransform t = b3Body_GetTransform(companionCube.bodyId);
-  const b3Vec3 renderScale = {companionCube.halfExtents.x * 1.0f,
-                              companionCube.halfExtents.y * 1.0f,
-                              companionCube.halfExtents.z * 1.0f};
+  // const b3WorldTransform t = b3Body_GetTransform(companionCube.bodyId);
+  // const b3Vec3 renderScale = {companionCube.halfExtents.x * 1.0f,
+  //                            companionCube.halfExtents.y * 1.0f,
+  //                            companionCube.halfExtents.z * 1.0f};
 
-  b3_DrawModel(m_cube, B3WorldTransformToMatrix(t, renderScale));
-  // DrawModel(m_world,{0,0,0},.05   ,WHITE);
-  DrawBoxWireframe(t, companionCube.halfExtents, RED);
+  // b3_DrawModel(m_cube, B3WorldTransformToMatrix(t, renderScale));
+  //  DrawModel(m_world,{0,0,0},.05   ,WHITE);
+  // DrawBoxWireframe(t, companionCube.halfExtents, RED);
 }
