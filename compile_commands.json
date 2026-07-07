@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/home/volt/CLionProjects/Box3dTest/build",
+  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DUSE_LIBTYPE_SHARED -g -fmodules-ts -fmodule-mapper=CMakeFiles/Box3dTest.dir/src/main.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/Box3dTest.dir/src/main.cpp.o -c /home/volt/CLionProjects/Box3dTest/src/main.cpp",
+  "file": "/home/volt/CLionProjects/Box3dTest/src/main.cpp",
+  "output": "/home/volt/CLionProjects/Box3dTest/build/CMakeFiles/Box3dTest.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/volt/CLionProjects/Box3dTest/build",
+  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DUSE_LIBTYPE_SHARED -g -fmodules-ts -fmodule-mapper=CMakeFiles/Box3dTest.dir/src/player/player.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/Box3dTest.dir/src/player/player.cpp.o -c /home/volt/CLionProjects/Box3dTest/src/player/player.cpp",
+  "file": "/home/volt/CLionProjects/Box3dTest/src/player/player.cpp",
+  "output": "/home/volt/CLionProjects/Box3dTest/build/CMakeFiles/Box3dTest.dir/src/player/player.cpp.o"
+},
+{
+  "directory": "/home/volt/CLionProjects/Box3dTest/build",
+  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DUSE_LIBTYPE_SHARED -g -fmodules-ts -fmodule-mapper=CMakeFiles/Box3dTest.dir/src/world/world.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/Box3dTest.dir/src/world/world.cpp.o -c /home/volt/CLionProjects/Box3dTest/src/world/world.cpp",
+  "file": "/home/volt/CLionProjects/Box3dTest/src/world/world.cpp",
+  "output": "/home/volt/CLionProjects/Box3dTest/build/CMakeFiles/Box3dTest.dir/src/world/world.cpp.o"
+}
+]

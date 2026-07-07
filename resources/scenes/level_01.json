@@ -1,0 +1,148 @@
+{
+  "Format": "Box3dTest.TrenchBroomMap",
+  "Version": 1,
+  "Source": "tools\\level_01.map",
+  "CoordinateSystem": "QuakeZUpToEngineYUp",
+  "Scale": 1,
+  "EntityConfigPath": null,
+  "ModelPaths": [],
+  "WorldObjects": [
+    {
+      "Name": "worldspawn_brush_0",
+      "SourceEntity": 0,
+      "SourceBrush": 0,
+      "Classname": "worldspawn",
+      "Material": "grass",
+      "IsPortalable": false,
+      "VertexCount": 8,
+      "MapBounds": {
+        "Min": [-64, -64, -16],
+        "Max": [64, 64, 16]
+      },
+      "Collider": {
+        "Type": "box",
+        "Center": [0, 0, 0],
+        "HalfExtents": [64, 16, 64]
+      },
+      "Faces": [
+        {
+          "Texture": "grass",
+          "IsPortalable": false,
+          "Points": [[-64, -64, -16], [-64, -63, -16], [-64, -64, -15]],
+          "Normal": [1, 0, 0],
+          "TextureValues": [0, 0, 0, 1, 1]
+        },
+        {
+          "Texture": "grass",
+          "IsPortalable": false,
+          "Points": [[-64, -64, -16], [-64, -64, -15], [-63, -64, -16]],
+          "Normal": [0, 1, 0],
+          "TextureValues": [0, 0, 0, 1, 1]
+        },
+        {
+          "Texture": "grass",
+          "IsPortalable": false,
+          "Points": [[-64, -64, -16], [-63, -64, -16], [-64, -63, -16]],
+          "Normal": [0, 0, 1],
+          "TextureValues": [0, 0, 0, 1, 1]
+        },
+        {
+          "Texture": "grass",
+          "IsPortalable": false,
+          "Points": [[64, 64, 16], [64, 65, 16], [65, 64, 16]],
+          "Normal": [0, 0, -1],
+          "TextureValues": [0, 0, 0, 1, 1]
+        },
+        {
+          "Texture": "grass",
+          "IsPortalable": false,
+          "Points": [[64, 64, 16], [65, 64, 16], [64, 64, 17]],
+          "Normal": [0, -1, 0],
+          "TextureValues": [0, 0, 0, 1, 1]
+        },
+        {
+          "Texture": "grass",
+          "IsPortalable": false,
+          "Points": [[64, 64, 16], [64, 64, 17], [64, 65, 16]],
+          "Normal": [-1, 0, 0],
+          "TextureValues": [0, 0, 0, 1, 1]
+        }
+      ]
+    },
+    {
+      "Name": "worldspawn_brush_1",
+      "SourceEntity": 0,
+      "SourceBrush": 1,
+      "Classname": "worldspawn",
+      "Material": "grass",
+      "IsPortalable": false,
+      "VertexCount": 8,
+      "MapBounds": {
+        "Min": [-64, 32, 16],
+        "Max": [64, 64, 112]
+      },
+      "Collider": {
+        "Type": "box",
+        "Center": [0, 64, 48],
+        "HalfExtents": [64, 48, 16]
+      },
+      "Faces": [
+        {
+          "Texture": "grass",
+          "IsPortalable": false,
+          "Points": [[-64, -64, 16], [-64, -63, 16], [-64, -64, 17]],
+          "Normal": [1, 0, 0],
+          "TextureValues": [0, 0, 0, 1, 1]
+        },
+        {
+          "Texture": "grass",
+          "IsPortalable": false,
+          "Points": [[-64, 32, 16], [-64, 32, 17], [-63, 32, 16]],
+          "Normal": [0, 1, 0],
+          "TextureValues": [0, 0, 0, 1, 1]
+        },
+        {
+          "Texture": "grass",
+          "IsPortalable": false,
+          "Points": [[-64, -64, 16], [-63, -64, 16], [-64, -63, 16]],
+          "Normal": [0, 0, 1],
+          "TextureValues": [0, 0, 0, 1, 1]
+        },
+        {
+          "Texture": "grass",
+          "IsPortalable": false,
+          "Points": [[80, 64, 112], [80, 65, 112], [81, 64, 112]],
+          "Normal": [0, 0, -1],
+          "TextureValues": [0, 0, 0, 1, 1]
+        },
+        {
+          "Texture": "grass",
+          "IsPortalable": false,
+          "Points": [[80, 64, 112], [81, 64, 112], [80, 64, 113]],
+          "Normal": [0, -1, 0],
+          "TextureValues": [0, 0, 0, 1, 1]
+        },
+        {
+          "Texture": "grass",
+          "IsPortalable": false,
+          "Points": [[64, 64, 112], [64, 64, 113], [64, 65, 112]],
+          "Normal": [-1, 0, 0],
+          "TextureValues": [0, 0, 0, 1, 1]
+        }
+      ]
+    }
+  ],
+  "Entities": [
+    {
+      "Name": "entity_1",
+      "SourceEntity": 1,
+      "Classname": "info_player_start",
+      "MapOrigin": [0, -16, 40],
+      "Position": [0, 40, -16],
+      "Properties": {
+        "classname": "info_player_start",
+        "origin": "0 -16 40"
+      }
+    }
+  ]
+}

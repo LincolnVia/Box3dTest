@@ -1,0 +1,7 @@
+CompileFlags:
+  Add: [-I, C:\include, -isystem, C:\include,
+   -I, C:\Users\volt\Desktop\Box3dTest\build\_deps\box3d-src\include\, -isystem, C:\Users\volt\Desktop\Box3dTest\build\_deps\box3d-src\include\
+    ,-I, C:\Users\volt\Desktop\Box3dTest\build\_deps\imgui-src, -isystem, C:\Users\volt\Desktop\Box3dTest\build\_deps\imgui-src
+    ,-I, C:\Users\volt\Desktop\Box3dTest\build\_deps\rlimgui-src, -isystem, C:\Users\volt\Desktop\Box3dTest\build\_deps\rlimgui-src,
+   ]
+  
