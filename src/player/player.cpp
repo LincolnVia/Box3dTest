@@ -105,86 +105,10 @@ void Player::HandleCameraLook() {
   pitch = b3ClampFloat(pitch, -maxPitch, maxPitch);
 }
 
-bool Player::TryStepUp(b3Vec3 wishMove, b3Vec3 groundPoint, b3Vec3 &vel) {
-  if (!isGrounded || b3LengthSquared(wishMove) <= 0.0f) {
-    return false;
-  }
-
-  const b3Vec3 moveDir = b3Normalize({wishMove.x, 0.0f, wishMove.z});
-  if (b3LengthSquared(moveDir) <= 0.0f) {
-    return false;
-  }
-
-  const b3Vec3 bodyPos = b3ToVec3(b3Body_GetPosition(collider.bodyId));
-  const float standingHeight = bodyPos.y - groundPoint.y;
-  const float forwardExtent =
-      b3AbsFloat(moveDir.x) * collider.halfExtents.x +
-      b3AbsFloat(moveDir.z) * collider.halfExtents.z;
-  const float probeDistance = forwardExtent + stepForwardProbeDistance;
-
-  const b3Vec3 lowProbeOrigin = {
-      bodyPos.x,
-      groundPoint.y + stepLowProbeHeight,
-      bodyPos.z,
-  };
-  const RayFireResult lowProbe =
-      FireRay(lowProbeOrigin, moveDir, *_world, probeDistance,
-              CollisionCategory::Static);
-
-  if (!lowProbe.hit.hit) {
-    return false;
-  }
-
-  const b3Vec3 highProbeOrigin =
-      b3Add(lowProbeOrigin, {0.0f, maxStepHeight + stepClearance, 0.0f});
-  const RayFireResult highProbe =
-      FireRay(highProbeOrigin, moveDir, *_world, probeDistance,
-              CollisionCategory::Static);
-
-  if (highProbe.hit.hit) {
-    return false;
-  }
-
-  const b3Vec3 landingProbeOrigin =
-      b3Add(bodyPos, b3MulSV(probeDistance, moveDir));
-  const b3Vec3 downProbeOrigin = {
-      landingProbeOrigin.x,
-      bodyPos.y + maxStepHeight + stepClearance,
-      landingProbeOrigin.z,
-  };
-  const float downProbeDistance = standingHeight + maxStepHeight + stepClearance;
-  const RayFireResult downProbe =
-      FireRay(downProbeOrigin, {0.0f, -1.0f, 0.0f}, *_world,
-              downProbeDistance, CollisionCategory::Static);
-
-  if (!downProbe.hit.hit || downProbe.hit.normal.y < stepMinNormalY) {
-    return false;
-  }
-
-  const float landingCenterY = b3ToVec3(downProbe.hit.point).y + standingHeight;
-  const float stepRise = landingCenterY - bodyPos.y;
-  if (stepRise < minStepHeight || stepRise > maxStepHeight) {
-    return false;
-  }
-
-  b3Body_SetTransform(collider.bodyId,
-                      b3ToPos({bodyPos.x, landingCenterY, bodyPos.z}),
-                      b3Body_GetRotation(collider.bodyId));
-
-  if (vel.y < 0.0f) {
-    vel.y = 0.0f;
-  }
-
-  return true;
-}
-
 void Player::HandlePlayerMovement() {
   float dt = GetFrameTime();
 
   const b3Vec3 bodyPos = b3ToVec3(b3Body_GetPosition(collider.bodyId));
-
-  const b3Vec3 feetPos = {bodyPos.x, bodyPos.y - collider.halfExtents.y - 0.05f,
-                          bodyPos.z};
 
   RayFireResult groundRay = FireRay(bodyPos, {0, -1, 0}, *_world,
                                     jumpRayDistance, CollisionCategory::World);
@@ -232,10 +156,6 @@ void Player::HandlePlayerMovement() {
   vel.x = clampedHorizontalVelocity.x;
   vel.z = clampedHorizontalVelocity.z;
   vel.y = b3ClampFloat(vel.y, -maxExternalDownSpeed, maxExternalUpSpeed);
-
-  if (isGrounded && wantsMove && groundRay.hit.hit) {
-    TryStepUp(wishMove, b3ToVec3(groundRay.hit.point), vel);
-  }
 
   b3Body_SetLinearVelocity(collider.bodyId, vel);
 }

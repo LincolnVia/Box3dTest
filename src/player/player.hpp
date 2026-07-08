@@ -19,7 +19,6 @@ public:
   void HandlePlayerMovement();
   void HandleCameraLook();
   void HandleMouseInput();
-  bool TryStepUp(b3Vec3 wishMove, b3Vec3 groundPoint, b3Vec3 &vel);
 
   void PickupPhysicsObject();
 
@@ -81,12 +80,6 @@ private:
   float jumpSpeed = 3.0f;
   float jumpRayDistance = 2.5;
 
-  float maxStepHeight = 3.55f;
-  float stepForwardProbeDistance = 0.35f;
-  float stepLowProbeHeight = 0.18f;
-  float stepClearance = 0.08f;
-  float minStepHeight = 0.04f;
-  float stepMinNormalY = 0.65f;
   float maxExternalHorizontalSpeed = 12.0f;
   float maxExternalUpSpeed = 2.0f;
   float maxExternalDownSpeed = 30.0f;
