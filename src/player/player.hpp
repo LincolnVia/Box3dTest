@@ -72,7 +72,7 @@ private:
   float yaw = 0.0f;
   float sensitivity = 0.0005f;
 
-  // Player Movement Variables
+  // Defualt player move stats which get modifyed by the surface material
   float moveSpeed = 8.0f;
   float groundAccel = 15.0f;
   float airAccel = 3.0f;
@@ -81,7 +81,7 @@ private:
   float jumpRayDistance = 2.5;
 
   float maxExternalHorizontalSpeed = 12.0f;
-  float maxExternalUpSpeed = 2.0f;
+  float maxExternalUpSpeed = 7.0f;
   float maxExternalDownSpeed = 30.0f;
 
   bool isGrounded = false;

@@ -25,21 +25,22 @@ World::World(Engine &engine) : engine(engine) {
 
   // Ground Plane
   sceneObjects.push_back(createStaticObject({0, -5, 0}, {50, 10, 50}, worldId));
-  sceneObjects.push_back(createStaticObject({20, 0, 0}, {3, 10, 10}, worldId));
-  sceneObjects.push_back(createStaticObject({-20, 0, 0}, {3, 10, 10}, worldId));
-  sceneObjects.push_back(createStaticObject({0, 0, -20}, {10, 10, 3}, worldId));
-  sceneObjects.push_back(createStaticObject({0, 0, 20}, {10, 10, 3}, worldId));
   sceneObjects[0].name = "ground";
 
-  sceneObjects[1].name = "portalable_wall";
-  sceneObjects[2].name = "portalable_wall";
-  sceneObjects[3].name = "portalable_wall";
-  sceneObjects[4].name = "portalable_wall";
+  // Speed Gel
+  sceneObjects.push_back(createStaticObject({-5, 0.1, 0}, {3, .2, 20}, worldId,
+                                            SurfaceMaterial::SpeedGel));
+  // Speed Gel
+  sceneObjects.push_back(createStaticObject({-5, 0.1, 15}, {3, .3, 10}, worldId,
+                                            SurfaceMaterial::BounceGel));
 
-  sceneObjects.push_back(
-      createDynamicObject({0, 2, 0}, {2, 2, 2}, CompanionCubeStats::density,
-                          CompanionCubeStats::friction, worldId));
-  sceneObjects[5].name = "companion_cube";
+  sceneObjects.push_back(createStaticObject({0, 0, 20}, {10, 10, 5}, worldId));
+  sceneObjects[1].name = "portalable_wall";
+
+  sceneObjects.push_back(createDynamicObject(
+      {0, 2, 0}, {2, 2, 2}, CompanionCubeStats::density,
+      CompanionCubeStats::friction, worldId, SurfaceMaterial::CompanionCube));
+  sceneObjects[4].name = "companion_cube";
 
   sceneButtonsObjects.push_back(
       createPhysicsButton({5, 0.3, 0}, worldId, 1, 1));
@@ -55,6 +56,9 @@ void World::Init() {
   m_world = LoadModel("resources/scenes/level_01.obj");
   grassTex = LoadTexture("resources/assets/grass.png");
   wallTex = LoadTexture("resources/textures/Dark/texture_01.png");
+  bounceTex = LoadTexture("resources/textures/bounce.png");
+  speedTex = LoadTexture("resources/textures/speed.png");
+
   m_cube = LoadModel("resources/models/scene.gltf");
   m_button = LoadModel("resources/models/button.gltf");
   skyBox = createSkybox(engine.shdrCubemap);
@@ -126,10 +130,10 @@ void World::ApplyCompanionCubeReleasedTuning() {
 void World::Draw() {
   DrawSkybox(skyBox);
   for (auto &object : GetSceneObjects()) {
-    if (object.name == "ground")
+    if (object.material == SurfaceMaterial::Default)
       b3_DrawCubeTex(grassTex, b3Body_GetPosition(object.bodyId),
                      object.halfExtents, WHITE);
-    if (object.name == "portalable_wall")
+    if (object.material == SurfaceMaterial::PortalWall)
       b3_DrawCubeTex(wallTex, b3Body_GetPosition(object.bodyId),
                      object.halfExtents, WHITE);
 
@@ -137,7 +141,14 @@ void World::Draw() {
       b3_DrawModel(m_cube,
                    B3WorldTransformToMatrix(b3Body_GetTransform(object.bodyId),
                                             object.halfExtents));
+    if (object.material == SurfaceMaterial::SpeedGel)
+      b3_DrawCubeTex(speedTex, b3Body_GetPosition(object.bodyId),
+                     object.halfExtents, WHITE);
+    if (object.material == SurfaceMaterial::BounceGel)
+      b3_DrawCubeTex(bounceTex, b3Body_GetPosition(object.bodyId),
+                     object.halfExtents, WHITE);
   }
+
   for (auto &object : GetSceneButtons()) {
     b3_DrawModel(m_button, B3WorldTransformToMatrix(
                                b3Body_GetTransform(object.colliderInfo.bodyId),

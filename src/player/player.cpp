@@ -4,6 +4,7 @@
 #include "../utils.hpp"
 #include "movement.hpp"
 #include <box3d/box3d.h>
+#include <box3d/id.h>
 #include <box3d/types.h>
 #include <raylib.h>
 
@@ -114,6 +115,22 @@ void Player::HandlePlayerMovement() {
                                     jumpRayDistance, CollisionCategory::World);
   isGrounded = groundRay.hit.hit;
 
+  SurfaceMoveStats surfaceStats{};
+
+  if (groundRay.hit.hit) {
+    for (const auto &object : _world->GetSceneObjects()) {
+      if (B3_ID_EQUALS(object.shapeId, groundRay.hit.shapeId)) {
+        surfaceStats = GetSurfaceMoveStats(object.material);
+        break;
+      }
+    }
+  }
+  const float effectiveMoveSpeed = moveSpeed * surfaceStats.speedMultiplier;
+  const float effectiveGroundAccel = groundAccel * surfaceStats.accelMultiplier;
+  const float effectiveGroundFriction =
+      groundFriction * surfaceStats.frictionMultiplier;
+  const float effectiveJumpSpeed = jumpSpeed * surfaceStats.jumpMultiplier;
+
   const b3CosSin yawTrig = b3ComputeCosSin(yaw);
   const b3Vec3 forward = {yawTrig.sine, 0.0f, yawTrig.cosine};
   const b3Vec3 right = {yawTrig.cosine, 0.0f, -yawTrig.sine};
@@ -136,13 +153,13 @@ void Player::HandlePlayerMovement() {
   const bool wantsMove = b3LengthSquared(wishMove) > 0.0f;
 
   if (isGrounded) {
-    ApplyFriction(vel, groundFriction, dt);
+    ApplyFriction(vel, effectiveGroundFriction, dt);
 
     if (wantsMove)
-      Accelerate(vel, wishMove, moveSpeed, groundAccel, dt);
+      Accelerate(vel, wishMove, effectiveMoveSpeed, effectiveGroundAccel, dt);
 
     if (IsKeyPressed(KEY_SPACE)) {
-      vel.y = jumpSpeed;
+      vel.y = effectiveJumpSpeed;
       isGrounded = false;
     }
   } else {

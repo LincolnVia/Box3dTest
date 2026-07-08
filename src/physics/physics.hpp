@@ -14,6 +14,48 @@ constexpr uint64_t World = Static | Dynamic;
 constexpr uint64_t All = Static | Dynamic | Player;
 } // namespace CollisionCategory
 
+enum class SurfaceMaterial {
+  Default,
+  SpeedGel,
+  BounceGel,
+  PortalWall,
+  DarkWall,
+  PortalFloor,
+  CompanionCube
+};
+struct SurfaceMoveStats {
+  float speedMultiplier = 1.0f;
+  float jumpMultiplier = 1.0f;
+  float accelMultiplier = 1.0f;
+  float frictionMultiplier = 1.0f;
+};
+inline SurfaceMoveStats GetSurfaceMoveStats(SurfaceMaterial material) {
+  switch (material) {
+  case SurfaceMaterial::Default:
+    return {.speedMultiplier = 1.0f,
+            .jumpMultiplier = 1.0f,
+            .accelMultiplier = 1.0f,
+            .frictionMultiplier = 1.0f};
+  case SurfaceMaterial::SpeedGel:
+    return {.speedMultiplier = 4.55f,
+            .jumpMultiplier = 1.0f,
+            .accelMultiplier = 2.6f,
+            .frictionMultiplier = 0.4f};
+  case SurfaceMaterial::BounceGel:
+    return {.speedMultiplier = 1.0f,
+            .jumpMultiplier = 5.0f,
+            .accelMultiplier = 1.0f,
+            .frictionMultiplier = 1.0f};
+  case SurfaceMaterial::PortalFloor:
+    return {.speedMultiplier = 1.0f,
+            .jumpMultiplier = 1.0f,
+            .accelMultiplier = 1.0f,
+            .frictionMultiplier = 1.0f};
+  default:
+    return {};
+  }
+}
+
 namespace CompanionCubeStats {
 /// Contact grip for the cube. Keep this near the normal 0..1 range; stopping
 /// long floor slides is handled by ground drag instead of extreme friction.
@@ -151,6 +193,7 @@ inline void ApplyVectorDrag(b3BodyId bodyId, b3Vec3 velocity, float drag,
 
 struct BoxDef {
   std::string name;
+  SurfaceMaterial material = SurfaceMaterial::Default;
   b3BodyId bodyId{};
   b3ShapeId shapeId{};
   b3BoxHull hull{};
@@ -165,8 +208,9 @@ struct BoxDef {
  * @return BoxDef
  */
 
-inline BoxDef createStaticObject(b3Vec3 position, b3Vec3 scale,
-                                 b3WorldId worldID) {
+inline BoxDef
+createStaticObject(b3Vec3 position, b3Vec3 scale, b3WorldId worldID,
+                   SurfaceMaterial material = SurfaceMaterial::Default) {
   BoxDef staticObject{};
   b3BodyDef staticBodyDef = b3DefaultBodyDef();
   staticBodyDef.position = b3ToPos(position);
@@ -184,6 +228,7 @@ inline BoxDef createStaticObject(b3Vec3 position, b3Vec3 scale,
       CollisionCategory::Dynamic | CollisionCategory::Player;
   staticObject.shapeId = b3CreateHullShape(staticObject.bodyId, &staticShapeDef,
                                            &staticObject.hull.base);
+  staticObject.material = material;
   return staticObject;
 }
 /**
@@ -197,8 +242,10 @@ inline BoxDef createStaticObject(b3Vec3 position, b3Vec3 scale,
  * @return BoxDef
  */
 
-inline BoxDef createDynamicObject(b3Vec3 position, b3Vec3 scale, float density,
-                                  float friction, b3WorldId worldID) {
+inline BoxDef
+createDynamicObject(b3Vec3 position, b3Vec3 scale, float density,
+                    float friction, b3WorldId worldID,
+                    SurfaceMaterial material = SurfaceMaterial::CompanionCube) {
   BoxDef dynamicObject{};
 
   b3BodyDef bodyDef = b3DefaultBodyDef();
@@ -217,7 +264,7 @@ inline BoxDef createDynamicObject(b3Vec3 position, b3Vec3 scale, float density,
   shapeDef.baseMaterial.friction = friction;
   shapeDef.filter.categoryBits = CollisionCategory::Dynamic;
   shapeDef.filter.maskBits = CollisionCategory::All;
-
+  dynamicObject.material = material;
   dynamicObject.shapeId = b3CreateHullShape(dynamicObject.bodyId, &shapeDef,
                                             &dynamicObject.hull.base);
 

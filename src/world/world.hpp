@@ -29,6 +29,8 @@ private:
   std::vector<cubeBrush> meshs;
   Texture2D grassTex{};
   Texture2D wallTex{};
+  Texture2D speedTex{};
+  Texture2D bounceTex{};
   Model m_cube{};
   Model m_button{};
   Model m_world{};
