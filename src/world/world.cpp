@@ -1,4 +1,5 @@
 #include "world.hpp"
+#include "../Engine/engine.hpp"
 #include "../graphics.hpp"
 #include "cubeBrush.hpp"
 
@@ -12,9 +13,14 @@ enum Materials {
 
 };
 
-World::World() {
+World::World(Engine &engine) : engine(engine) {
   b3WorldDef worldDef = b3DefaultWorldDef();
   worldDef.gravity = b3Vec3{0.0f, -10.0f, 0.0f};
+  worldDef.enableContinuous = true;
+  worldDef.contactHertz = 60.0f;
+  worldDef.contactDampingRatio = 8.0f;
+  worldDef.contactSpeed = 10.0f;
+  worldDef.maximumLinearSpeed = 30.0f;
   worldId = b3CreateWorld(&worldDef);
 
   // Ground Plane
@@ -47,7 +53,7 @@ void World::Init() {
   grassTex = LoadTexture("resources/assets/grass.png");
   wallTex = LoadTexture("resources/textures/Dark/texture_01.png");
   m_cube = LoadModel("resources/models/companion_cube.glb");
-
+  skyBox = createSkybox(engine.shdrCubemap);
   cubeBrush brush = {
       b3WorldTransform{b3ToPos({0.0f, -2.0f, 50.0f}), b3Quat_identity},
       b3Vec3{100.0f, 1.0f, 100.0f}, WHITE};
@@ -61,9 +67,60 @@ World::~World() {
   b3DestroyWorld(worldId);
 }
 
-void World::Update() { b3World_Step(worldId, timeStep, subStepCount); }
+void World::Update() {
+  b3World_Step(worldId, timeStep, subStepCount);
+  ApplyCompanionCubeReleasedTuning();
+}
+
+void World::ApplyCompanionCubeReleasedTuning() {
+  for (auto &object : sceneObjects) {
+    if (object.name != "companion_cube") {
+      continue;
+    }
+
+    // Held cubes have gravity disabled by Player, so leave them fully under the
+    // pickup joint. Ground drag only affects released cubes.
+    if (b3Body_GetGravityScale(object.bodyId) <= 0.0f) {
+      continue;
+    }
+
+    // Player movement is velocity-driven, so a released cube can gain too much
+    // solver energy if it is crushed against a wall. Clamp the free cube every
+    // step, not just when it is dropped.
+    ClampBodyVelocity(object.bodyId, CompanionCubeStats::freeMaxSpeed,
+                      CompanionCubeStats::freeMaxAngularSpeed);
+    ResolveStaticPenetration(object.bodyId, object.shapeId,
+                             CompanionCubeStats::staticPenetrationSlop,
+                             CompanionCubeStats::staticDepenetrationBias);
+
+    b3QueryFilter filter = b3DefaultQueryFilter();
+    filter.maskBits = CollisionCategory::Static;
+
+    const b3RayResult groundHit = b3World_CastRayClosest(
+        worldId, b3Body_GetPosition(object.bodyId),
+        {0.0f, -object.halfExtents.y - CompanionCubeStats::groundCheckDistance,
+         0.0f},
+        filter);
+
+    if (!groundHit.hit) {
+      continue;
+    }
+
+    const b3Vec3 velocity = b3Body_GetLinearVelocity(object.bodyId);
+    const b3Vec3 horizontalVelocity = {velocity.x, 0.0f, velocity.z};
+    ApplyVectorDrag(object.bodyId, horizontalVelocity,
+                    CompanionCubeStats::groundLinearDrag,
+                    CompanionCubeStats::groundStopSpeed, timeStep, true);
+
+    ApplyVectorDrag(object.bodyId, b3Body_GetAngularVelocity(object.bodyId),
+                    CompanionCubeStats::groundAngularDrag,
+                    CompanionCubeStats::groundStopAngularSpeed, timeStep,
+                    false);
+  }
+}
 
 void World::Draw() {
+  DrawSkybox(skyBox);
   for (auto &object : GetSceneObjects()) {
     if (object.name == "ground")
       b3_DrawCubeTex(grassTex, b3Body_GetPosition(object.bodyId),

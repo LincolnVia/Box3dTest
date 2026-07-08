@@ -6,9 +6,11 @@
 #include <raylib.h>
 #include <vector>
 
+class Engine;
+
 class World {
 public:
-  World();
+  explicit World(Engine &engine);
   ~World();
 
   void Init();
@@ -19,15 +21,19 @@ public:
   std::vector<BoxDef> &GetSceneObjects() { return sceneObjects; }
 
 private:
+  void ApplyCompanionCubeReleasedTuning();
+
+  Engine &engine;
   std::vector<cubeBrush> meshs;
   Texture2D grassTex{};
   Texture2D wallTex{};
   Model m_cube{};
   Model m_world{};
+  Model skyBox;
 
   b3WorldId worldId{};
   std::vector<BoxDef> sceneObjects;
 
   float timeStep = 1.0f / 60.0f;
-  int subStepCount = 4;
+  int subStepCount = 8;
 };

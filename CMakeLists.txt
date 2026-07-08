@@ -9,7 +9,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)
-
+set(BUILD_DEBUG ON)
+set(CUSTOMIZE_BUILD OFF CACHE BOOL "Use raylib's default config.h settings" FORCE)
 FetchContent_Declare(
     raylib
     DOWNLOAD_EXTRACT_TIMESTAMP OFF
@@ -18,6 +19,7 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(raylib)
+target_compile_definitions(raylib PRIVATE SUPPORT_FILEFORMAT_HDR=1)
 
 FetchContent_Declare(box3d
     GIT_REPOSITORY https://github.com/erincatto/box3d.git

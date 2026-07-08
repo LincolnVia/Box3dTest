@@ -3,7 +3,7 @@
 #define RLIGHTS_IMPLEMENTATION
 #include "../rlights.h"
 
-Engine::Engine() {
+Engine::Engine() : world(*this) {
   SetConfigFlags(FLAG_MSAA_4X_HINT);
   InitWindow((int)winSize.x, (int)winSize.y, winTitle);
   SetTargetFPS(60);
@@ -12,6 +12,9 @@ Engine::Engine() {
   shader = LoadShader(
       TextFormat("resources/shaders/glsl%i/lighting.vs", GLSL_VERSION),
       TextFormat("resources/shaders/glsl%i/lighting.fs", GLSL_VERSION));
+  shdrCubemap = LoadShader(
+      TextFormat("resources/shaders/glsl%i/cubemap.vs", GLSL_VERSION),
+      TextFormat("resources/shaders/glsl%i/cubemap.fs", GLSL_VERSION));
 
   shader.locs[SHADER_LOC_MATRIX_MODEL] = GetShaderLocation(shader, "matModel");
   shader.locs[SHADER_LOC_VECTOR_VIEW] = GetShaderLocation(shader, "viewPos");
@@ -24,6 +27,15 @@ Engine::Engine() {
   world.Init();
   player.Init(world);
 }
+Engine::~Engine() {
+  std::cout << "Engine Shutting down" << std::endl;
+
+  UnloadShader(shader);
+  UnloadShader(shdrCubemap);
+
+  CloseWindow();
+}
+
 void Engine::Process() {
   while (!WindowShouldClose()) {
     world.Update();
@@ -33,6 +45,7 @@ void Engine::Process() {
     BeginDrawing();
     ClearBackground(BLUE);
     BeginMode3D(player.getCamera());
+
     BeginShaderMode(shader);
     world.Draw();
     player.Render();
@@ -50,20 +63,13 @@ void Engine::Process() {
                         player.getVelocity().x, player.getVelocity().y,
                         player.getVelocity().z),
              10, 50, 20, WHITE);
-    DrawText(TextFormat("Held Object: %s",
-                        player.setHeldObject(nullptr) ? "Yes" : "No"),
-             10, 70, 20, WHITE);
+    DrawText(
+        TextFormat("Held Object: %s", player.getHeldObject() ? "Yes" : "No"),
+        10, 70, 20, WHITE);
     DrawText(TextFormat("Held Object Cooldown: %.2f",
                         *player.getHeldObjectCooldown()),
              10, 90, 20, WHITE);
     // debugger.Render();
     EndDrawing();
   }
-}
-
-Engine::~Engine() {
-  std::cout << "Engine Shutting down" << std::endl;
-
-  UnloadShader(shader);
-  CloseWindow();
 }
