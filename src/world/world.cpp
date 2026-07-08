@@ -53,14 +53,7 @@ World::World(Engine &engine) : engine(engine) {
 }
 
 void World::Init() {
-  m_world = LoadModel("resources/scenes/level_01.obj");
-  grassTex = LoadTexture("resources/assets/grass.png");
-  wallTex = LoadTexture("resources/textures/Dark/texture_01.png");
-  bounceTex = LoadTexture("resources/textures/bounce.png");
-  speedTex = LoadTexture("resources/textures/speed.png");
 
-  m_cube = LoadModel("resources/models/scene.gltf");
-  m_button = LoadModel("resources/models/button.gltf");
   skyBox = createSkybox(engine.shdrCubemap);
   cubeBrush brush = {
       b3WorldTransform{b3ToPos({0.0f, -2.0f, 50.0f}), b3Quat_identity},
@@ -69,11 +62,7 @@ void World::Init() {
   meshs.push_back(brush);
 }
 
-World::~World() {
-  UnloadTexture(grassTex);
-  UnloadModel(m_cube);
-  b3DestroyWorld(worldId);
-}
+World::~World() { b3DestroyWorld(worldId); }
 
 void World::Update() {
   b3World_Step(worldId, timeStep, subStepCount);
@@ -126,41 +115,38 @@ void World::ApplyCompanionCubeReleasedTuning() {
                     false);
   }
 }
-
-void World::Draw() {
-  DrawSkybox(skyBox);
+void World::DrawGameObjects() {
   for (auto &object : GetSceneObjects()) {
     if (object.material == SurfaceMaterial::Default)
-      b3_DrawCubeTex(grassTex, b3Body_GetPosition(object.bodyId),
-                     object.halfExtents, WHITE);
+      b3_DrawCubeTex(engine.getAssetManager().getTexture("ground"),
+                     b3Body_GetPosition(object.bodyId), object.halfExtents,
+                     WHITE);
     if (object.material == SurfaceMaterial::PortalWall)
-      b3_DrawCubeTex(wallTex, b3Body_GetPosition(object.bodyId),
-                     object.halfExtents, WHITE);
+      b3_DrawCubeTex(engine.getAssetManager().getTexture("wall"),
+                     b3Body_GetPosition(object.bodyId), object.halfExtents,
+                     WHITE);
 
     if (object.name == "companion_cube")
-      b3_DrawModel(m_cube,
+      b3_DrawModel(engine.getAssetManager().getModel("companionCube"),
                    B3WorldTransformToMatrix(b3Body_GetTransform(object.bodyId),
                                             object.halfExtents));
     if (object.material == SurfaceMaterial::SpeedGel)
-      b3_DrawCubeTex(speedTex, b3Body_GetPosition(object.bodyId),
-                     object.halfExtents, WHITE);
+      b3_DrawCubeTex(engine.getAssetManager().getTexture("speedGel"),
+                     b3Body_GetPosition(object.bodyId), object.halfExtents,
+                     WHITE);
     if (object.material == SurfaceMaterial::BounceGel)
-      b3_DrawCubeTex(bounceTex, b3Body_GetPosition(object.bodyId),
-                     object.halfExtents, WHITE);
+      b3_DrawCubeTex(engine.getAssetManager().getTexture("bounceGel"),
+                     b3Body_GetPosition(object.bodyId), object.halfExtents,
+                     WHITE);
   }
-
   for (auto &object : GetSceneButtons()) {
-    b3_DrawModel(m_button, B3WorldTransformToMatrix(
-                               b3Body_GetTransform(object.colliderInfo.bodyId),
-                               object.scale));
+    b3_DrawModel(
+        engine.getAssetManager().getModel("storageCube"),
+        B3WorldTransformToMatrix(
+            b3Body_GetTransform(object.colliderInfo.bodyId), object.scale));
   }
-
-  // const b3WorldTransform t = b3Body_GetTransform(companionCube.bodyId);
-  // const b3Vec3 renderScale = {companionCube.halfExtents.x * 1.0f,
-  //                            companionCube.halfExtents.y * 1.0f,
-  //                            companionCube.halfExtents.z * 1.0f};
-
-  // b3_DrawModel(m_cube, B3WorldTransformToMatrix(t, renderScale));
-  //  DrawModel(m_world,{0,0,0},.05   ,WHITE);
-  // DrawBoxWireframe(t, companionCube.halfExtents, RED);
+}
+void World::Draw() {
+  DrawSkybox(skyBox);
+  DrawGameObjects();
 }

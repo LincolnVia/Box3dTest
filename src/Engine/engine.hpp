@@ -4,6 +4,8 @@
 #include "../Debug/debugger.hpp"
 #include "../player/player.hpp"
 #include "../world/world.hpp"
+#include "assetManager.hpp"
+
 #include <cstdio>
 #include <iostream>
 #include <ostream>
@@ -24,10 +26,12 @@ public:
   Shader shdrCubemap = {};
   Vector4 ambient = {1.0f, 1.0f, 1.0f, 1.0f};
   Engine();
+  AssetManager &getAssetManager() { return assetManager; }
   void Process();
   ~Engine();
 
 private:
+  AssetManager assetManager;
   Player player;
   Debugger debugger;
   World world;

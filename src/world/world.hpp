@@ -17,7 +17,7 @@ public:
   void Init();
   void Update();
   void Draw();
-
+  void DrawGameObjects();
   b3WorldId GetWorldId() const { return worldId; }
   std::vector<BoxDef> &GetSceneObjects() { return sceneObjects; }
   std::vector<PhysicsButton> &GetSceneButtons() { return sceneButtonsObjects; }
@@ -27,13 +27,7 @@ private:
 
   Engine &engine;
   std::vector<cubeBrush> meshs;
-  Texture2D grassTex{};
-  Texture2D wallTex{};
-  Texture2D speedTex{};
-  Texture2D bounceTex{};
-  Model m_cube{};
-  Model m_button{};
-  Model m_world{};
+
   Model skyBox;
 
   b3WorldId worldId{};

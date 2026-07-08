@@ -23,7 +23,7 @@ Engine::Engine() : world(*this) {
   SetShaderValue(shader, ambientLoc, &ambient, SHADER_UNIFORM_VEC4);
 
   CreateLight(LIGHT_DIRECTIONAL, {0, 0, 0}, {-1, 0, -1}, WHITE, shader);
-
+  assetManager.Init();
   world.Init();
   player.Init(world);
 }
