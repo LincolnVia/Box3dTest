@@ -19,7 +19,7 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(raylib)
-target_compile_definitions(raylib PRIVATE SUPPORT_FILEFORMAT_HDR=1)
+target_compile_definitions(raylib PRIVATE SUPPORT_FILEFORMAT_HDR=1 SUPPORT_FILEFORMAT_JPG=1)
 
 FetchContent_Declare(box3d
     GIT_REPOSITORY https://github.com/erincatto/box3d.git

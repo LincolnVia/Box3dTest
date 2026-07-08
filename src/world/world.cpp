@@ -41,6 +41,9 @@ World::World(Engine &engine) : engine(engine) {
                           CompanionCubeStats::friction, worldId));
   sceneObjects[5].name = "companion_cube";
 
+  sceneButtonsObjects.push_back(
+      createPhysicsButton({5, 0.3, 0}, worldId, 1, 1));
+
   // END
 
   // Dynamic Box
@@ -52,7 +55,8 @@ void World::Init() {
   m_world = LoadModel("resources/scenes/level_01.obj");
   grassTex = LoadTexture("resources/assets/grass.png");
   wallTex = LoadTexture("resources/textures/Dark/texture_01.png");
-  m_cube = LoadModel("resources/models/companion_cube.glb");
+  m_cube = LoadModel("resources/models/scene.gltf");
+  m_button = LoadModel("resources/models/button.gltf");
   skyBox = createSkybox(engine.shdrCubemap);
   cubeBrush brush = {
       b3WorldTransform{b3ToPos({0.0f, -2.0f, 50.0f}), b3Quat_identity},
@@ -133,6 +137,11 @@ void World::Draw() {
       b3_DrawModel(m_cube,
                    B3WorldTransformToMatrix(b3Body_GetTransform(object.bodyId),
                                             object.halfExtents));
+  }
+  for (auto &object : GetSceneButtons()) {
+    b3_DrawModel(m_button, B3WorldTransformToMatrix(
+                               b3Body_GetTransform(object.colliderInfo.bodyId),
+                               object.scale));
   }
 
   // const b3WorldTransform t = b3Body_GetTransform(companionCube.bodyId);
