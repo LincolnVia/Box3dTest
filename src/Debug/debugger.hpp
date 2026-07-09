@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../world/world.hpp"
-#include <rlimgui.h>
+#include <rlImGui.h>
 
 
 class Debugger {
