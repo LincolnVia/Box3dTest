@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/global.hpp"
+#include "Engine/global.hpp"
 #include "graphics.hpp"
 #include "world/world.hpp"
 #include <box3d/box3d.h>
