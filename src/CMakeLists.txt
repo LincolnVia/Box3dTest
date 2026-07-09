@@ -1,5 +1,31 @@
-file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS *.cpp)
-file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS *.hpp)
+target_sources(Box3dEngine
+    PRIVATE
+        Engine/assetManager.hpp
+        Engine/engine.cpp
+        Engine/engine.hpp
+        Engine/global.hpp
+        graphics.hpp
+        physics/physics.hpp
+        physics/physicsButton.hpp
+        player/movement.hpp
+        player/player.cpp
+        player/player.hpp
+        utils.hpp
+        world/cubeBrush.hpp
+        world/world.cpp
+        world/world.hpp
+)
 
-target_sources(${PROJECT_NAME} PRIVATE ${SOURCE_FILES} ${HEADER_FILES}
+target_sources(Box3dGame
+    PRIVATE
+        Game/main.cpp
+)
+
+target_sources(Box3dEditor
+    PRIVATE
+        Debug/debugger.cpp
+        Debug/debugger.hpp
+        Editor/editor.cpp
+        Editor/editor.hpp
+        Editor/main.cpp
 )

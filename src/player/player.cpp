@@ -31,7 +31,7 @@ void Player::CreatePhysicsBody() {
       b3CreateHullShape(collider.bodyId, &shapeDef, &collider.hull.base);
 }
 
-void Player::Init(World &world) {
+void Player::Init(World &world, bool captureCursor) {
   _world = &world;
 
   CreatePhysicsBody();
@@ -42,7 +42,11 @@ void Player::Init(World &world) {
   camera.fovy = 60.0f;
   camera.projection = CAMERA_PERSPECTIVE;
 
-  DisableCursor();
+  if (captureCursor) {
+    DisableCursor();
+  } else {
+    EnableCursor();
+  }
 
   gunModel = LoadModel("resources/models/portalgun.gltf");
 

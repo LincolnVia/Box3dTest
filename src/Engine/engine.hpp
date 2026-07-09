@@ -1,12 +1,12 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "../Debug/debugger.hpp"
 #include "../player/player.hpp"
 #include "../world/world.hpp"
 #include "assetManager.hpp"
 
 #include <cstdio>
+#include <functional>
 #include <iostream>
 #include <ostream>
 #include <raylib.h>
@@ -25,15 +25,18 @@ public:
   Shader shader = {};
   Shader shdrCubemap = {};
   Vector4 ambient = {1.0f, 1.0f, 1.0f, 1.0f};
-  Engine();
+  explicit Engine(const char *title = "Box3D", bool enablePlayerInput = true);
   AssetManager &getAssetManager() { return assetManager; }
+  World &getWorld() { return world; }
+  bool ShouldClose() const;
   void Process();
+  void ProcessFrame(const std::function<void()> &drawOverlay = nullptr);
   ~Engine();
 
 private:
+  bool enablePlayerInput = true;
   AssetManager assetManager;
   Player player;
-  Debugger debugger;
   World world;
 };
 

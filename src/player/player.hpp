@@ -9,7 +9,7 @@ public:
   Player() = default;
   ~Player();
 
-  void Init(World &world);
+  void Init(World &world, bool captureCursor = true);
   void CreatePhysicsBody();
 
   void Input();

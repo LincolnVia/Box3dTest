@@ -73,22 +73,22 @@ target_link_libraries(rlImGui PUBLIC raylib)
 
 
 
-add_executable(${PROJECT_NAME})
+add_library(Box3dEngine STATIC)
+add_executable(Box3dGame)
+add_executable(Box3dEditor)
 add_subdirectory(src)
 
+target_link_libraries(Box3dEngine PUBLIC raylib box3d::box3d)
+target_link_libraries(Box3dGame PRIVATE Box3dEngine)
+target_link_libraries(Box3dEditor PRIVATE Box3dEngine imgui rlImGui)
 
+function(copy_resources TARGET_NAME)
+    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/resources
+        $<TARGET_FILE_DIR:${TARGET_NAME}>/resources
+    )
+endfunction()
 
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/resources
-    $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
-)
-add_custom_command(
-    TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND $<TARGET_FILE:${PROJECT_NAME}>
-    WORKING_DIRECTORY $<TARGET_FILE_DIR:${PROJECT_NAME}>
-    COMMENT "Auto-launching executable..."
-)
-
-
-target_link_libraries(${PROJECT_NAME} PRIVATE raylib box3d::box3d imgui rlImGui)
+copy_resources(Box3dGame)
+copy_resources(Box3dEditor)
