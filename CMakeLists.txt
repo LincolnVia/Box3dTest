@@ -32,7 +32,7 @@ FetchContent_MakeAvailable(box3d)
 FetchContent_Declare(
     imgui
     GIT_REPOSITORY https://github.com/ocornut/imgui
-    GIT_BRANCH docking
+    GIT_TAG docking
 )
 
 FetchContent_MakeAvailable(imgui)
