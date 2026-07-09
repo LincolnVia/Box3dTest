@@ -1,4 +1,5 @@
 #include "engine.hpp"
+#include <iostream>
 #include <raylib.h>
 #define RLIGHTS_IMPLEMENTATION
 #include "../rlights.h"
@@ -8,30 +9,14 @@ Engine::Engine(const char *title, bool enablePlayerInput)
   SetConfigFlags(FLAG_MSAA_4X_HINT);
   InitWindow((int)winSize.x, (int)winSize.y, winTitle);
   SetTargetFPS(60);
-
-  shader = LoadShader(
-      TextFormat("resources/shaders/glsl%i/lighting.vs", GLSL_VERSION),
-      TextFormat("resources/shaders/glsl%i/lighting.fs", GLSL_VERSION));
-  shdrCubemap = LoadShader(
-      TextFormat("resources/shaders/glsl%i/cubemap.vs", GLSL_VERSION),
-      TextFormat("resources/shaders/glsl%i/cubemap.fs", GLSL_VERSION));
-
-  shader.locs[SHADER_LOC_MATRIX_MODEL] = GetShaderLocation(shader, "matModel");
-  shader.locs[SHADER_LOC_VECTOR_VIEW] = GetShaderLocation(shader, "viewPos");
-
-  int ambientLoc = GetShaderLocation(shader, "ambient");
-  SetShaderValue(shader, ambientLoc, &ambient, SHADER_UNIFORM_VEC4);
-
-  CreateLight(LIGHT_DIRECTIONAL, {0, 0, 0}, {-1, 0, -1}, WHITE, shader);
+  shaderManager.Init();
   assetManager.Init();
+
   world.Init();
   player.Init(world, enablePlayerInput);
 }
 Engine::~Engine() {
   std::cout << "Engine Shutting down" << std::endl;
-
-  UnloadShader(shader);
-  UnloadShader(shdrCubemap);
 
   CloseWindow();
 }
@@ -55,14 +40,14 @@ void Engine::ProcessFrame(const std::function<void()> &drawOverlay) {
   ClearBackground(BLUE);
   BeginMode3D(player.getCamera());
 
-  BeginShaderMode(shader);
+  BeginShaderMode(shaderManager.getShader("lighting"));
   world.Draw();
   player.Render();
 
   EndShaderMode();
   EndMode3D();
 
-  BeginShaderMode(shader);
+  BeginShaderMode(shaderManager.getShader("lighting"));
   player.RenderGun();
   EndShaderMode();
 

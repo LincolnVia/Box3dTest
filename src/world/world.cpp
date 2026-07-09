@@ -3,6 +3,7 @@
 #include "../graphics.hpp"
 #include "cubeBrush.hpp"
 
+#include "../rlights.h"
 #include "../utils.hpp"
 #include <box3d/box3d.h>
 #include <box3d/math_functions.h>
@@ -54,7 +55,9 @@ World::World(Engine &engine) : engine(engine) {
 
 void World::Init() {
 
-  skyBox = createSkybox(engine.shdrCubemap);
+  skyBox = createSkybox(engine.getShaderManager().getShader("cubemap"));
+  CreateLight(LIGHT_DIRECTIONAL, {0, 0, 0}, {-1, 0, -1}, WHITE,
+              engine.getShaderManager().getShader("lighting"));
   cubeBrush brush = {
       b3WorldTransform{b3ToPos({0.0f, -2.0f, 50.0f}), b3Quat_identity},
       b3Vec3{100.0f, 1.0f, 100.0f}, WHITE};

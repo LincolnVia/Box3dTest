@@ -4,6 +4,7 @@ target_sources(Box3dEngine
         Engine/engine.cpp
         Engine/engine.hpp
         Engine/global.hpp
+        Engine/shaderManager.hpp
         graphics.hpp
         physics/physics.hpp
         physics/physicsButton.hpp

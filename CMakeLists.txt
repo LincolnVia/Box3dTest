@@ -76,6 +76,7 @@ target_link_libraries(rlImGui PUBLIC raylib)
 add_library(Box3dEngine STATIC)
 add_executable(Box3dGame)
 add_executable(Box3dEditor)
+add_custom_target(${PROJECT_NAME} DEPENDS Box3dGame)
 add_subdirectory(src)
 
 target_link_libraries(Box3dEngine PUBLIC raylib box3d::box3d)
