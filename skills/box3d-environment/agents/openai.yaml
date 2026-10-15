@@ -1,0 +1,4 @@
+interface:
+  display_name: "Box3D Environment"
+  short_description: "Set up and verify the Box3dTest workspace"
+  default_prompt: "Use $box3d-environment to set up and verify this Box3dTest coding environment."

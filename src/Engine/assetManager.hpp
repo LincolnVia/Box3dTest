@@ -17,7 +17,6 @@ public:
     LoadTextureToStorage("speedGel", "resources/textures/speed.png");
 
     LoadModelToStorage("companionCube", "resources/models/scene.gltf");
-    LoadModelToStorage("storageCube", "resources/models/button.gltf");
   }
   ~AssetManager() {
     for (auto &m : models) {

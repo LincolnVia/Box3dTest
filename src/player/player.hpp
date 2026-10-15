@@ -23,6 +23,7 @@ public:
   void PickupPhysicsObject();
 
   void RenderGun();
+  void Teleport(Vector3 position);
 
   // Getter Setters for player variables
   b3Pos getPosition() const { return b3Body_GetPosition(collider.bodyId); }

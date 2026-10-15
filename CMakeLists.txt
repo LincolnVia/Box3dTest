@@ -28,6 +28,12 @@ FetchContent_Declare(box3d
 
 FetchContent_MakeAvailable(box3d)
 
+if(MINGW)
+    target_include_directories(box3d PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/windows-compat
+    )
+endif()
+
 
 FetchContent_Declare(
     imgui
@@ -78,6 +84,13 @@ add_executable(Box3dGame)
 add_executable(Box3dEditor)
 add_custom_target(${PROJECT_NAME} DEPENDS Box3dGame)
 add_subdirectory(src)
+
+option(BOX3D_STATIC_GCC_RUNTIME "Statically link the GCC runtime into Windows executables" ON)
+
+if(MINGW AND BOX3D_STATIC_GCC_RUNTIME)
+    target_link_options(Box3dGame PRIVATE -static -static-libgcc -static-libstdc++)
+    target_link_options(Box3dEditor PRIVATE -static -static-libgcc -static-libstdc++)
+endif()
 
 target_link_libraries(Box3dEngine PUBLIC raylib box3d::box3d)
 target_link_libraries(Box3dGame PRIVATE Box3dEngine)

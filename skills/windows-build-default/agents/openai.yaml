@@ -1,0 +1,4 @@
+interface:
+  display_name: "Windows Build Default"
+  short_description: "Make Windows the default project build target"
+  default_prompt: "Use $windows-build-default to configure this coding project to build for Windows by default."
