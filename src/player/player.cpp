@@ -59,6 +59,15 @@ void Player::Init(World &world, bool captureCursor) {
   gunCamera.projection = CAMERA_PERSPECTIVE;
 }
 Player::~Player() { UnloadModel(gunModel); }
+
+void Player::Teleport(Vector3 position) {
+  b3Body_SetTransform(collider.bodyId,
+                      b3ToPos({position.x, position.y, position.z}),
+                      b3Quat_identity);
+  b3Body_SetLinearVelocity(collider.bodyId, b3Vec3_zero);
+  b3Body_SetAngularVelocity(collider.bodyId, b3Vec3_zero);
+}
+
 void Player::Input() {
   HandleCameraLook();
   PickupPhysicsObject();

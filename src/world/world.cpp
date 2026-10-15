@@ -43,9 +43,6 @@ World::World(Engine &engine) : engine(engine) {
       CompanionCubeStats::friction, worldId, SurfaceMaterial::CompanionCube));
   sceneObjects[4].name = "companion_cube";
 
-  sceneButtonsObjects.push_back(
-      createPhysicsButton({5, 0.3, 0}, worldId, 1, 1));
-
   // END
 
   // Dynamic Box
@@ -65,7 +62,35 @@ void World::Init() {
   meshs.push_back(brush);
 }
 
-World::~World() { b3DestroyWorld(worldId); }
+void World::Shutdown() {
+  if (isShutdown) {
+    return;
+  }
+  quakeLevel.Unload();
+  b3DestroyWorld(worldId);
+  worldId = b3_nullWorldId;
+  isShutdown = true;
+}
+
+World::~World() { Shutdown(); }
+
+bool World::LoadBspLevel(const std::filesystem::path &path) {
+  std::string error;
+  if (!quakeLevel.Load(path, worldId, error)) {
+    bspStatus = "BSP load failed: " + error;
+    TraceLog(LOG_ERROR, "%s", bspStatus.c_str());
+    return false;
+  }
+
+  bspStatus =
+      TextFormat("%s (%d collision triangles)", quakeLevel.GetPath().c_str(),
+                 quakeLevel.GetTriangleCount());
+  for (BoxDef &object : sceneObjects) {
+    b3Body_Disable(object.bodyId);
+  }
+  TraceLog(LOG_INFO, "Loaded BSP level: %s", bspStatus.c_str());
+  return true;
+}
 
 void World::Update() {
   b3World_Step(worldId, timeStep, subStepCount);
@@ -75,6 +100,9 @@ void World::Update() {
 void World::ApplyCompanionCubeReleasedTuning() {
   for (auto &object : sceneObjects) {
     if (object.name != "companion_cube") {
+      continue;
+    }
+    if (!b3Body_IsEnabled(object.bodyId)) {
       continue;
     }
 
@@ -119,6 +147,9 @@ void World::ApplyCompanionCubeReleasedTuning() {
   }
 }
 void World::DrawGameObjects() {
+  if (quakeLevel.IsLoaded()) {
+    return;
+  }
   for (auto &object : GetSceneObjects()) {
     if (object.material == SurfaceMaterial::Default)
       b3_DrawCubeTex(engine.getAssetManager().getTexture("ground"),
@@ -142,14 +173,9 @@ void World::DrawGameObjects() {
                      b3Body_GetPosition(object.bodyId), object.halfExtents,
                      WHITE);
   }
-  for (auto &object : GetSceneButtons()) {
-    b3_DrawModel(
-        engine.getAssetManager().getModel("storageCube"),
-        B3WorldTransformToMatrix(
-            b3Body_GetTransform(object.colliderInfo.bodyId), object.scale));
-  }
 }
 void World::Draw() {
   DrawSkybox(skyBox);
+  quakeLevel.Draw(engine.getShaderManager().getShader("lighting"));
   DrawGameObjects();
 }

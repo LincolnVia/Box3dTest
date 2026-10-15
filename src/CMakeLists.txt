@@ -7,12 +7,14 @@ target_sources(Box3dEngine
         Engine/shaderManager.hpp
         graphics.hpp
         physics/physics.hpp
-        physics/physicsButton.hpp
         player/movement.hpp
         player/player.cpp
         player/player.hpp
         utils.hpp
         world/cubeBrush.hpp
+        world/quakeBsp.cpp
+        world/quakeBsp.hpp
+        world/quakePalette.hpp
         world/world.cpp
         world/world.hpp
 )

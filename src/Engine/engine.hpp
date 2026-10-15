@@ -7,6 +7,7 @@
 #include "shaderManager.hpp"
 
 #include <cstdio>
+#include <filesystem>
 #include <functional>
 #include <iostream>
 #include <ostream>
@@ -23,6 +24,7 @@ public:
   ShaderManager &getShaderManager() { return shaderManager; }
   World &getWorld() { return world; }
   bool ShouldClose() const;
+  bool LoadBspLevel(const std::filesystem::path &path);
   void Process();
   void ProcessFrame(const std::function<void()> &drawOverlay = nullptr);
   ~Engine();

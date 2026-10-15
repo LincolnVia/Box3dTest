@@ -1,0 +1,60 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 4,
+    "minor": 2,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "windows-dev",
+      "displayName": "Windows development (MinGW-w64)",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/windows-dev",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/mingw-w64-x86_64.cmake",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "dev",
+      "displayName": "Native development",
+      "binaryDir": "${sourceDir}/build/dev",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "windows-dev",
+      "configurePreset": "windows-dev"
+    },
+    {
+      "name": "windows-game",
+      "configurePreset": "windows-dev",
+      "targets": ["Box3dGame"]
+    },
+    {
+      "name": "windows-editor",
+      "configurePreset": "windows-dev",
+      "targets": ["Box3dEditor"]
+    },
+    {
+      "name": "dev",
+      "configurePreset": "dev"
+    },
+    {
+      "name": "game",
+      "configurePreset": "dev",
+      "targets": ["Box3dGame"]
+    },
+    {
+      "name": "editor",
+      "configurePreset": "dev",
+      "targets": ["Box3dEditor"]
+    }
+  ]
+}

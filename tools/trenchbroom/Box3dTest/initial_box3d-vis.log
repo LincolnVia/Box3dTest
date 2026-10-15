@@ -1,0 +1,13 @@
+---- vis / ericw-tools 2.0.0-alpha11 ----
+
+--- Options Summary ---
+
+LoadBSPFile: '\\wsl.localhost\Ubuntu\home\lincoln_via\projects\Box3dTest\tools\trenchbroom\Box3dTest/initial_box3d.bsp'
+BSP is version Quake BSP bsp29
+INFO: using built-in palette.
+Loading extended texinfo flags from \\wsl.localhost\Ubuntu\home\lincoln_via\projects\Box3dTest\tools\trenchbroom\Box3dTest/initial_box3d.texinfo.json...
+************ ERROR ************
+LoadPrtFile: unknown header/empty portal file \\wsl.localhost\Ubuntu\home\lincoln_via\projects\Box3dTest\tools\trenchbroom\Box3dTest/initial_box3d.prt
+
+
+

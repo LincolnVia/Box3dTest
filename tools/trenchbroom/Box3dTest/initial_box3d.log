@@ -1,0 +1,90 @@
+---- qbsp / ericw-tools 2.0.0-alpha11 ----
+
+--- Options Summary ---
+    "notex" was set to "1" (from command line)
+    "missing_textures_as_zero_size" was set to "1" (from command line)
+
+Input file: \\wsl.localhost\Ubuntu\home\lincoln_via\projects\Box3dTest\tools\trenchbroom\Box3dTest\initial_box3d-compile.map
+Output file: \\wsl.localhost\Ubuntu\home\lincoln_via\projects\Box3dTest\tools\trenchbroom\Box3dTest\initial_box3d.bsp
+
+INFO: using built-in palette.
+WARNING: No wad or _wad key exists in the worldmodel
+     3 entities
+     4 unique textures
+    23 texinfos
+    46 unique planes
+
+INFO: world extents calculated to 3208 units
+     5 brushes
+    31 sides
+
+            0 texture frames added
+WARNING: unable to find texture skip
+WARNING: unable to find texture grass
+WARNING: unable to find texture road2
+WARNING: unable to find texture barbage_container
+WARNING: texture barbage_container name too long for Quake miptex
+Processing hull 0...
+    5 SOLID brushes
+    5 brushes total
+    31 visible sides
+INFO: calculating BSP for 5 brushes with 31 sides
+     5 brushes
+    31 visible faces
+    46 nodes
+    20 expensive split nodes
+    26 mid-split nodes
+    47 leaves
+    32 EMPTY leafs
+    15 SOLID leafs
+    47 leafs total
+    14 max tree height
+     8 avg tree height
+    223 tree portals
+WARNING: Reached occupant "info_player_start" at (0 0 32), no filling performed.
+Leak file written to \\wsl.localhost\Ubuntu\home\lincoln_via\projects\Box3dTest\tools\trenchbroom\Box3dTest/initial_box3d.pts
+            3 portals written to \\wsl.localhost\Ubuntu\home\lincoln_via\projects\Box3dTest\tools\trenchbroom\Box3dTest/initial_box3d.leak.prt
+    223 tree portals
+    120 sides visible
+     60 makefaces
+      9 merged
+    280 subdivided
+    1 nodes pruned
+    32 EMPTY leafs
+    14 SOLID leafs
+    46 leafs total
+    14 max tree height
+     8 avg tree height
+    164 edges added by tjunctions
+    330 faces optimized through MWT
+    823 triangles computed from MWT
+     28 faces created via optimization of MWT triangles
+    771 edges
+    359 faces
+Processing hull 1...
+WARNING: Reached occupant "info_player_start" at (0 0 32), no filling performed.
+Processing hull 2...
+WARNING: Reached occupant "info_player_start" at (0 0 32), no filling performed.
+Writing \\wsl.localhost\Ubuntu\home\lincoln_via\projects\Box3dTest\tools\trenchbroom\Box3dTest/initial_box3d.bsp as Quake BSP bsp29
+Wrote \\wsl.localhost\Ubuntu\home\lincoln_via\projects\Box3dTest\tools\trenchbroom\Box3dTest/initial_box3d.bsp
+
+count   lump name    byte size 
+      1 models               64
+     65 planes             1300
+    416 vertexes           4992
+     45 nodes              1080
+     22 texinfos            880
+    359 faces              7180
+    165 clipnodes          1320
+     33 leafs               924
+    362 marksurfaces        724
+    772 edges              3088
+   1542 surfedges          6168
+      4 textures            180
+        lightdata             0
+        visdata               0
+        entdata             153
+
+0.057s seconds elapsed
+
+
