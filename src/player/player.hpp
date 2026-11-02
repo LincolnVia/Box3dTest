@@ -22,7 +22,8 @@ public:
 
   void PickupPhysicsObject();
 
-  void RenderGun();
+  void RenderGunTexture();
+  void DrawGun(int width, int height);
   void Teleport(Vector3 position);
 
   // Getter Setters for player variables

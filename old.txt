@@ -1,0 +1,51 @@
+
+void World::ApplyCompanionCubeReleasedTuning() {
+  for (auto &object : sceneObjects) {
+    if (object.name != "companion_cube") {
+      continue;
+    }
+    if (!b3Body_IsEnabled(object.bodyId)) {
+      continue;
+    }
+
+    // Held cubes have gravity disabled by Player, so leave them fully under the
+    // pickup joint. Ground drag only affects released cubes.
+    if (b3Body_GetGravityScale(object.bodyId) <= 0.0f) {
+      continue;
+    }
+
+    // Player movement is velocity-driven, so a released cube can gain too much
+    // solver energy if it is crushed against a wall. Clamp the free cube every
+    // step, not just when it is dropped.
+    ClampBodyVelocity(object.bodyId, CompanionCubeStats::freeMaxSpeed,
+                      CompanionCubeStats::freeMaxAngularSpeed);
+    ResolveStaticPenetration(object.bodyId, object.shapeId,
+                             CompanionCubeStats::staticPenetrationSlop,
+                             CompanionCubeStats::staticDepenetrationBias);
+
+    b3QueryFilter filter = b3DefaultQueryFilter();
+    filter.maskBits = CollisionCategory::Static;
+
+    const b3RayResult groundHit = b3World_CastRayClosest(
+        worldId, b3Body_GetPosition(object.bodyId),
+        {0.0f, -object.halfExtents.y - CompanionCubeStats::groundCheckDistance,
+         0.0f},
+        filter);
+
+    if (!groundHit.hit) {
+      continue;
+    }
+
+    const b3Vec3 velocity = b3Body_GetLinearVelocity(object.bodyId);
+    const b3Vec3 horizontalVelocity = {velocity.x, 0.0f, velocity.z};
+    ApplyVectorDrag(object.bodyId, horizontalVelocity,
+                    CompanionCubeStats::groundLinearDrag,
+                    CompanionCubeStats::groundStopSpeed, timeStep, true);
+
+    ApplyVectorDrag(object.bodyId, b3Body_GetAngularVelocity(object.bodyId),
+                    CompanionCubeStats::groundAngularDrag,
+                    CompanionCubeStats::groundStopAngularSpeed, timeStep,
+                    false);
+  }
+}
+

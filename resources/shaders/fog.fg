@@ -1,0 +1,50 @@
+#version 330
+
+// Input vertex attributes (from the PSX vertex shader)
+in vec2 fragTexCoord;
+in vec4 fragColor;
+
+// Input uniform values
+uniform sampler2D texture0;
+uniform vec4 colDiffuse;
+
+// Custom fog uniform values
+uniform vec4 fogColor;
+uniform float fogDensity;
+
+// Output fragment color
+out vec4 finalColor;
+
+void main()
+{
+    // 1. Recover original W component for Affine Texture Mapping
+    // The vertex shader passed fragColor.a pre-multiplied by W.
+    float perspectiveW = fragColor.a;
+
+    // Reconstruct un-corrected texture coordinates
+    vec2 affineTexCoord = fragTexCoord / perspectiveW;
+
+    // Sample the texel using the warped coordinates
+    vec4 texelColor = texture(texture0, affineTexCoord);
+    
+    // Reverse the W multiplier on the base color to get the true vertex color
+    vec4 baseColor = (fragColor / perspectiveW) * colDiffuse * texelColor;
+
+    // 2. Distance Fog Calculation
+    // perspectiveW inherently acts as a linear depth factor (distance from screen plane).
+    // You can also use it to approximate the distance for the fog.
+    float depth = perspectiveW;
+
+    // Exponential fog calculation: e^(-(distance * density)^2)
+    float fogFactor = 1.0 / exp(pow((depth * fogDensity), 2.0));
+    
+    // Clamp the factor between 0.0 (full fog) and 1.0 (no fog)
+    fogFactor = clamp(fogFactor, 0.0, 1.0);
+
+    // Mix the warped base color with the fog color
+    vec3 mixedColor = mix(fogColor.rgb, baseColor.rgb, fogFactor);
+
+    // Output final color with original texture transparency
+    finalColor = vec4(mixedColor, baseColor.a);
+}
+

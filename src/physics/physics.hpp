@@ -1,5 +1,6 @@
 #pragma once
 
+#include "raylib.h"
 #include <box3d/box3d.h>
 #include <box3d/math_functions.h>
 #include <cstdint>
@@ -55,33 +56,6 @@ inline SurfaceMoveStats GetSurfaceMoveStats(SurfaceMaterial material) {
     return {};
   }
 }
-
-namespace CompanionCubeStats {
-/// Contact grip for the cube. Keep this near the normal 0..1 range; stopping
-/// long floor slides is handled by ground drag instead of extreme friction.
-constexpr float friction = 0.9f;
-constexpr float density = 10.0f;
-/// Extra distance below the cube used to decide if floor drag should run.
-constexpr float groundCheckDistance = 0.2f;
-/// Horizontal speed removed per second while the released cube is on the floor.
-constexpr float groundLinearDrag = 14.0f;
-/// Spin speed removed per second while the released cube is on the floor.
-constexpr float groundAngularDrag = 20.0f;
-/// Horizontal speed below this value snaps to zero to stop tiny floor skating.
-constexpr float groundStopSpeed = 0.35f;
-/// Spin speed below this value snaps to zero to stop slow endless tumbling.
-constexpr float groundStopAngularSpeed = 0.8f;
-/// Maximum linear speed for a released cube after any physics step. This caps
-/// wall/player squeeze energy without making the cube harder to pick up.
-constexpr float freeMaxSpeed = 8.0f;
-/// Maximum spin speed for a released cube after any physics step.
-constexpr float freeMaxAngularSpeed = 18.0f;
-/// Allowed overlap with static walls before the cube is nudged back out.
-constexpr float staticPenetrationSlop = 0.03f;
-/// Extra distance added to static depenetration so the cube clears the wall.
-constexpr float staticDepenetrationBias = 0.01f;
-
-} // namespace CompanionCubeStats
 
 /// Clamp a vector to a maximum length while keeping its direction.
 inline b3Vec3 ClampVectorLength(b3Vec3 vector, float maxLength) {
@@ -190,10 +164,15 @@ inline void ApplyVectorDrag(b3BodyId bodyId, b3Vec3 velocity, float drag,
     b3Body_SetAngularVelocity(bodyId, dampedVelocity);
   }
 }
+enum ModelType {
+  BRUSH,
+  MODEL,
+};
 
 struct BoxDef {
   std::string name;
   SurfaceMaterial material = SurfaceMaterial::Default;
+  ModelType type = ModelType::BRUSH;
   b3BodyId bodyId{};
   b3ShapeId shapeId{};
   b3BoxHull hull{};
@@ -205,6 +184,7 @@ struct BoxDef {
  * @param position
  * @param scale
  * @param worldID
+ * @param surfaceMaterial
  * @return BoxDef
  */
 
