@@ -23,8 +23,8 @@ void Player::CreatePhysicsBody() {
                                 collider.halfExtents.z);
 
   b3ShapeDef shapeDef = b3DefaultShapeDef();
-  shapeDef.density = 1000.5f;
-  shapeDef.baseMaterial.friction = 0.0f;
+  shapeDef.density = 985.0f;
+  shapeDef.baseMaterial.friction = 0.46f;
   shapeDef.filter.categoryBits = CollisionCategory::Player;
   shapeDef.filter.maskBits = CollisionCategory::World;
   collider.shapeId =
@@ -89,19 +89,19 @@ void Player::Update() {
   camera.target = B3Vec3ToVector3(b3Add(cameraPosition, view));
 }
 
-void Player::RenderGun() {
+void Player::RenderGunTexture() {
   BeginTextureMode(gunTarget);
   ClearBackground({0, 0, 0, 0}); // transparent
   BeginMode3D(gunCamera);
   DrawModel(gunModel, {1, -1, 0}, 0.02f, WHITE);
   EndMode3D();
   EndTextureMode();
+}
 
-  // Draw the gun texture over the screen
+void Player::DrawGun(int width, int height) {
   Rectangle src = {0.0f, 0.0f, (float)gunTarget.texture.width,
                    -(float)gunTarget.texture.height};
-  Rectangle dst = {0.0f, 0.0f, (float)GetScreenWidth(),
-                   (float)GetScreenHeight()};
+  Rectangle dst = {0.0f, 0.0f, (float)width, (float)height};
   Vector2 origin = {0.0f, 0.0f};
 
   DrawTexturePro(gunTarget.texture, src, dst, origin, 0.0f, WHITE);

@@ -61,6 +61,24 @@ Runtime resources are copied beside the executable after each build.
   the loose image dimensions when calculating UV coordinates.
 - An `info_player_start` or `info_player_deathmatch` entity sets the spawn.
 
+### Static models
+
+All GLB and GLTF files under `resources/models/` can be placed in a BSP as a
+`prop_static` point entity. Set `model` to its path relative to that directory,
+for example:
+
+```text
+"classname" "prop_static"
+"model" "brick_fence/brick_wall.glb"
+"origin" "0 0 0"
+"angle" "90"
+"scale" "1"
+```
+
+Models are loaded only when referenced, and repeated instances share the same
+loaded model. Static props are currently visual only; BSP world geometry owns
+collision.
+
 ## TrenchBroom
 
 The game definition and example profiles are in `tools/trenchbroom/`.

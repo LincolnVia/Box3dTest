@@ -19,6 +19,7 @@ public:
   void Update();
   void Draw();
   void DrawGameObjects();
+  void SpawnEntites();
   b3WorldId GetWorldId() const { return worldId; }
   std::vector<BoxDef> &GetSceneObjects() { return sceneObjects; }
   bool LoadBspLevel(const std::filesystem::path &path);

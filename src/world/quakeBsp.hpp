@@ -3,11 +3,14 @@
 #include <box3d/box3d.h>
 #include <raylib.h>
 
+#include <cstddef>
 #include <filesystem>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 struct b3MeshData;
+using Entity = std::unordered_map<std::string, std::string>;
 
 // A renderable Quake 1 BSP29 world backed by a static Box3D triangle mesh.
 class QuakeBspLevel {
@@ -28,8 +31,18 @@ public:
   int GetTriangleCount() const { return triangleCount; }
 
 private:
+  struct StaticModelInstance {
+    size_t modelIndex = 0;
+    Vector3 position{};
+    float yaw = 0.0f;
+    float scale = 1.0f;
+  };
+
   std::vector<Model> models;
   std::vector<Texture2D> textures;
+  std::vector<Model> staticModels;
+  std::vector<Entity> entities;
+  std::vector<StaticModelInstance> staticModelInstances;
   b3BodyId collisionBodyId = b3_nullBodyId;
   b3MeshData *collisionMesh = nullptr;
   std::string sourcePath;

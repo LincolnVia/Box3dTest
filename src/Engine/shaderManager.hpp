@@ -28,6 +28,9 @@ public:
     int ambientLoc = GetShaderLocation(getShader("lighting"), "ambient");
     SetShaderValue(getShader("lighting"), ambientLoc, &ambient,
                    SHADER_UNIFORM_VEC4);
+
+    LoadShaderToStorage("psxFog", "resources/shaders/psx.vs",
+                        " resources/shaders/fog.fs");
   }
   ~ShaderManager() {
 

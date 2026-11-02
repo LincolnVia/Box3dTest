@@ -6,6 +6,7 @@
 
 #include "../physics/physics.hpp"
 
+#include <_mingw_mac.h>
 #include <box3d/collision.h>
 #include <box3d/types.h>
 #include <raymath.h>
@@ -13,6 +14,7 @@
 #include <algorithm>
 #include <array>
 #include <cctype>
+#include <cmath>
 #include <cstring>
 #include <fstream>
 #include <limits>
@@ -326,8 +328,7 @@ std::filesystem::path FindLooseTexture(std::string_view textureName) {
     if (!stem.starts_with(textureName)) {
       continue;
     }
-    if (bestMatch.empty() ||
-        stem.size() < bestMatch.stem().string().size() ||
+    if (bestMatch.empty() || stem.size() < bestMatch.stem().string().size() ||
         (stem.size() == bestMatch.stem().string().size() &&
          entry.path().string() < bestMatch.string())) {
       bestMatch = entry.path();
@@ -441,36 +442,165 @@ bool ParseVector3(std::string_view text, Vector3 &result) {
   return true;
 }
 
-bool FindPlayerSpawn(std::string_view entities, Vector3 &spawn) {
+using Entity = std::unordered_map<std::string, std::string>;
+
+void SkipWhitespace(std::string_view text, size_t &cursor) {
+  while (cursor < text.size() &&
+         std::isspace(static_cast<unsigned char>(text[cursor]))) {
+    ++cursor;
+  }
+}
+
+bool ParseQuoted(std::string_view text, size_t &cursor, std::string &result) {
+  SkipWhitespace(text, cursor);
+  if (cursor >= text.size() || text[cursor] != '"') {
+    return false;
+  }
+  ++cursor;
+  result.clear();
+  while (cursor < text.size() && text[cursor] != '"') {
+    if (text[cursor] == '\\' && cursor + 1 < text.size()) {
+      ++cursor;
+    }
+    result.push_back(text[cursor++]);
+  }
+  if (cursor >= text.size()) {
+    return false;
+  }
+  ++cursor;
+  return true;
+}
+
+std::vector<Entity> ParseEntities(std::string_view text) {
+  std::vector<Entity> entities;
   size_t cursor = 0;
-  while ((cursor = entities.find('{', cursor)) != std::string_view::npos) {
-    const size_t end = entities.find('}', cursor + 1);
-    if (end == std::string_view::npos) {
-      break;
-    }
-    const std::string_view entity = entities.substr(cursor, end - cursor + 1);
-    if (entity.find("\"classname\" \"info_player_start\"") !=
-            std::string_view::npos ||
-        entity.find("\"classname\" \"info_player_deathmatch\"") !=
-            std::string_view::npos) {
-      const size_t originKey = entity.find("\"origin\"");
-      if (originKey != std::string_view::npos) {
-        const size_t valueStart = entity.find('"', originKey + 8);
-        const size_t valueEnd = valueStart == std::string_view::npos
-                                    ? std::string_view::npos
-                                    : entity.find('"', valueStart + 1);
-        if (valueEnd != std::string_view::npos &&
-            ParseVector3(
-                entity.substr(valueStart + 1, valueEnd - valueStart - 1),
-                spawn)) {
-          spawn.y += 1.0f;
-          return true;
+  while ((cursor = text.find('{', cursor)) != std::string_view::npos) {
+    ++cursor;
+    Entity entity;
+    while (cursor < text.size()) {
+      SkipWhitespace(text, cursor);
+      if (cursor >= text.size() || text[cursor] == '}') {
+        if (cursor < text.size()) {
+          ++cursor;
         }
+        break;
       }
+      std::string key;
+      std::string value;
+      if (!ParseQuoted(text, cursor, key) ||
+          !ParseQuoted(text, cursor, value)) {
+        cursor = text.find('}', cursor);
+        if (cursor != std::string_view::npos) {
+          ++cursor;
+        }
+        break;
+      }
+      entity.insert_or_assign(std::move(key), std::move(value));
     }
-    cursor = end + 1;
+    if (!entity.empty()) {
+      entities.push_back(std::move(entity));
+    }
+  }
+  return entities;
+}
+
+bool ParseFloat(std::string_view text, float &result) {
+  std::istringstream stream(std::string{text});
+  return static_cast<bool>(stream >> result) && std::isfinite(result);
+}
+
+bool FindPlayerSpawn(const std::vector<Entity> &entities, Vector3 &spawn) {
+  for (const Entity &entity : entities) {
+    const auto className = entity.find("classname");
+    if (className == entity.end() ||
+        (className->second != "info_player_start" &&
+         className->second != "info_player_deathmatch")) {
+      continue;
+    }
+    const auto origin = entity.find("origin");
+    if (origin != entity.end() && ParseVector3(origin->second, spawn)) {
+      spawn.y += 1.0f;
+      return true;
+    }
   }
   return false;
+}
+
+struct StaticPropDefinition {
+  std::filesystem::path path;
+  Vector3 position{};
+  float yaw = 0.0f;
+  float scale = 1.0f;
+};
+
+std::filesystem::path ResolveModelPath(std::string modelName) {
+  std::replace(modelName.begin(), modelName.end(), '\\', '/');
+  std::filesystem::path relativePath(modelName);
+  if (relativePath.is_absolute()) {
+    return {};
+  }
+  relativePath = relativePath.lexically_normal();
+  if (std::any_of(relativePath.begin(), relativePath.end(),
+                  [](const auto &component) { return component == ".."; })) {
+    return {};
+  }
+
+  const std::filesystem::path resourcesPrefix = "resources/models";
+  const std::string genericPath = relativePath.generic_string();
+  if (genericPath.starts_with("resources/models/")) {
+    relativePath = relativePath.lexically_relative(resourcesPrefix);
+  } else if (genericPath.starts_with("models/")) {
+    relativePath = relativePath.lexically_relative("models");
+  }
+
+  std::string extension = relativePath.extension().string();
+  std::transform(extension.begin(), extension.end(), extension.begin(),
+                 [](unsigned char character) {
+                   return static_cast<char>(std::tolower(character));
+                 });
+  if (extension != ".glb" && extension != ".gltf") {
+    return {};
+  }
+  return resourcesPrefix / relativePath;
+}
+
+std::vector<StaticPropDefinition>
+FindStaticProps(const std::vector<Entity> &entities) {
+  std::vector<StaticPropDefinition> props;
+  for (const Entity &entity : entities) {
+    const auto model = entity.find("model");
+    if (model == entity.end() || model->second.empty() ||
+        model->second.front() == '*') {
+      continue;
+    }
+    StaticPropDefinition prop;
+    prop.path = ResolveModelPath(model->second);
+    if (prop.path.empty()) {
+      TraceLog(LOG_WARNING, "Ignored unsafe or unsupported BSP model: %s",
+               model->second.c_str());
+      continue;
+    }
+    const auto origin = entity.find("origin");
+    if (origin != entity.end() &&
+        !ParseVector3(origin->second, prop.position)) {
+      TraceLog(LOG_WARNING, "Ignored BSP model with invalid origin: %s",
+               model->second.c_str());
+      continue;
+    }
+    const auto angle = entity.find("angle");
+    if (angle != entity.end()) {
+      ParseFloat(angle->second, prop.yaw);
+    }
+    const auto scale = entity.find("scale");
+    if (scale != entity.end()) {
+      float parsedScale = 1.0f;
+      if (ParseFloat(scale->second, parsedScale) && parsedScale > 0.0f) {
+        prop.scale = parsedScale;
+      }
+    }
+    props.push_back(std::move(prop));
+  }
+  return props;
 }
 } // namespace
 
@@ -479,6 +609,10 @@ bool QuakeBspLevel::Load(const std::filesystem::path &path, b3WorldId worldId,
   bool replacedExistingLevel = false;
   try {
     BspData bsp(path);
+    const std::vector<Entity> _entities = ParseEntities(bsp.EntityText());
+    entities = _entities;
+    const std::vector<StaticPropDefinition> staticProps =
+        FindStaticProps(entities);
     const BspModel &worldModel = bsp.At<BspModel>(bsp.header.models, 0);
     if (worldModel.firstFace < 0 || worldModel.faceCount <= 0 ||
         static_cast<uint64_t>(worldModel.firstFace) + worldModel.faceCount >
@@ -507,8 +641,7 @@ bool QuakeBspLevel::Load(const std::filesystem::path &path, b3WorldId worldId,
       SurfaceGroup &surface = surfaces[textureName];
       surface.mipTexture = textureInfo.mipTexture;
       if (surface.textureWidth == 0.0f) {
-        const Vector2 textureSize =
-            ResolveTextureSize(mipTexture, textureName);
+        const Vector2 textureSize = ResolveTextureSize(mipTexture, textureName);
         surface.textureWidth = textureSize.x;
         surface.textureHeight = textureSize.y;
       }
@@ -577,6 +710,31 @@ bool QuakeBspLevel::Load(const std::filesystem::path &path, b3WorldId worldId,
           textures.back();
     }
 
+    std::unordered_map<std::string, size_t> loadedStaticModels;
+    for (const StaticPropDefinition &prop : staticProps) {
+      const std::string modelPath = prop.path.generic_string();
+      auto loaded = loadedStaticModels.find(modelPath);
+      if (loaded == loadedStaticModels.end()) {
+        if (!FileExists(modelPath.c_str())) {
+          TraceLog(LOG_WARNING, "BSP model does not exist: %s",
+                   modelPath.c_str());
+          continue;
+        }
+        Model model = LoadModel(modelPath.c_str());
+        if (!IsModelValid(model)) {
+          TraceLog(LOG_WARNING, "Could not load BSP model: %s",
+                   modelPath.c_str());
+          continue;
+        }
+        const size_t modelIndex = staticModels.size();
+        staticModels.push_back(model);
+        loaded = loadedStaticModels.emplace(modelPath, modelIndex).first;
+        TraceLog(LOG_INFO, "Loaded BSP model: %s", modelPath.c_str());
+      }
+      staticModelInstances.push_back(
+          {loaded->second, prop.position, prop.yaw, prop.scale});
+    }
+
     b3MeshDef meshDef{};
     meshDef.vertices = collisionVertices.data();
     meshDef.vertexCount = static_cast<int>(collisionVertices.size());
@@ -602,7 +760,7 @@ bool QuakeBspLevel::Load(const std::filesystem::path &path, b3WorldId worldId,
 
     sourcePath = path.string();
     triangleCount = meshDef.triangleCount;
-    hasPlayerSpawn = FindPlayerSpawn(bsp.EntityText(), playerSpawn);
+    hasPlayerSpawn = FindPlayerSpawn(_entities, playerSpawn);
     error.clear();
     return true;
   } catch (const std::exception &exception) {
@@ -631,8 +789,13 @@ void QuakeBspLevel::Unload() {
   for (Texture2D texture : textures) {
     UnloadTexture(texture);
   }
+  for (Model model : staticModels) {
+    UnloadModel(model);
+  }
   models.clear();
   textures.clear();
+  staticModels.clear();
+  staticModelInstances.clear();
   sourcePath.clear();
   playerSpawn = {};
   hasPlayerSpawn = false;
@@ -643,5 +806,16 @@ void QuakeBspLevel::Draw(Shader shader) {
   for (Model &model : models) {
     model.materials[0].shader = shader;
     DrawModel(model, {}, 1.0f, WHITE);
+  }
+  for (Model &model : staticModels) {
+    for (int materialIndex = 0; materialIndex < model.materialCount;
+         ++materialIndex) {
+      model.materials[materialIndex].shader = shader;
+    }
+  }
+  for (const StaticModelInstance &instance : staticModelInstances) {
+    DrawModelEx(staticModels[instance.modelIndex], instance.position,
+                {0.0f, 1.0f, 0.0f}, instance.yaw,
+                {instance.scale, instance.scale, instance.scale}, WHITE);
   }
 }

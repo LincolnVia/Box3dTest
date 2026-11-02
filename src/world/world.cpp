@@ -38,11 +38,6 @@ World::World(Engine &engine) : engine(engine) {
   sceneObjects.push_back(createStaticObject({0, 0, 20}, {10, 10, 5}, worldId));
   sceneObjects[1].name = "portalable_wall";
 
-  sceneObjects.push_back(createDynamicObject(
-      {0, 2, 0}, {2, 2, 2}, CompanionCubeStats::density,
-      CompanionCubeStats::friction, worldId, SurfaceMaterial::CompanionCube));
-  sceneObjects[4].name = "companion_cube";
-
   // END
 
   // Dynamic Box
@@ -93,85 +88,46 @@ bool World::LoadBspLevel(const std::filesystem::path &path) {
 }
 
 void World::Update() {
+  if (IsFileDropped()) {
+    FilePathList droppedFiles = LoadDroppedFiles();
+    if (droppedFiles.count > 0) {
+      const std::filesystem::path path(droppedFiles.paths[0]);
+      std::string extension = path.extension().string();
+      std::transform(extension.begin(), extension.end(), extension.begin(),
+                     [](unsigned char character) {
+                       return static_cast<char>(std::tolower(character));
+                     });
+      if (extension == ".bsp") {
+        LoadBspLevel(path);
+      } else if (extension != ".bsp") {
+        TraceLog(LOG_WARNING, "Dropped file is not a .bsp: %s",
+                 path.string().c_str());
+      }
+    }
+    UnloadDroppedFiles(droppedFiles);
+  }
+
   b3World_Step(worldId, timeStep, subStepCount);
   ApplyCompanionCubeReleasedTuning();
-}
-
-void World::ApplyCompanionCubeReleasedTuning() {
-  for (auto &object : sceneObjects) {
-    if (object.name != "companion_cube") {
-      continue;
-    }
-    if (!b3Body_IsEnabled(object.bodyId)) {
-      continue;
-    }
-
-    // Held cubes have gravity disabled by Player, so leave them fully under the
-    // pickup joint. Ground drag only affects released cubes.
-    if (b3Body_GetGravityScale(object.bodyId) <= 0.0f) {
-      continue;
-    }
-
-    // Player movement is velocity-driven, so a released cube can gain too much
-    // solver energy if it is crushed against a wall. Clamp the free cube every
-    // step, not just when it is dropped.
-    ClampBodyVelocity(object.bodyId, CompanionCubeStats::freeMaxSpeed,
-                      CompanionCubeStats::freeMaxAngularSpeed);
-    ResolveStaticPenetration(object.bodyId, object.shapeId,
-                             CompanionCubeStats::staticPenetrationSlop,
-                             CompanionCubeStats::staticDepenetrationBias);
-
-    b3QueryFilter filter = b3DefaultQueryFilter();
-    filter.maskBits = CollisionCategory::Static;
-
-    const b3RayResult groundHit = b3World_CastRayClosest(
-        worldId, b3Body_GetPosition(object.bodyId),
-        {0.0f, -object.halfExtents.y - CompanionCubeStats::groundCheckDistance,
-         0.0f},
-        filter);
-
-    if (!groundHit.hit) {
-      continue;
-    }
-
-    const b3Vec3 velocity = b3Body_GetLinearVelocity(object.bodyId);
-    const b3Vec3 horizontalVelocity = {velocity.x, 0.0f, velocity.z};
-    ApplyVectorDrag(object.bodyId, horizontalVelocity,
-                    CompanionCubeStats::groundLinearDrag,
-                    CompanionCubeStats::groundStopSpeed, timeStep, true);
-
-    ApplyVectorDrag(object.bodyId, b3Body_GetAngularVelocity(object.bodyId),
-                    CompanionCubeStats::groundAngularDrag,
-                    CompanionCubeStats::groundStopAngularSpeed, timeStep,
-                    false);
-  }
 }
 void World::DrawGameObjects() {
   if (quakeLevel.IsLoaded()) {
     return;
   }
   for (auto &object : GetSceneObjects()) {
-    if (object.material == SurfaceMaterial::Default)
-      b3_DrawCubeTex(engine.getAssetManager().getTexture("ground"),
-                     b3Body_GetPosition(object.bodyId), object.halfExtents,
-                     WHITE);
-    if (object.material == SurfaceMaterial::PortalWall)
-      b3_DrawCubeTex(engine.getAssetManager().getTexture("wall"),
-                     b3Body_GetPosition(object.bodyId), object.halfExtents,
-                     WHITE);
 
-    if (object.name == "companion_cube")
-      b3_DrawModel(engine.getAssetManager().getModel("companionCube"),
+    if (object.type == ModelType::BRUSH)
+
+    {
+      b3_DrawCubeTex(engine.getAssetManager().getTexture(object.name),
+                     b3Body_GetPosition(object.bodyId), object.halfExtents,
+                     WHITE);
+    }
+    if (object.type == ModelType::MODEL) {
+      b3_DrawModel(engine.getAssetManager().getModel(object.name),
                    B3WorldTransformToMatrix(b3Body_GetTransform(object.bodyId),
                                             object.halfExtents));
-    if (object.material == SurfaceMaterial::SpeedGel)
-      b3_DrawCubeTex(engine.getAssetManager().getTexture("speedGel"),
-                     b3Body_GetPosition(object.bodyId), object.halfExtents,
-                     WHITE);
-    if (object.material == SurfaceMaterial::BounceGel)
-      b3_DrawCubeTex(engine.getAssetManager().getTexture("bounceGel"),
-                     b3Body_GetPosition(object.bodyId), object.halfExtents,
-                     WHITE);
+    }
   }
 }
 void World::Draw() {
@@ -179,3 +135,5 @@ void World::Draw() {
   quakeLevel.Draw(engine.getShaderManager().getShader("lighting"));
   DrawGameObjects();
 }
+
+void World::SpawnEntites() {}

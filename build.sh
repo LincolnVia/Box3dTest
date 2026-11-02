@@ -116,3 +116,6 @@ if [[ -n "$jobs" ]]; then
 fi
 
 cmake "${build_args[@]}"
+
+cd build/windows-dev
+./Box3dGame.exe
