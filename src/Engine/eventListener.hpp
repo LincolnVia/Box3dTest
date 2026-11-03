@@ -2,13 +2,16 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <string>
+#include <unordered_map>
 #include <vector>
 
-// Each target ID is a radio channel. A receiver gets only changes on its channel.
-using ChangeCallBack = void (*)(void *context, size_t id, bool new_state);
+// Each target name is a channel. Receivers get changes for their named channel.
+using ChangeCallBack = void (*)(void *context, const std::string &target,
+                                bool new_state);
 
 struct EventSubscription {
-  size_t channel = 0;
+  std::string target;
   uint64_t token = 0;
 
   explicit operator bool() const { return token != 0; }
@@ -16,61 +19,64 @@ struct EventSubscription {
 
 class EventListener {
 public:
-  // Preserve the original listener's 64 usable IDs until map size is known.
-  EventListener() : states(64, false), channels(64) {}
-
-  // Call during map loading. IDs in [0, total_ids) become valid.
-  void resize_for_map(size_t total_ids) {
-    states.resize(total_ids, false);
-    channels.resize(total_ids);
-  }
-
-  EventSubscription subscribe(size_t id, ChangeCallBack callback,
+  EventSubscription subscribe(const std::string &target,
+                              ChangeCallBack callback,
                               void *context) {
-    if (id >= channels.size() || callback == nullptr) {
+    if (target.empty() || callback == nullptr) {
       return {};
     }
 
     const uint64_t token = next_token++;
-    channels[id].push_back({token, callback, context});
-    return {id, token};
+    channels[target].push_back({token, callback, context});
+    return {target, token};
   }
 
   bool unsubscribe(EventSubscription subscription) {
-    if (!subscription || subscription.channel >= channels.size()) {
+    if (!subscription) {
       return false;
     }
 
-    auto &receivers = channels[subscription.channel];
+    auto channel = channels.find(subscription.target);
+    if (channel == channels.end()) {
+      return false;
+    }
+    auto &receivers = channel->second;
     for (size_t i = 0; i < receivers.size(); ++i) {
       if (receivers[i].token == subscription.token) {
         receivers.erase(receivers.begin() + static_cast<std::ptrdiff_t>(i));
+        if (receivers.empty()) {
+          channels.erase(channel);
+        }
         return true;
       }
     }
     return false;
   }
 
-  bool getState(size_t id) const {
-    return id < states.size() ? states[id] : false;
+  bool getState(const std::string &target) const {
+    const auto state = states.find(target);
+    return state != states.end() ? state->second : false;
   }
 
-  // Returns false for an out-of-range ID; true when the ID was valid.
-  bool setState(size_t id, bool new_state) {
-    if (id >= states.size()) {
+  // Returns false for an empty target; otherwise true when the state is set.
+  bool setState(const std::string &target, bool new_state) {
+    if (target.empty()) {
       return false;
     }
-    if (states[id] == new_state) {
+    if (getState(target) == new_state && states.contains(target)) {
       return true;
     }
 
-    states[id] = new_state;
+    states[target] = new_state;
 
     // Snapshot permits callbacks to subscribe or unsubscribe during dispatch.
-    const auto receivers = channels[id];
-    for (const auto &receiver : receivers) {
-      if (receiver.callback != nullptr) {
-        receiver.callback(receiver.context, id, new_state);
+    const auto channel = channels.find(target);
+    if (channel != channels.end()) {
+      const auto receivers = channel->second;
+      for (const auto &receiver : receivers) {
+        if (receiver.callback != nullptr) {
+          receiver.callback(receiver.context, target, new_state);
+        }
       }
     }
     return true;
@@ -83,7 +89,7 @@ private:
     void *context;
   };
 
-  std::vector<bool> states;
-  std::vector<std::vector<Receiver>> channels;
+  std::unordered_map<std::string, bool> states;
+  std::unordered_map<std::string, std::vector<Receiver>> channels;
   uint64_t next_token = 1;
 };

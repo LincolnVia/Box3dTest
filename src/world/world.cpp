@@ -140,6 +140,7 @@ void World::Draw() {
 
 void World::SpawnEntites() {
   std::vector<Entity> entities = quakeLevel.getEntities();
+  triggers = SpawnTriggers();
 }
 std::vector<info_trigger> World::SpawnTriggers() {
 
@@ -159,6 +160,7 @@ std::vector<info_trigger> World::SpawnTriggers() {
     if (auto it = entity.find("target"); it != entity.end()) {
       trigger.target = stoi(it->second);
     }
+
     triggers.push_back(trigger);
   }
   return triggers;

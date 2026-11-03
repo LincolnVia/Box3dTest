@@ -75,5 +75,18 @@
 // entity 3
 {
 "classname" "info_enemy_spawn"
-"origin" "-472 72 16"
+"origin" "56 104 16"
+}
+// entity 4
+{
+"classname" "info_trigger"
+// brush 0
+{
+( -672 -160 0 ) ( -672 -159 0 ) ( -672 -160 1 ) Purple/texture_08 0 0 0 1 1
+( -672 -160 0 ) ( -672 -160 1 ) ( -671 -160 0 ) Purple/texture_08 0 0 0 1 1
+( -672 -160 16 ) ( -671 -160 16 ) ( -672 -159 16 ) Purple/texture_08 0 0 0 1 1
+( -112 304 240 ) ( -112 305 240 ) ( -111 304 240 ) Purple/texture_08 0 0 0 1 1
+( -112 304 16 ) ( -111 304 16 ) ( -112 304 17 ) Purple/texture_08 0 0 0 1 1
+( -112 304 16 ) ( -112 304 17 ) ( -112 305 16 ) Purple/texture_08 0 0 0 1 1
+}
 }

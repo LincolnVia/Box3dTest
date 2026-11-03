@@ -7,9 +7,10 @@ ConvertTextures: WARNING: invalid size data for rooftiles2
 ConvertTextures: WARNING: invalid size data for road2
 ConvertTextures: WARNING: invalid size data for barbage_contain
 ConvertTextures: WARNING: invalid size data for metal_bare_2
+ConvertTextures: WARNING: invalid size data for texture_08
 Loading extended texinfo flags from initial_box3d.texinfo.json...
 Loading extended content flags from initial_box3d.content.json...
-4 entities read, 1 are lights.
+5 entities read, 1 are lights.
 
 --- Options Summary ---
 
@@ -26,12 +27,12 @@ SetupLights: 1 after jittering
 Final count: 1 lights, 0 suns in use.
 0 surface light points in use.
 map uses color: false
-lightmap size (total): 4444
+lightmap size (total): 4944
 Lighting Completed.
 
 0 switchable light styles (32 max)
 Writing initial_box3d.bsp as Quake BSP bsp29
-0.013s seconds elapsed
+0.017s seconds elapsed
 0 empty lightmaps
 
 

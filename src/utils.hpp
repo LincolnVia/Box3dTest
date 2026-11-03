@@ -14,10 +14,10 @@ struct RayFireResult {
   b3Vec3 translation{};
 };
 
-inline float CastClosestRayResult(b3ShapeId shapeId, b3Pos point,
-                                  b3Vec3 normal, float fraction,
-                                  uint64_t materialId, int triangleIndex,
-                                  int childIndex, void *context) {
+inline float CastClosestRayResult(b3ShapeId shapeId, b3Pos point, b3Vec3 normal,
+                                  float fraction, uint64_t materialId,
+                                  int triangleIndex, int childIndex,
+                                  void *context) {
   b3RayResult *result = static_cast<b3RayResult *>(context);
   result->shapeId = shapeId;
   result->point = point;
@@ -81,9 +81,9 @@ inline RayFireResult FireCameraRay(const Camera3D &camera, const World &world,
   return result;
 }
 
-inline RayFireResult FireCameraSphereRay(
-    const Camera3D &camera, const World &world, float distance, float radius,
-    uint64_t maskBits = B3_DEFAULT_MASK_BITS) {
+inline RayFireResult
+FireCameraSphereRay(const Camera3D &camera, const World &world, float distance,
+                    float radius, uint64_t maskBits = B3_DEFAULT_MASK_BITS) {
   const Ray screenRay = GetScreenToWorldRay(GetMousePosition(), camera);
 
   const b3Vec3 rayOrigin = Vector3ToB3Vec3(screenRay.position);

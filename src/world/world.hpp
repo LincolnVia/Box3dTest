@@ -2,6 +2,7 @@
 
 #include "../physics/physics.hpp"
 
+#include "../Engine/eventListener.hpp"
 #include "cubeBrush.hpp"
 #include "entities.hpp"
 #include "quakeBsp.hpp"
@@ -31,7 +32,8 @@ public:
   bool HasBspPlayerSpawn() const { return quakeLevel.HasPlayerSpawn(); }
 
 private:
-  Engine &engine;
+  Engine &engine; // why is this here it should not by im not touching it
+  EventListener eventListener;
   std::vector<cubeBrush> meshs;
 
   Model skyBox;
@@ -39,6 +41,7 @@ private:
   b3WorldId worldId{};
   std::vector<BoxDef> sceneObjects;
   QuakeBspLevel quakeLevel;
+  std::vector<info_trigger> triggers;
   std::string bspStatus = "Drop a Quake BSP29 file to load a level";
   bool isShutdown = false;
 

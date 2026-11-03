@@ -1,6 +1,7 @@
 #pragma once
 
 #include "entities.hpp"
+#include "quakeBsp.hpp"
 #include "world/quakeBsp.hpp"
 #include <vector>
 bool FindPlayerSpawn(const std::vector<Entity> &entities, Vector3 &spawn) {

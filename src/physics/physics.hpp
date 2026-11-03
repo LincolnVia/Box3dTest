@@ -7,10 +7,21 @@
 #include <string>
 #include <vector>
 
+struct BspModel {
+  float mins[3];
+  float maxs[3];
+  float origin[3];
+  int32_t headNodes[4];
+  int32_t visibleLeaves;
+  int32_t firstFace;
+  int32_t faceCount;
+};
+
 namespace CollisionCategory {
 constexpr uint64_t Static = 1ull << 0;
 constexpr uint64_t Dynamic = 1ull << 1;
 constexpr uint64_t Player = 1ull << 2;
+constexpr uint64_t Trigger = 1ull << 3;
 constexpr uint64_t World = Static | Dynamic;
 constexpr uint64_t All = Static | Dynamic | Player;
 } // namespace CollisionCategory

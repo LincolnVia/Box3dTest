@@ -13,12 +13,20 @@
     angle(integer) : "Direction" : 0
 ]
 
+@PointClass size(-8 -8 -8, 8 8 8) color(255 255 100) = triggerd_light : "Triggered Point light"
+[
+    light(integer) : "Brightness" : 300
+    _color(color255) : "Color" : "255 255 255"
+    listenOn(integer) : "Listen On" : -1
+    triggered(integer) : "Triggered" : 0
+]
 @PointClass size(-8 -8 -8, 8 8 8) color(255 255 100) = light : "Point light"
 [
     light(integer) : "Brightness" : 300
     _color(color255) : "Color" : "255 255 255"
 ]
-@PointClass size(-8 -8 -8, 8 8 8) color(255 255 100) = info_trigger : "Trigger"
+
+@SolidClass color(255 255 100) = info_trigger : "Trigger"
 [
     target(integer) : "target" : -1
     triggered(integer) : "Triggered" : 0
@@ -32,9 +40,10 @@
     enabled(integer) : "Enabled" : 1
 ]
 @PointClass size(-16 -16 0, 16 16 32) color(100 180 255) = prop_static : "Static GLTF model"
-
+[
     model(string) : "Model path (relative to resources/models)"
     angle(integer) : "Yaw" : 0
     scale(float) : "Uniform scale" : "1"
     triggerid(integer) : "Trigger Reciever ID" : -1
 ]
+

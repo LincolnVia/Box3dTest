@@ -84,16 +84,6 @@ struct BspMipTexture {
   uint32_t height;
   uint32_t offsets[4];
 };
-
-struct BspModel {
-  float mins[3];
-  float maxs[3];
-  float origin[3];
-  int32_t headNodes[4];
-  int32_t visibleLeaves;
-  int32_t firstFace;
-  int32_t faceCount;
-};
 #pragma pack(pop)
 
 static_assert(sizeof(BspHeader) == 124);
