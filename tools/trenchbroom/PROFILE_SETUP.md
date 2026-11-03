@@ -1,13 +1,5 @@
 # TrenchBroom Compile Profile
 
-The `Build BSP` profile is configured in `Box3dTest/CompilationProfiles.cfg`.
-It exports a TrenchBroom-clean map, then runs QBSP, VIS, and LIGHT in order.
-Compiler output is written alongside the source map.
+The `Compile` profile is configured in `Box3dTest/CompilationProfiles.cfg`. It exports a TrenchBroom-clean map, runs QBSP, VIS, and LIGHT, copies the BSP into the local build resources, and launches the game.
 
-The profile uses the ericw-tools 2.0.0-alpha11 macOS binaries installed at:
-
-`<ericw-tools install directory>`
-
-The archive and bundled runtime libraries are kept together there so the tools
-can load their dependencies. This build is x86_64 and runs on this Apple Silicon
-Mac through Rosetta.
+The macOS ericw-tools 2.0.0-alpha11 executables and their required runtime libraries are included in `tools/trenchbroom/ericw-tools/`. The profile resolves them from `${GAME_DIR_PATH}`, so it works with the project root selected as the TrenchBroom game path without a user-specific directory. These binaries are x86_64 and require Rosetta on Apple Silicon.
