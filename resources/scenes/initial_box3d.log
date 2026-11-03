@@ -4,8 +4,8 @@
     "notex" was set to "1" (from command line)
     "missing_textures_as_zero_size" was set to "1" (from command line)
 
-Input file: \\wsl.localhost\Ubuntu\home\lincoln_via\projects\Box3dTest\resources\scenes\initial_box3d-compile.map
-Output file: \\wsl.localhost\Ubuntu\home\lincoln_via\projects\Box3dTest\resources\scenes\initial_box3d.bsp
+Input file: resources\scenes\initial_box3d-compile.map
+Output file: resources\scenes\initial_box3d.bsp
 
 INFO: using built-in palette.
 WARNING: No wad or _wad key exists in the worldmodel
@@ -44,8 +44,8 @@ INFO: calculating BSP for 6 brushes with 37 sides
      9 avg tree height
     258 tree portals
 WARNING: Reached occupant "info_player_start" at (0 0 32), no filling performed.
-Leak file written to \\wsl.localhost\Ubuntu\home\lincoln_via\projects\Box3dTest\resources\scenes/initial_box3d.pts
-            3 portals written to \\wsl.localhost\Ubuntu\home\lincoln_via\projects\Box3dTest\resources\scenes/initial_box3d.leak.prt
+Leak file written to resources\scenes/initial_box3d.pts
+            3 portals written to resources\scenes/initial_box3d.leak.prt
     258 tree portals
     140 sides visible
      70 makefaces
@@ -67,8 +67,8 @@ Processing hull 1...
 WARNING: Reached occupant "info_player_start" at (0 0 32), no filling performed.
 Processing hull 2...
 WARNING: Reached occupant "info_player_start" at (0 0 32), no filling performed.
-Writing \\wsl.localhost\Ubuntu\home\lincoln_via\projects\Box3dTest\resources\scenes/initial_box3d.bsp as Quake BSP bsp29
-Wrote \\wsl.localhost\Ubuntu\home\lincoln_via\projects\Box3dTest\resources\scenes/initial_box3d.bsp
+Writing resources\scenes/initial_box3d.bsp as Quake BSP bsp29
+Wrote resources\scenes/initial_box3d.bsp
 
 count   lump name    byte size 
       1 models               64

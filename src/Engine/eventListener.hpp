@@ -7,9 +7,7 @@
 class EventListener {
 
 public:
-  using ChangeCallBack = std::function<void(size_t, bool)>;
-
-  void onChange(ChangeCallBack callback) { onCallBack = callback }
+  void onChange(ChangeCallBack callback) { onCallBack = callback; }
   int getState(size_t id) { return states.test(id); }
 
   void setState(size_t id, bool new_state) {
@@ -31,11 +29,7 @@ private:
 /* int main() {
     EventListener listener;
 
-    // Register a lambda as the callback
-    listener.onChange([](size_t id, bool state) {
-        std::cout << "[Global Event] System ID " << id
-                  << " flipped to " << (state ? "ON" : "OFF") << "\n";
-    });
+
 
     listener.setState(12, true);  // Triggers callback
     listener.setState(12, true);  // No change, does not trigger

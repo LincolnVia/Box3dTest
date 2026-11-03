@@ -1,12 +1,12 @@
-Loading document from "/Users/lincoln/projects/Box3dTest/resources/scenes/initial_box3d.map"
-Adding file system path "/Applications/TrenchBroom.app/Contents/Resources/defaults/assets"
-Adding file system path "/Users/lincoln/projects/Box3dTest/"
-Adding file system path "/Users/lincoln/projects/Box3dTest/tools"
+Loading document from "resources/scenes/initial_box3d.map"
+Adding file system path "<TrenchBroom default assets>"
+Adding file system path ""
+Adding file system path "tools"
 Found 0 shaders
 Loaded entity definition file Box3dTest.fgd
 Found 0 shaders
-Saving document to "/Users/lincoln/projects/Box3dTest/resources/scenes/initial_box3d.map"
-Saved "/Users/lincoln/projects/Box3dTest/resources/scenes/initial_box3d.map" in 3ms
+Saving document to "resources/scenes/initial_box3d.map"
+Saved "resources/scenes/initial_box3d.map" in 3ms
 Reloading entity definitions
 Loaded entity definition file Box3dTest.fgd
 Reloading material collections

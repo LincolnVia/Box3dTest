@@ -6,7 +6,7 @@ Compiler output is written alongside the source map.
 
 The profile uses the ericw-tools 2.0.0-alpha11 macOS binaries installed at:
 
-`/Users/lincoln/.local/opt/ericw-tools/`
+`<ericw-tools install directory>`
 
 The archive and bundled runtime libraries are kept together there so the tools
 can load their dependencies. This build is x86_64 and runs on this Apple Silicon

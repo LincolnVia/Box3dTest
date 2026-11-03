@@ -19,4 +19,3 @@ bool FindPlayerSpawn(const std::vector<Entity> &entities, Vector3 &spawn) {
   }
   return false;
 }
-// I need a event listener

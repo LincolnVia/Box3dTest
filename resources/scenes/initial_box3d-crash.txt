@@ -7,59 +7,59 @@ TrenchBroom Version:	2026.1
 TrenchBroom Build:	v2026.1 Release macOS
 Reason:	SIGSEGV
 Stack trace (most recent call first):
-#0  0x0000000104c4993b in __mh_execute_header + 1268027 at /Applications/TrenchBroom.app/Contents/MacOS/TrenchBroom
-#1  0x000000018187f743 in __sigtramp + 55 at /usr/lib/system/libsystem_platform.dylib
-#2  0x0000000104c8bb33 in __mh_execute_header + 1538867 at /Applications/TrenchBroom.app/Contents/MacOS/TrenchBroom
-#3  0x0000000104c8bb33 in __mh_execute_header + 1538867 at /Applications/TrenchBroom.app/Contents/MacOS/TrenchBroom
-#4  0x0000000104c8b933 in __mh_execute_header + 1538355 at /Applications/TrenchBroom.app/Contents/MacOS/TrenchBroom
-#5  0x0000000104bf7733 in __mh_execute_header + 931635 at /Applications/TrenchBroom.app/Contents/MacOS/TrenchBroom
-#6  0x0000000104e11797 in __mh_execute_header + 3135383 at /Applications/TrenchBroom.app/Contents/MacOS/TrenchBroom
-#7  0x0000000104e11693 in __mh_execute_header + 3135123 at /Applications/TrenchBroom.app/Contents/MacOS/TrenchBroom
-#8  0x00000001063714b3 in QOpenGLWidget::makeCurrent(QOpenGLWidget::TargetBuffer) + 795 at /Applications/TrenchBroom.app/Contents/Frameworks/QtOpenGLWidgets.framework/Versions/A/QtOpenGLWidgets
-#9  0x00000001071a2d73 in QWidget::event(QEvent*) + 131 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#10 0x000000010715556f in QApplicationPrivate::notify_helper(QObject*, QEvent*) + 331 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#11 0x0000000107156fcb in QApplication::notify(QObject*, QEvent*) + 3207 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#12 0x00000001084ef9a7 in QCoreApplication::sendSpontaneousEvent(QObject*, QEvent*) + 175 at /Applications/TrenchBroom.app/Contents/Frameworks/QtCore.framework/Versions/A/QtCore
-#13 0x0000000107192b93 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 2967 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#14 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#15 0x000000010719b09f in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 599 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#16 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#17 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#18 0x000000010719b09f in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 599 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#19 0x000000010719b09f in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 599 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#20 0x000000010719b09f in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 599 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#21 0x000000010719b09f in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 599 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#22 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#23 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#24 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#25 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#26 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#27 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#28 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#29 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#30 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#31 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#32 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#33 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#34 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#35 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#36 0x000000010719b09f in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 599 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#37 0x000000010719b09f in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 599 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#38 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#39 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#40 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#41 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#42 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#43 0x00000001071b4c5b in QWidgetRepaintManager::paintAndFlush() + 4267 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#44 0x00000001071b4eff in QWidgetRepaintManager::sync() + 267 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#45 0x00000001071a325f in QWidget::event(QEvent*) + 1391 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#46 0x00000001072c5647 in QMainWindow::event(QEvent*) + 727 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#47 0x000000010715556f in QApplicationPrivate::notify_helper(QObject*, QEvent*) + 331 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#48 0x0000000107156fcb in QApplication::notify(QObject*, QEvent*) + 3207 at /Applications/TrenchBroom.app/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets
-#49 0x00000001084ef87b in QCoreApplication::sendEvent(QObject*, QEvent*) + 171 at /Applications/TrenchBroom.app/Contents/Frameworks/QtCore.framework/Versions/A/QtCore
-#50 0x00000001084f00fb in QCoreApplicationPrivate::sendPostedEvents(QObject*, int, QThreadData*) + 523 at /Applications/TrenchBroom.app/Contents/Frameworks/QtCore.framework/Versions/A/QtCore
-#51 0x0000000106fbc2f7 in _qt_plugin_instance + 61655 at /Applications/TrenchBroom.app/Contents/PlugIns/platforms/libqcocoa.dylib
-#52 0x0000000106fbd597 in _qt_plugin_instance + 66423 at /Applications/TrenchBroom.app/Contents/PlugIns/platforms/libqcocoa.dylib
+#0  0x0000000104c4993b in __mh_execute_header + 1268027 at <TrenchBroom executable>
+#1  0x000000018187f743 in __sigtramp + 55 at <system library>/libsystem_platform.dylib
+#2  0x0000000104c8bb33 in __mh_execute_header + 1538867 at <TrenchBroom executable>
+#3  0x0000000104c8bb33 in __mh_execute_header + 1538867 at <TrenchBroom executable>
+#4  0x0000000104c8b933 in __mh_execute_header + 1538355 at <TrenchBroom executable>
+#5  0x0000000104bf7733 in __mh_execute_header + 931635 at <TrenchBroom executable>
+#6  0x0000000104e11797 in __mh_execute_header + 3135383 at <TrenchBroom executable>
+#7  0x0000000104e11693 in __mh_execute_header + 3135123 at <TrenchBroom executable>
+#8  0x00000001063714b3 in QOpenGLWidget::makeCurrent(QOpenGLWidget::TargetBuffer) + 795 at <TrenchBroom framework>QtOpenGLWidgets.framework/Versions/A/QtOpenGLWidgets
+#9  0x00000001071a2d73 in QWidget::event(QEvent*) + 131 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#10 0x000000010715556f in QApplicationPrivate::notify_helper(QObject*, QEvent*) + 331 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#11 0x0000000107156fcb in QApplication::notify(QObject*, QEvent*) + 3207 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#12 0x00000001084ef9a7 in QCoreApplication::sendSpontaneousEvent(QObject*, QEvent*) + 175 at <TrenchBroom framework>QtCore.framework/Versions/A/QtCore
+#13 0x0000000107192b93 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 2967 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#14 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#15 0x000000010719b09f in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 599 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#16 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#17 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#18 0x000000010719b09f in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 599 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#19 0x000000010719b09f in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 599 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#20 0x000000010719b09f in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 599 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#21 0x000000010719b09f in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 599 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#22 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#23 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#24 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#25 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#26 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#27 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#28 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#29 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#30 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#31 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#32 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#33 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#34 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#35 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#36 0x000000010719b09f in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 599 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#37 0x000000010719b09f in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 599 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#38 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#39 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#40 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#41 0x000000010719b1b7 in QWidgetPrivate::paintSiblingsRecursive(QPaintDevice*, QList<QObject*> const&, int, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 879 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#42 0x0000000107192da7 in QWidgetPrivate::drawWidget(QPaintDevice*, QRegion const&, QPoint const&, QFlags<QWidgetPrivate::DrawWidgetFlag>, QPainter*, QWidgetRepaintManager*) + 3499 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#43 0x00000001071b4c5b in QWidgetRepaintManager::paintAndFlush() + 4267 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#44 0x00000001071b4eff in QWidgetRepaintManager::sync() + 267 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#45 0x00000001071a325f in QWidget::event(QEvent*) + 1391 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#46 0x00000001072c5647 in QMainWindow::event(QEvent*) + 727 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#47 0x000000010715556f in QApplicationPrivate::notify_helper(QObject*, QEvent*) + 331 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#48 0x0000000107156fcb in QApplication::notify(QObject*, QEvent*) + 3207 at <TrenchBroom framework>QtWidgets.framework/Versions/A/QtWidgets
+#49 0x00000001084ef87b in QCoreApplication::sendEvent(QObject*, QEvent*) + 171 at <TrenchBroom framework>QtCore.framework/Versions/A/QtCore
+#50 0x00000001084f00fb in QCoreApplicationPrivate::sendPostedEvents(QObject*, int, QThreadData*) + 523 at <TrenchBroom framework>QtCore.framework/Versions/A/QtCore
+#51 0x0000000106fbc2f7 in _qt_plugin_instance + 61655 at <TrenchBroom platform plugin>
+#52 0x0000000106fbd597 in _qt_plugin_instance + 66423 at <TrenchBroom platform plugin>
 #53 0x0000000181932f2f at /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
 #54 0x0000000181932ec3 at /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
 #55 0x0000000181932c93 at /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
@@ -73,8 +73,8 @@ Stack trace (most recent call first):
 #63 0x00000001868f58af at /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit
 #64 0x00000001868f55bb at /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit
 #65 0x0000000185d5313b at /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit
-#66 0x0000000106fbae1b in _qt_plugin_instance + 56315 at /Applications/TrenchBroom.app/Contents/PlugIns/platforms/libqcocoa.dylib
-#67 0x00000001084f8f3f in QEventLoop::exec(QFlags<QEventLoop::ProcessEventsFlag>) + 587 at /Applications/TrenchBroom.app/Contents/Frameworks/QtCore.framework/Versions/A/QtCore
-#68 0x00000001084ef58b in QCoreApplication::exec() + 227 at /Applications/TrenchBroom.app/Contents/Frameworks/QtCore.framework/Versions/A/QtCore
-#69 0x0000000104b1998b in __mh_execute_header + 22923 at /Applications/TrenchBroom.app/Contents/MacOS/TrenchBroom
+#66 0x0000000106fbae1b in _qt_plugin_instance + 56315 at <TrenchBroom platform plugin>
+#67 0x00000001084f8f3f in QEventLoop::exec(QFlags<QEventLoop::ProcessEventsFlag>) + 587 at <TrenchBroom framework>QtCore.framework/Versions/A/QtCore
+#68 0x00000001084ef58b in QCoreApplication::exec() + 227 at <TrenchBroom framework>QtCore.framework/Versions/A/QtCore
+#69 0x0000000104b1998b in __mh_execute_header + 22923 at <TrenchBroom executable>
 #70 0x00000001814b7dff in start + 6991 at /usr/lib/dyld
