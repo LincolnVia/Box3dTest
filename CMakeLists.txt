@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 4.2)
 project(Box3dTest)
 
+# Box3D's Apple sample sources are marked as Objective-C in a subdirectory.
+# Enable the language here so CMake has its compile rules when generating them.
+if(APPLE)
+    enable_language(OBJC)
+endif()
+
 set(CMAKE_CXX_STANDARD 20)
 include(FetchContent)
 
@@ -15,7 +21,6 @@ FetchContent_Declare(
     raylib
     DOWNLOAD_EXTRACT_TIMESTAMP OFF
     URL https://github.com/raysan5/raylib/archive/refs/tags/${RAYLIB_VERSION}.tar.gz
-    FIND_PACKAGE_ARGS
 )
 
 FetchContent_MakeAvailable(raylib)

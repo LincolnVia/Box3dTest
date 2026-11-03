@@ -6,3 +6,4 @@ build/
 .codex
 docs/html/
 docs/latex/
+external:

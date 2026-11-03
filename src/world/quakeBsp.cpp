@@ -6,7 +6,6 @@
 
 #include "../physics/physics.hpp"
 
-#include <_mingw_mac.h>
 #include <box3d/collision.h>
 #include <box3d/types.h>
 #include <raymath.h>

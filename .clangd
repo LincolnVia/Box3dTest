@@ -1,5 +1,9 @@
 CompileFlags:
-  CompilationDatabase: build/windows-dev
+  CompilationDatabase: .
+  Add:
+    - -Isrc
+    - -Iexternal/box3d/include
+    - -std=c++20
 
 Index:
   Background: Build

@@ -12,6 +12,8 @@
 struct b3MeshData;
 using Entity = std::unordered_map<std::string, std::string>;
 
+bool ParseVector3(std::string_view text, Vector3 &result);
+
 // A renderable Quake 1 BSP29 world backed by a static Box3D triangle mesh.
 class QuakeBspLevel {
 public:
@@ -29,6 +31,8 @@ public:
   bool HasPlayerSpawn() const { return hasPlayerSpawn; }
   Vector3 GetPlayerSpawn() const { return playerSpawn; }
   int GetTriangleCount() const { return triangleCount; }
+  const std::vector<Entity> &getEntities() const { return entities; }
+  void setEntities(std::vector<Entity> val) { entities = val; }
 
 private:
   struct StaticModelInstance {

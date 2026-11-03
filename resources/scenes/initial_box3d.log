@@ -1,0 +1,92 @@
+---- qbsp / ericw-tools 2.0.0-alpha11 ----
+
+--- Options Summary ---
+    "notex" was set to "1" (from command line)
+    "missing_textures_as_zero_size" was set to "1" (from command line)
+
+Input file: /Users/lincoln/projects/Box3dTest/resources/scenes/initial_box3d-compile.map
+Output file: /Users/lincoln/projects/Box3dTest/resources/scenes/initial_box3d.bsp
+
+INFO: using built-in palette.
+WARNING: No wad or _wad key exists in the worldmodel
+     4 entities
+     5 unique textures
+    27 texinfos
+    56 unique planes
+
+INFO: world extents calculated to 3208 units
+     6 brushes
+    37 sides
+     2 side bevels
+
+            0 texture frames added
+WARNING: unable to find texture skip
+WARNING: unable to find texture rooftiles2
+WARNING: unable to find texture road2
+WARNING: unable to find texture barbage_container
+WARNING: texture barbage_container name too long for Quake miptex
+WARNING: unable to find texture metal_bare_2
+Processing hull 0...
+    6 SOLID brushes
+    6 brushes total
+    37 visible sides
+INFO: calculating BSP for 6 brushes with 37 sides
+     6 brushes
+    37 visible faces
+    52 nodes
+    23 expensive split nodes
+    29 mid-split nodes
+    53 leaves
+    16 SOLID leafs
+    37 EMPTY leafs
+    53 leafs total
+    18 max tree height
+     9 avg tree height
+    258 tree portals
+WARNING: Reached occupant "info_player_start" at (0 0 32), no filling performed.
+Leak file written to initial_box3d.pts
+            3 portals written to initial_box3d.leak.prt
+    258 tree portals
+    140 sides visible
+     70 makefaces
+     12 merged
+    251 subdivided
+    1 nodes pruned
+    15 SOLID leafs
+    37 EMPTY leafs
+    52 leafs total
+    18 max tree height
+     9 avg tree height
+    160 edges added by tjunctions
+    306 faces optimized through MWT
+    773 triangles computed from MWT
+     31 faces created via optimization of MWT triangles
+    728 edges
+    340 faces
+Processing hull 1...
+WARNING: Reached occupant "info_player_start" at (0 0 32), no filling performed.
+Processing hull 2...
+WARNING: Reached occupant "info_player_start" at (0 0 32), no filling performed.
+Writing initial_box3d.bsp as Quake BSP bsp29
+Wrote initial_box3d.bsp
+
+count   lump name    byte size 
+      1 models               64
+     80 planes             1600
+    392 vertexes           4704
+     51 nodes              1224
+     25 texinfos           1000
+    340 faces              6800
+    219 clipnodes          1752
+     38 leafs              1064
+    356 marksurfaces        712
+    729 edges              2916
+   1456 surfedges          5824
+      5 textures            224
+        lightdata             0
+        visdata               0
+        entdata             210
+
+0.011s seconds elapsed
+
+

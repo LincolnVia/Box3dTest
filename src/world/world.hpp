@@ -29,8 +29,6 @@ public:
   bool HasBspPlayerSpawn() const { return quakeLevel.HasPlayerSpawn(); }
 
 private:
-  void ApplyCompanionCubeReleasedTuning();
-
   Engine &engine;
   std::vector<cubeBrush> meshs;
 

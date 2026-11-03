@@ -9,6 +9,7 @@
 #include <box3d/math_functions.h>
 #include <box3d/types.h>
 #include <raylib.h>
+#include <vector>
 
 enum Materials {
 
@@ -108,7 +109,6 @@ void World::Update() {
   }
 
   b3World_Step(worldId, timeStep, subStepCount);
-  ApplyCompanionCubeReleasedTuning();
 }
 void World::DrawGameObjects() {
   if (quakeLevel.IsLoaded()) {
@@ -136,4 +136,6 @@ void World::Draw() {
   DrawGameObjects();
 }
 
-void World::SpawnEntites() {}
+void World::SpawnEntites() {
+  std::vector<Entity> entities & = quakeLevel.getEntities();
+}

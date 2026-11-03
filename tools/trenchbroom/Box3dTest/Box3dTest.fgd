@@ -21,12 +21,18 @@
 @PointClass size(-8 -8 -8, 8 8 8) color(255 255 100) = info_trigger : "Trigger"
 [
     target(string) : "target" : ""
-    enabled(integer) : 1 
+    enabled(integer) : "Enabled" : 1
 ]
 
+@PointClass size(-8 -8 -8, 8 8 8) color(255 0 0) = info_enemy_spawn : "Enemy spawner"
+[
+    spawnrate(integer) : "Spawn Rate" : 0
+    limit(integer) : "Max Spawns" : 1 
+    enabled(integer) : "Enabled" : 1
+]
 @PointClass size(-16 -16 0, 16 16 32) color(100 180 255) = prop_static : "Static GLTF model"
 [
     model(string) : "Model path (relative to resources/models)"
     angle(integer) : "Yaw" : 0
-    scale(float) : "Uniform scale" : 1
+    scale(float) : "Uniform scale" : "1"
 ]

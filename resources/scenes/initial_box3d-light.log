@@ -1,0 +1,37 @@
+---- light / ericw-tools 2.0.0-alpha11 ----
+LoadBSPFile: 'initial_box3d.bsp'
+BSP is version Quake BSP bsp29
+INFO: using built-in palette.
+ConvertTextures: WARNING: invalid size data for skip
+ConvertTextures: WARNING: invalid size data for rooftiles2
+ConvertTextures: WARNING: invalid size data for road2
+ConvertTextures: WARNING: invalid size data for barbage_contain
+ConvertTextures: WARNING: invalid size data for metal_bare_2
+Loading extended texinfo flags from initial_box3d.texinfo.json...
+Loading extended content flags from initial_box3d.content.json...
+4 entities read, 1 are lights.
+
+--- Options Summary ---
+
+DecompressAllVis: invalid visofs for leaf 0
+Embree_TraceInit: Embree version: 4.4.0
+Embree_TraceInit: 
+	0 sky faces
+	340 solid faces
+	0 filtered faces
+	0 shadow-casting skip faces
+SetupLights: 1 initial lights
+SetupLights: 1 after surface lights
+SetupLights: 1 after jittering
+Final count: 1 lights, 0 suns in use.
+0 surface light points in use.
+map uses color: false
+lightmap size (total): 4444
+Lighting Completed.
+
+0 switchable light styles (32 max)
+Writing initial_box3d.bsp as Quake BSP bsp29
+0.011s seconds elapsed
+0 empty lightmaps
+
+

@@ -117,5 +117,4 @@ fi
 
 cmake "${build_args[@]}"
 
-cd build/windows-dev
-./Box3dGame.exe
+./build/dev/Box3dGame

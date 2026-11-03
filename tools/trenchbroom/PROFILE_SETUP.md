@@ -1,44 +1,13 @@
 # TrenchBroom Compile Profile
 
-## Profile
+The `Build BSP` profile is configured in `Box3dTest/CompilationProfiles.cfg`.
+It exports a TrenchBroom-clean map, then runs QBSP, VIS, and LIGHT in order.
+Compiler output is written alongside the source map.
 
-- Name: `Build BSP and Run Box3D`
-- Working directory: `C:\Users\Lincoln Via\Desktop\Utils\trench\compile`
+The profile uses the ericw-tools 2.0.0-alpha11 macOS binaries installed at:
 
-## Tasks
+`/Users/lincoln/.local/opt/ericw-tools/`
 
-### 1. Export Map
-
-- Target: `${MAP_BASE_NAME}-compile.map`
-- Strip TrenchBroom properties: enabled
-
-### 2. Run Tool — QBSP
-
-- Tool: `C:\Users\Lincoln Via\Desktop\Utils\trench\compilers\qbsp.exe`
-- Parameters: `-notex -missing_textures_as_zero_size ${MAP_BASE_NAME}-compile.map ${MAP_BASE_NAME}.bsp`
-- Treat non-zero exit as error: enabled
-
-### 3. Run Tool — VIS
-
-- Tool: `C:\Users\Lincoln Via\Desktop\Utils\trench\compilers\vis.exe`
-- Parameters: `${MAP_BASE_NAME}.bsp`
-- Treat non-zero exit as error: enabled
-
-### 4. Run Tool — LIGHT
-
-- Tool: `C:\Users\Lincoln Via\Desktop\Utils\trench\compilers\light.exe`
-- Parameters: `${MAP_BASE_NAME}.bsp`
-- Treat non-zero exit as error: enabled
-
-### 5. Launch Engine
-
-- Engine profile: `Box3D Game`
-- Treat launch failure as error: enabled
-
-## Engine Profile
-
-- Name: `Box3D Game`
-- Executable: `C:\Windows\System32\wsl.exe`
-- Parameters: `--distribution Ubuntu --cd /home/lincoln_via/projects/Box3dTest --exec ./build/windows-dev/Box3dGame.exe "C:/Users/Lincoln Via/Desktop/Utils/trench/compile/${MAP_BASE_NAME}.bsp"`
-
-For a build-only profile, omit task 5.
+The archive and bundled runtime libraries are kept together there so the tools
+can load their dependencies. This build is x86_64 and runs on this Apple Silicon
+Mac through Rosetta.
