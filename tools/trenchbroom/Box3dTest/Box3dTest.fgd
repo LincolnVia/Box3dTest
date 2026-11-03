@@ -20,7 +20,8 @@
 ]
 @PointClass size(-8 -8 -8, 8 8 8) color(255 255 100) = info_trigger : "Trigger"
 [
-    target(string) : "target" : ""
+    target(integer) : "target" : -1
+    triggered(integer) : "Triggered" : 0
     enabled(integer) : "Enabled" : 1
 ]
 
@@ -31,8 +32,9 @@
     enabled(integer) : "Enabled" : 1
 ]
 @PointClass size(-16 -16 0, 16 16 32) color(100 180 255) = prop_static : "Static GLTF model"
-[
+
     model(string) : "Model path (relative to resources/models)"
     angle(integer) : "Yaw" : 0
     scale(float) : "Uniform scale" : "1"
+    triggerid(integer) : "Trigger Reciever ID" : -1
 ]

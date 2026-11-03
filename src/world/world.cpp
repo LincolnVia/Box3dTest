@@ -5,10 +5,12 @@
 
 #include "../rlights.h"
 #include "../utils.hpp"
+#include "entities.hpp"
 #include <box3d/box3d.h>
 #include <box3d/math_functions.h>
 #include <box3d/types.h>
 #include <raylib.h>
+#include <string>
 #include <vector>
 
 enum Materials {
@@ -137,5 +139,27 @@ void World::Draw() {
 }
 
 void World::SpawnEntites() {
-  std::vector<Entity> entities & = quakeLevel.getEntities();
+  std::vector<Entity> entities = quakeLevel.getEntities();
+}
+std::vector<info_trigger> World::SpawnTriggers() {
+
+  std::vector<info_trigger> triggers;
+  for (const Entity &entity : quakeLevel.getEntities()) {
+    const auto className = entity.find("classname");
+    if (className == entity.end() || (className->second != "info_trigger")) {
+      continue;
+    }
+    info_trigger trigger;
+    if (auto it = entity.find("target"); it != entity.end()) {
+      trigger.target = std::stoi(it->second);
+    }
+    if (auto it = entity.find("triggered"); it != entity.end()) {
+      trigger.target = std::stoi(it->second);
+    }
+    if (auto it = entity.find("target"); it != entity.end()) {
+      trigger.target = stoi(it->second);
+    }
+    triggers.push_back(trigger);
+  }
+  return triggers;
 }

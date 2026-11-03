@@ -3,6 +3,7 @@
 #include "../physics/physics.hpp"
 
 #include "cubeBrush.hpp"
+#include "entities.hpp"
 #include "quakeBsp.hpp"
 #include <box3d/box3d.h>
 #include <raylib.h>
@@ -20,6 +21,7 @@ public:
   void Draw();
   void DrawGameObjects();
   void SpawnEntites();
+  std::vector<info_trigger> SpawnTriggers();
   b3WorldId GetWorldId() const { return worldId; }
   std::vector<BoxDef> &GetSceneObjects() { return sceneObjects; }
   bool LoadBspLevel(const std::filesystem::path &path);

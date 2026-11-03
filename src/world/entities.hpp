@@ -12,7 +12,7 @@ struct EntitySpawner {
 struct info_trigger {
   int target = -1;
   int triggered = 0;
-  int enabled = 0;
+  int enabled = 1;
 };
 
 // We can store every door in the worlds open state using bitpacking
