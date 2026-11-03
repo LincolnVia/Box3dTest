@@ -4,6 +4,7 @@
 {
 "classname" "worldspawn"
 "_tb_mod" "tools"
+"_tb_def" "external://wsl.localhost/Ubuntu/home/lincoln_via/projects/Box3dTest/tools/trenchbroom/Box3dTest/Box3dTest.fgd"
 // brush 0
 {
 ( -1168 -256 -16 ) ( -1168 -255 -16 ) ( -1168 -256 -15 ) rooftiles2 0 0 0 1 1

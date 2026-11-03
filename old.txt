@@ -48,4 +48,54 @@ void World::ApplyCompanionCubeReleasedTuning() {
                     false);
   }
 }
+#include <iostream>
+#include "EventListener.h" // Assuming code is in this header
+
+// 1. A simple standalone global function callback
+void globalLogger(size_t id, bool state, void* userData) {
+    std::cout << "[Global Log] System ID " << id 
+              << " changed to " << (state ? "ON" : "OFF") << "\n";
+}
+
+// 2. An object-oriented subscriber example
+class AudioSystem {
+public:
+    void playToggleSound(size_t id, bool state) {
+        std::cout << "[Audio System] Playing sound for ID " << id 
+                  << " turning " << (state ? "UP" : "DOWN") << "\n";
+    }
+};
+
+// Wrapper callback to bridge the C-style function pointer to a C++ class instance
+void audioCallbackBridge(size_t id, bool state, void* userData) {
+    // Cast the generic void pointer back to our specific class instance
+    AudioSystem* audioInstance = static_cast<AudioSystem*>(userData);
+    if (audioInstance) {
+        audioInstance->playToggleSound(id, state);
+    }
+}
+
+int main() {
+    EventListener listener;
+    AudioSystem audio;
+
+    // Register Subscriber 1: The standalone global logger
+    listener.subscribe(globalLogger);
+
+    // Register Subscriber 2: The AudioSystem object (passing its instance address as context)
+    listener.subscribe(audioCallbackBridge, &audio);
+
+    std::cout << "--- Triggering ID 12 (Within 64 range) ---\n";
+    listener.setState(12, true);  // Triggers BOTH subscribers
+    listener.setState(12, true);  // No change, ignored completely
+
+    std::cout << "\n--- Triggering ID 105 (Exceeds original 64 limit) ---\n";
+    // The vector seamlessly scales up to hold 105 bits on the fly
+    listener.setState(105, true); // Triggers BOTH subscribers
+
+    std::cout << "\n--- Flipping ID 12 back to false ---\n";
+    listener.setState(12, false); // Triggers BOTH subscribers
+
+    return 0;
+}
 

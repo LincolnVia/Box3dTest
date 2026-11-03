@@ -4,6 +4,7 @@
 #include "../player/player.hpp"
 #include "../world/world.hpp"
 #include "assetManager.hpp"
+#include "eventListener.hpp"
 #include "shaderManager.hpp"
 
 #include <cstdio>
@@ -33,6 +34,7 @@ private:
   bool enablePlayerInput = true;
   AssetManager assetManager;
   ShaderManager shaderManager;
+
   Player player;
   World world;
 };
