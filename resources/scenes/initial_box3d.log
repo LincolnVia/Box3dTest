@@ -9,10 +9,10 @@ Output file: /Users/lincoln/projects/Box3dTest/resources/scenes/initial_box3d.bs
 
 INFO: using built-in palette.
 WARNING: No wad or _wad key exists in the worldmodel
-     5 entities
+     7 entities
      6 unique textures
     30 texinfos
-    66 unique planes
+    68 unique planes
 
 INFO: world extents calculated to 3208 units
      7 brushes
@@ -44,7 +44,7 @@ INFO: calculating BSP for 6 brushes with 37 sides
     18 max tree height
      9 avg tree height
     258 tree portals
-WARNING: Reached occupant "info_player_start" at (0 0 32), no filling performed.
+WARNING: Reached occupant "info_player_start" at (496 -16 32), no filling performed.
 Leak file written to initial_box3d.pts
             3 portals written to initial_box3d.leak.prt
     258 tree portals
@@ -65,15 +65,15 @@ Leak file written to initial_box3d.pts
     728 edges
     340 faces
 Processing hull 1...
-WARNING: Reached occupant "info_player_start" at (0 0 32), no filling performed.
+WARNING: Reached occupant "light" at (0 0 128), no filling performed.
 Processing hull 2...
-WARNING: Reached occupant "info_player_start" at (0 0 32), no filling performed.
+WARNING: Reached occupant "light" at (0 0 128), no filling performed.
 Writing initial_box3d.bsp as Quake BSP bsp29
 Wrote initial_box3d.bsp
 
 count   lump name    byte size 
       2 models              128
-     90 planes             1800
+     95 planes             1900
     420 vertexes           5040
      57 nodes              1368
      28 texinfos           1120
@@ -86,8 +86,8 @@ count   lump name    byte size
       6 textures            268
         lightdata             0
         visdata               0
-        entdata             253
+        entdata             455
 
-0.017s seconds elapsed
+0.012s seconds elapsed
 
 

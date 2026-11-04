@@ -182,6 +182,7 @@ enum ModelType {
 
 struct BoxDef {
   std::string name;
+  std::string modelPath;
   SurfaceMaterial material = SurfaceMaterial::Default;
   ModelType type = ModelType::BRUSH;
   b3BodyId bodyId{};
@@ -242,7 +243,7 @@ createDynamicObject(b3Vec3 position, b3Vec3 scale, float density,
   b3BodyDef bodyDef = b3DefaultBodyDef();
   bodyDef.type = b3_dynamicBody;
   bodyDef.position = b3ToPos(position);
-  bodyDef.isBullet = true;
+  bodyDef.isBullet = false;
   dynamicObject.bodyId = b3CreateBody(worldID, &bodyDef);
 
   dynamicObject.halfExtents = {scale.x / 2, scale.y / 2, scale.z / 2};

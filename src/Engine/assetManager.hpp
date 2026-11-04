@@ -40,6 +40,20 @@ public:
     models.emplace(name, model);
     printf("%s Loaded Into Model Storage\n", name.c_str());
   }
+  Model *LoadModelIfMissing(const std::string &key,
+                            const std::string &fileName) {
+    if (auto it = models.find(key); it != models.end()) {
+      return &it->second;
+    }
+    Model model = LoadModel(fileName.c_str());
+    if (!IsModelValid(model)) {
+      return nullptr;
+    }
+    auto [it, inserted] = models.emplace(key, model);
+    (void)inserted;
+    printf("%s Loaded Into Model Storage\n", key.c_str());
+    return &it->second;
+  }
   Texture2D &getTexture(const std::string &name) { return textures.at(name); }
   Model &getModel(const std::string &name) { return models.at(name); }
 

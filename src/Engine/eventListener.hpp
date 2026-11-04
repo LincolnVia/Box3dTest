@@ -20,8 +20,7 @@ struct EventSubscription {
 class EventListener {
 public:
   EventSubscription subscribe(const std::string &target,
-                              ChangeCallBack callback,
-                              void *context) {
+                              ChangeCallBack callback, void *context) {
     if (target.empty() || callback == nullptr) {
       return {};
     }

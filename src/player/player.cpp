@@ -26,9 +26,13 @@ void Player::CreatePhysicsBody() {
   shapeDef.density = 985.0f;
   shapeDef.baseMaterial.friction = 0.46f;
   shapeDef.filter.categoryBits = CollisionCategory::Player;
-  shapeDef.filter.maskBits = CollisionCategory::World;
+  shapeDef.filter.maskBits = CollisionCategory::World | CollisionCategory::Trigger;
+  shapeDef.enableSensorEvents = true;
+  collider.name = "Player";
   collider.shapeId =
       b3CreateHullShape(collider.bodyId, &shapeDef, &collider.hull.base);
+
+  globalPlayerShapeId = collider.shapeId;
 }
 
 void Player::Init(World &world, bool captureCursor) {
