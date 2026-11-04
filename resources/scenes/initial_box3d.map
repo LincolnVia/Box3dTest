@@ -63,7 +63,7 @@
 // entity 1
 {
 "classname" "info_player_start"
-"origin" "496 -16 32"
+"origin" "-128 208 32"
 "angle" "45"
 }
 // entity 2
@@ -107,15 +107,7 @@
 }
 // entity 7
 {
-"classname" "weapon_ak47"
-"cost" "500"
-// brush 0
-{
-( -192 352 96 ) ( -192 353 96 ) ( -192 352 97 ) __TB_empty 0 0 0 1 1
-( -192 352 96 ) ( -192 352 97 ) ( -191 352 96 ) __TB_empty 0 0 0 1 1
-( -192 352 64 ) ( -191 352 64 ) ( -192 353 64 ) __TB_empty 0 0 0 1 1
-( -112 1536 112 ) ( -112 1537 112 ) ( -111 1536 112 ) __TB_empty 0 0 0 1 1
-( -112 368 112 ) ( -111 368 112 ) ( -112 368 113 ) __TB_empty 0 0 0 1 1
-( -112 1536 112 ) ( -112 1536 113 ) ( -112 1537 112 ) __TB_empty 0 0 0 1 1
-}
+"classname" "weapon_remmington"
+"origin" "-144 336 72"
+"model" "companion_cube.glb"
 }

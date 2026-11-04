@@ -2,6 +2,7 @@
 #include "../Engine/global.hpp"
 #include "../graphics.hpp"
 #include "../utils.hpp"
+#include "box3d/math_functions.h"
 #include "movement.hpp"
 #include <box3d/box3d.h>
 #include <box3d/id.h>
@@ -26,7 +27,8 @@ void Player::CreatePhysicsBody() {
   shapeDef.density = 985.0f;
   shapeDef.baseMaterial.friction = 0.46f;
   shapeDef.filter.categoryBits = CollisionCategory::Player;
-  shapeDef.filter.maskBits = CollisionCategory::World | CollisionCategory::Trigger;
+  shapeDef.filter.maskBits =
+      CollisionCategory::World | CollisionCategory::Trigger;
   shapeDef.enableSensorEvents = true;
   collider.name = "Player";
   collider.shapeId =
@@ -64,7 +66,11 @@ void Player::Init(World &world, bool captureCursor) {
 }
 Player::~Player() { UnloadModel(gunModel); }
 
-void Player::Teleport(Vector3 position) {
+void Player::Teleport(Vector3 position, float angle) {
+  b3Quat rotation = b3Quat_identity;
+
+  float turn_radians = DEG2RAD * angle;
+
   b3Body_SetTransform(collider.bodyId,
                       b3ToPos({position.x, position.y, position.z}),
                       b3Quat_identity);

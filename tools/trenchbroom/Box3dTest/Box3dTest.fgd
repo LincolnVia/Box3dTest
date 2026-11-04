@@ -53,14 +53,16 @@
     scale(float) : "Uniform scale" : "1"
     triggerid(integer) : "Trigger Reciever ID" : -1
 ]
-@BaseClass size(-16 -16 -16, 16 16 16) = wallbuy [
+@BaseClass size(-16 -16 -16, 16 16 16) model({"path": "resources/models/" + model, "scale": scale * 20}) = wallbuy [
+    model(string) : "ModelPath (relative to resources/models)"
+    angle(integer) : "Yaw" : 0
     cost(integer) : "Cost" : 0
     purchased(integer) : "0:1 Been Bought" : 0
 
 ]
 
 // 2. Define the unique variations, each with their own flat viewport color
-@SolidClass base(wallbuy) color(0 255 0) = weapon_1911 : "Standard Type (Green Flat Color)" []
-@SolidClass base(wallbuy) color(255 0 0) = weapon_ak47 : "Hazardous Type (Red Flat Color)" []
-@SolidClass base(wallbuy) color(0 0 255) = weapon_remmington : "Secret Type (Blue Flat Color)" []
+@PointClass base(wallbuy)  = weapon_1911 : "Standard Type (Green Flat Color)" []
+@PointClass base(wallbuy)  = weapon_ak47 : "Hazardous Type (Red Flat Color)" []
+@PointClass base(wallbuy)  = weapon_remmington : "Secret Type (Blue Flat Color)" []
 

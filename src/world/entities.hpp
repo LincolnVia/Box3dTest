@@ -16,6 +16,14 @@ struct EntitySpawner {
   Vector3 position;
   EntityType type;
 };
+
+struct wallbuy {
+  BoxDef boxdef;
+  int cost = 0;
+  int purchaced = 0;
+  int enabled = 1;
+  wallbuy(BoxDef object) : boxdef(std::move(object)) {}
+};
 struct prop_dynamic {
   BoxDef boxdef;
   float modelScale = 1.0f;
@@ -25,22 +33,15 @@ struct prop_dynamic {
 };
 
 struct info_trigger {
-  b3ShapeId shapeid;
+  BoxDef boxdef;
   int target = -1;
   int triggered = 0;
   int enabled = 1;
   info_trigger(Vector3 center, Vector3 halfExtents, b3WorldId &worldId) {
-    b3BodyDef bodyDef = b3DefaultBodyDef();
-    bodyDef.position = {center.x, center.y, center.z};
-    bodyDef.type = b3BodyType::b3_staticBody;
-
-    b3ShapeDef shapeDef = b3DefaultShapeDef();
-    shapeDef.filter.categoryBits = CollisionCategory::Trigger;
-    shapeDef.isSensor = true;
-    shapeDef.enableSensorEvents = true;
-    b3BoxHull hull = b3MakeBoxHull(halfExtents.x, halfExtents.y, halfExtents.z);
-    b3BodyId bodyId = b3CreateBody(worldId, &bodyDef);
-    shapeid = b3CreateHullShape(bodyId, &shapeDef, &hull.base);
+    boxdef = createStaticObject(
+        {center.x, center.y, center.z},
+        {halfExtents.x * 2.0f, halfExtents.y * 2.0f, halfExtents.z * 2.0f},
+        worldId, SurfaceMaterial::Default, true);
   }
   void on_trigger_collided() {
     if (enabled)
@@ -49,11 +50,12 @@ struct info_trigger {
   void Update() {
     // First determine the required array capacity to hold all the overlapping
     // shape ids.
-    int capacity = b3Shape_GetSensorCapacity(shapeid);
+    int capacity = b3Shape_GetSensorCapacity(boxdef.shapeId);
     std::vector<b3ShapeId> overlaps(static_cast<size_t>(capacity));
 
     // Now get all overlaps and record the actual count
-    int count = b3Shape_GetSensorData(shapeid, overlaps.data(), capacity);
+    int count =
+        b3Shape_GetSensorData(boxdef.shapeId, overlaps.data(), capacity);
 
     for (int i = 0; i < count; ++i) {
       b3ShapeId visitorId = overlaps[static_cast<size_t>(i)];

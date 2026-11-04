@@ -10,7 +10,7 @@ ConvertTextures: WARNING: invalid size data for metal_bare_2
 ConvertTextures: WARNING: invalid size data for texture_08
 Loading extended texinfo flags from initial_box3d.texinfo.json...
 Loading extended content flags from initial_box3d.content.json...
-7 entities read, 1 are lights.
+8 entities read, 1 are lights.
 
 --- Options Summary ---
 
@@ -18,7 +18,7 @@ DecompressAllVis: invalid visofs for leaf 0
 Embree_TraceInit: Embree version: 4.4.0
 Embree_TraceInit: 
 	0 sky faces
-	340 solid faces
+	381 solid faces
 	0 filtered faces
 	0 shadow-casting skip faces
 SetupLights: 1 initial lights
@@ -27,12 +27,12 @@ SetupLights: 1 after jittering
 Final count: 1 lights, 0 suns in use.
 0 surface light points in use.
 map uses color: false
-lightmap size (total): 5368
+lightmap size (total): 4728
 Lighting Completed.
 
 0 switchable light styles (32 max)
 Writing initial_box3d.bsp as Quake BSP bsp29
-0.012s seconds elapsed
+0.013s seconds elapsed
 0 empty lightmaps
 
 

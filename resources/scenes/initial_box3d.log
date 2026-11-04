@@ -9,7 +9,7 @@ Output file: /Users/lincoln/projects/Box3dTest/resources/scenes/initial_box3d.bs
 
 INFO: using built-in palette.
 WARNING: No wad or _wad key exists in the worldmodel
-     7 entities
+     8 entities
      6 unique textures
     30 texinfos
     68 unique planes
@@ -34,59 +34,59 @@ Processing hull 0...
 INFO: calculating BSP for 6 brushes with 37 sides
      6 brushes
     37 visible faces
-    52 nodes
-    23 expensive split nodes
-    29 mid-split nodes
-    53 leaves
-    16 SOLID leafs
-    37 EMPTY leafs
-    53 leafs total
-    18 max tree height
+    64 nodes
+    46 expensive split nodes
+    18 mid-split nodes
+    65 leaves
+    21 SOLID leafs
+    44 EMPTY leafs
+    65 leafs total
+    17 max tree height
      9 avg tree height
-    258 tree portals
-WARNING: Reached occupant "info_player_start" at (496 -16 32), no filling performed.
+    306 tree portals
+WARNING: Reached occupant "prop_static" at (880 34 28), no filling performed.
 Leak file written to initial_box3d.pts
             3 portals written to initial_box3d.leak.prt
-    258 tree portals
-    140 sides visible
-     70 makefaces
-     12 merged
-    251 subdivided
+    306 tree portals
+    172 sides visible
+     86 makefaces
+     17 merged
+    279 subdivided
     1 nodes pruned
-    15 SOLID leafs
-    37 EMPTY leafs
-    52 leafs total
-    18 max tree height
+    20 SOLID leafs
+    44 EMPTY leafs
+    64 leafs total
+    17 max tree height
      9 avg tree height
-    160 edges added by tjunctions
-    306 faces optimized through MWT
-    773 triangles computed from MWT
-     31 faces created via optimization of MWT triangles
-    728 edges
-    340 faces
+    182 edges added by tjunctions
+    347 faces optimized through MWT
+    875 triangles computed from MWT
+     33 faces created via optimization of MWT triangles
+    819 edges
+    381 faces
 Processing hull 1...
-WARNING: Reached occupant "light" at (0 0 128), no filling performed.
+WARNING: Reached occupant "info_player_start" at (-128 208 32), no filling performed.
 Processing hull 2...
-WARNING: Reached occupant "light" at (0 0 128), no filling performed.
+WARNING: Reached occupant "info_player_start" at (-128 208 32), no filling performed.
 Writing initial_box3d.bsp as Quake BSP bsp29
 Wrote initial_box3d.bsp
 
 count   lump name    byte size 
       2 models              128
-     95 planes             1900
-    420 vertexes           5040
-     57 nodes              1368
+     96 planes             1920
+    470 vertexes           5640
+     69 nodes              1656
      28 texinfos           1120
-    363 faces              7260
-    231 clipnodes          1848
-     45 leafs              1260
-    379 marksurfaces        758
-    778 edges              3112
-   1554 surfedges          6216
+    404 faces              8080
+    210 clipnodes          1680
+     52 leafs              1456
+    417 marksurfaces        834
+    869 edges              3476
+   1736 surfedges          6944
       6 textures            268
         lightdata             0
         visdata               0
-        entdata             455
+        entdata             544
 
 0.012s seconds elapsed
 

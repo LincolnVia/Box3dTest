@@ -202,7 +202,8 @@ struct BoxDef {
 
 inline BoxDef
 createStaticObject(b3Vec3 position, b3Vec3 scale, b3WorldId worldID,
-                   SurfaceMaterial material = SurfaceMaterial::Default) {
+                   SurfaceMaterial material = SurfaceMaterial::Default,
+                   bool isSensor = false) {
   BoxDef staticObject{};
   b3BodyDef staticBodyDef = b3DefaultBodyDef();
   staticBodyDef.position = b3ToPos(position);
@@ -215,9 +216,13 @@ createStaticObject(b3Vec3 position, b3Vec3 scale, b3WorldId worldID,
                     staticObject.halfExtents.z);
 
   b3ShapeDef staticShapeDef = b3DefaultShapeDef();
-  staticShapeDef.filter.categoryBits = CollisionCategory::Static;
+  staticShapeDef.filter.categoryBits =
+      isSensor ? CollisionCategory::Trigger : CollisionCategory::Static;
   staticShapeDef.filter.maskBits =
-      CollisionCategory::Dynamic | CollisionCategory::Player;
+      isSensor ? CollisionCategory::Player
+               : CollisionCategory::Dynamic | CollisionCategory::Player;
+  staticShapeDef.isSensor = isSensor;
+  staticShapeDef.enableSensorEvents = isSensor;
   staticObject.shapeId = b3CreateHullShape(staticObject.bodyId, &staticShapeDef,
                                            &staticObject.hull.base);
   staticObject.material = material;

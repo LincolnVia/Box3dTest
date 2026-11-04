@@ -24,7 +24,7 @@ public:
   void SpawnEntities();
   std::vector<prop_dynamic> SpawnDynamicObjects();
   std::vector<info_trigger> SpawnTriggers();
-
+  std::vector<wallbuy> SpawnWallbuys();
   b3WorldId GetWorldId() const { return worldId; }
   std::vector<BoxDef> &GetSceneObjects() { return sceneObjects; }
   bool LoadBspLevel(const std::filesystem::path &path);
@@ -45,6 +45,7 @@ private:
   QuakeBspLevel quakeLevel;
   std::vector<info_trigger> triggers;
   std::vector<prop_dynamic> dynamicProps;
+  std::vector<wallbuy> wallbuys;
   std::string bspStatus = "Drop a Quake BSP29 file to load a level";
   bool isShutdown = false;
 

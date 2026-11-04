@@ -24,7 +24,7 @@ public:
 
   void RenderGunTexture();
   void DrawGun(int width, int height);
-  void Teleport(Vector3 position);
+  void Teleport(Vector3 position, float angle = 0);
 
   // Getter Setters for player variables
   b3Pos getPosition() const { return b3Body_GetPosition(collider.bodyId); }
@@ -80,7 +80,7 @@ private:
   float airAccel = 3.0f;
   float groundFriction = 8.0f;
   float jumpSpeed = 3.0f;
-  float jumpRayDistance = 2.5;
+  float jumpRayDistance = 3.5;
 
   float maxExternalHorizontalSpeed = 12.0f;
   float maxExternalUpSpeed = 7.0f;

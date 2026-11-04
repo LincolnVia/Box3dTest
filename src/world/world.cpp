@@ -11,8 +11,8 @@
 #include <box3d/box3d.h>
 #include <box3d/math_functions.h>
 #include <box3d/types.h>
-#include <raylib.h>
 #include <cmath>
+#include <raylib.h>
 #include <string>
 #include <utility>
 #include <vector>
@@ -129,20 +129,19 @@ void World::DrawGameObjects() {
                        WHITE);
       }
       if (object.type == ModelType::MODEL) {
-        b3_DrawModel(engine.getAssetManager().getModel(object.name),
-                     B3WorldTransformToMatrix(
-                         b3Body_GetTransform(object.bodyId),
-                         object.halfExtents));
+        b3_DrawModel(
+            engine.getAssetManager().getModel(object.name),
+            B3WorldTransformToMatrix(b3Body_GetTransform(object.bodyId),
+                                     object.halfExtents));
       }
     }
   }
 
   for (const prop_dynamic &prop : dynamicProps) {
     const b3Vec3 modelScale{prop.modelScale, prop.modelScale, prop.modelScale};
-    b3_DrawModel(
-        engine.getAssetManager().getModel(prop.boxdef.modelPath),
-        B3WorldTransformToMatrix(b3Body_GetTransform(prop.boxdef.bodyId),
-                                 modelScale));
+    b3_DrawModel(engine.getAssetManager().getModel(prop.boxdef.modelPath),
+                 B3WorldTransformToMatrix(
+                     b3Body_GetTransform(prop.boxdef.bodyId), modelScale));
   }
 }
 void World::Draw() {
@@ -163,23 +162,20 @@ void World::SpawnEntities() {
   dynamicProps = std::move(spawnedProps);
 }
 
-std::vector<prop_dynamic> World::SpawnDynamicObjects() {
-
-  std::vector<prop_dynamic> dynamicProps;
+std::vector<wallbuy> World::SpawnWallbuys() {
 
   for (const Entity &entity : quakeLevel.getEntities()) {
     const auto className = entity.find("classname");
-    if (className == entity.end() || className->second != "prop_dynamic") {
+    if (className == entity.end() || className->second != "wallbuy") {
       continue;
     }
     const auto model = entity.find("model");
     if (model == entity.end()) {
-      TraceLog(LOG_WARNING, "Skipping prop_dynamic without a model");
+      TraceLog(LOG_WARNING, "Skipping wallbuy without a model");
       continue;
     }
 
-    const std::filesystem::path modelPath =
-        ResolveBspModelPath(model->second);
+    const std::filesystem::path modelPath = ResolveBspModelPath(model->second);
     if (modelPath.empty()) {
       TraceLog(LOG_WARNING, "Skipping prop_dynamic with invalid model: %s",
                model->second.c_str());
@@ -219,10 +215,9 @@ std::vector<prop_dynamic> World::SpawnDynamicObjects() {
     }
 
     const BoundingBox bounds = GetModelBoundingBox(*loadedModel);
-    const b3Vec3 fullSize{
-        (bounds.max.x - bounds.min.x) * entityScale,
-        (bounds.max.y - bounds.min.y) * entityScale,
-        (bounds.max.z - bounds.min.z) * entityScale};
+    const b3Vec3 fullSize{(bounds.max.x - bounds.min.x) * entityScale,
+                          (bounds.max.y - bounds.min.y) * entityScale,
+                          (bounds.max.z - bounds.min.z) * entityScale};
     if (fullSize.x <= 0.0f || fullSize.y <= 0.0f || fullSize.z <= 0.0f) {
       TraceLog(LOG_WARNING, "Skipping prop_dynamic with empty model bounds: %s",
                modelPath.string().c_str());
@@ -230,8 +225,94 @@ std::vector<prop_dynamic> World::SpawnDynamicObjects() {
     }
 
     const b3Vec3 physicsPosition{position.x, position.y, position.z};
-    BoxDef object = createDynamicObject(physicsPosition, fullSize, 0.63f,
-                                        0.63f, worldId);
+    BoxDef object =
+        createDynamicObject(physicsPosition, fullSize, 0.63f, 0.63f, worldId);
+    object.type = ModelType::MODEL;
+    object.modelPath = modelKey;
+
+    if (const auto angle = entity.find("angle"); angle != entity.end()) {
+      try {
+        const float radians = std::stof(angle->second) * PI / 180.0f;
+        const b3Quat rotation =
+            b3MakeQuatFromAxisAngle({0.0f, 1.0f, 0.0f}, radians);
+        b3Body_SetTransform(object.bodyId, b3ToPos(physicsPosition), rotation);
+      } catch (const std::exception &) {
+        TraceLog(LOG_WARNING, "Ignoring invalid wallbuy angle: %s",
+                 angle->second.c_str());
+      }
+    }
+    wallbuys.emplace_back(std::move(object));
+  }
+  return wallbuys;
+}
+
+std::vector<prop_dynamic> World::SpawnDynamicObjects() {
+
+  std::vector<prop_dynamic> dynamicProps;
+
+  for (const Entity &entity : quakeLevel.getEntities()) {
+    const auto className = entity.find("classname");
+    if (className == entity.end() || className->second != "prop_dynamic") {
+      continue;
+    }
+    const auto model = entity.find("model");
+    if (model == entity.end()) {
+      TraceLog(LOG_WARNING, "Skipping prop_dynamic without a model");
+      continue;
+    }
+
+    const std::filesystem::path modelPath = ResolveBspModelPath(model->second);
+    if (modelPath.empty()) {
+      TraceLog(LOG_WARNING, "Skipping prop_dynamic with invalid model: %s",
+               model->second.c_str());
+      continue;
+    }
+
+    const auto origin = entity.find("origin");
+    Vector3 position{};
+    if (origin == entity.end() || !ParseVector3(origin->second, position)) {
+      TraceLog(LOG_WARNING, "Skipping prop_dynamic with invalid origin");
+      continue;
+    }
+
+    const std::string modelKey = modelPath.generic_string();
+    Model *loadedModel = engine.getAssetManager().LoadModelIfMissing(
+        modelKey, modelPath.string());
+    if (loadedModel == nullptr) {
+      TraceLog(LOG_WARNING, "Could not load prop_dynamic model: %s",
+               modelPath.string().c_str());
+      continue;
+    }
+
+    float entityScale = 1.0f;
+    if (const auto scale = entity.find("scale"); scale != entity.end()) {
+      try {
+        size_t parsedLength = 0;
+        entityScale = std::stof(scale->second, &parsedLength);
+        if (parsedLength != scale->second.size() ||
+            !std::isfinite(entityScale) || entityScale <= 0.0f) {
+          throw std::invalid_argument("invalid scale");
+        }
+      } catch (const std::exception &) {
+        TraceLog(LOG_WARNING, "Skipping prop_dynamic with invalid scale: %s",
+                 scale->second.c_str());
+        continue;
+      }
+    }
+
+    const BoundingBox bounds = GetModelBoundingBox(*loadedModel);
+    const b3Vec3 fullSize{(bounds.max.x - bounds.min.x) * entityScale,
+                          (bounds.max.y - bounds.min.y) * entityScale,
+                          (bounds.max.z - bounds.min.z) * entityScale};
+    if (fullSize.x <= 0.0f || fullSize.y <= 0.0f || fullSize.z <= 0.0f) {
+      TraceLog(LOG_WARNING, "Skipping prop_dynamic with empty model bounds: %s",
+               modelPath.string().c_str());
+      continue;
+    }
+
+    const b3Vec3 physicsPosition{position.x, position.y, position.z};
+    BoxDef object =
+        createDynamicObject(physicsPosition, fullSize, 0.63f, 0.63f, worldId);
     object.type = ModelType::MODEL;
     object.modelPath = modelKey;
 
