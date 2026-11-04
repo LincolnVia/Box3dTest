@@ -101,13 +101,11 @@ target_link_libraries(Box3dEngine PUBLIC raylib box3d::box3d)
 target_link_libraries(Box3dGame PRIVATE Box3dEngine)
 target_link_libraries(Box3dEditor PRIVATE Box3dEngine imgui rlImGui)
 
-function(copy_resources TARGET_NAME)
-    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
+add_custom_target(Box3dResources
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_SOURCE_DIR}/resources
-        $<TARGET_FILE_DIR:${TARGET_NAME}>/resources
-    )
-endfunction()
-
-copy_resources(Box3dGame)
-copy_resources(Box3dEditor)
+        ${CMAKE_CURRENT_BINARY_DIR}/resources
+    COMMENT "Copying runtime resources"
+)
+add_dependencies(Box3dGame Box3dResources)
+add_dependencies(Box3dEditor Box3dResources)

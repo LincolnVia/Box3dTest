@@ -18,5 +18,4 @@ private:
   b3Vec3 position;
   b3Vec3 rotation;
   b3BodyId bodyid;
-  float speed;
 };

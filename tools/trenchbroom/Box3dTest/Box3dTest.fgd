@@ -33,14 +33,16 @@
     enabled(integer) : "Enabled" : 1
 ]
 
-@PointClass size(-8 -8 -8, 8 8 8) color(255 0 0) = info_enemy_spawn : "Enemy spawner"
-[
+@PointClass size(-8 -8 -8, 8 8 8) color(255 0 0) model({"path": "resources/models/heavy_zombie.glb", "scale": 60, "angle": -1}) = info_zombie_spawn : "Enemy spawner"
+[ 
+    angles(string) : "Angles (P Y R)" : "-90 0 0"
     spawnrate(integer) : "Spawn Rate" : 0
     limit(integer) : "Max Spawns" : 1 
     enabled(integer) : "Enabled" : 1
 ]
 @PointClass size(-16 -16 -16, 16 16 16) color(100 180 255) model({ "path": "resources/models/" + model, "scale": scale * 20 }) = prop_static : "Static GLTF model"
 [
+    
     model(string) : "Model path (relative to resources/models)"
     angle(integer) : "Yaw" : 0
     scale(float) : "Uniform scale" : "1"

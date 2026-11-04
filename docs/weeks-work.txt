@@ -1,0 +1,20 @@
+EventListener:
+info_triggers broadcast across the EventListener
+
+
+player spawn rotation
+update camera you dumb fuck
+Zombie Spawning sync and spawn with trencbroom & raylib + codebase
+files used in
+zombieManager.dynamicProps
+world.cpp
+
+struct info_zombie_spawn {
+  int spawnrate = 1; // Spawn Zombie Rate
+  int limit = -1;    // Max Spawn Ammount | Special Case
+  int enabled = 1;   // Should Update
+  int spawned = 0;   // Spawn Count Tracker
+};
+
+Take all info_zombie_spawn form bsp parse to struct 
+add to vector and update

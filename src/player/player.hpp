@@ -18,6 +18,7 @@ public:
 
   void HandlePlayerMovement();
   void HandleCameraLook();
+  void RotateCameraByDegree(float angle);
   void HandleMouseInput();
 
   void PickupPhysicsObject();
@@ -73,7 +74,13 @@ private:
   float pitch = 0.0f;
   float yaw = 0.0f;
   float sensitivity = 0.0005f;
-
+  const b3CosSin pitchTrig = b3ComputeCosSin(pitch);
+  const b3CosSin yawTrig = b3ComputeCosSin(yaw);
+  const b3Vec3 forward = {
+      pitchTrig.cosine * yawTrig.sine,
+      pitchTrig.sine,
+      pitchTrig.cosine * yawTrig.cosine,
+  };
   // Defualt player move stats which get modifyed by the surface material
   float moveSpeed = 8.0f;
   float groundAccel = 15.0f;

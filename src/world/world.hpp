@@ -30,7 +30,7 @@ public:
   bool LoadBspLevel(const std::filesystem::path &path);
   bool HasBspLevel() const { return quakeLevel.IsLoaded(); }
   const std::string &GetBspStatus() const { return bspStatus; }
-  Vector3 GetBspPlayerSpawn() const { return quakeLevel.GetPlayerSpawn(); }
+  SpawnData GetBspPlayerSpawn() const { return quakeLevel.GetPlayerSpawn(); }
   bool HasBspPlayerSpawn() const { return quakeLevel.HasPlayerSpawn(); }
 
 private:

@@ -4,6 +4,7 @@
 #include "quakeBsp.hpp"
 
 #include "../physics/physics.hpp"
+#include "external/tinyobj_loader_c.h"
 #include "quakePalette.hpp"
 #include <box3d/collision.h>
 #include <box3d/types.h>
@@ -18,6 +19,7 @@
 #include <limits>
 #include <sstream>
 #include <stdexcept>
+#include <string>
 #include <string_view>
 #include <unordered_map>
 
@@ -274,7 +276,7 @@ bool ParseFloat(std::string_view text, float &result) {
   return static_cast<bool>(stream >> result) && std::isfinite(result);
 }
 
-bool FindPlayerSpawn(const std::vector<Entity> &entities, Vector3 &spawn) {
+bool FindPlayerSpawn(const std::vector<Entity> &entities, SpawnData &spawn) {
   for (const Entity &entity : entities) {
     const auto className = entity.find("classname");
     if (className == entity.end() ||
@@ -283,11 +285,16 @@ bool FindPlayerSpawn(const std::vector<Entity> &entities, Vector3 &spawn) {
       continue;
     }
     const auto origin = entity.find("origin");
-    if (origin != entity.end() && ParseVector3(origin->second, spawn)) {
-      spawn.y += 1.0f;
+    if (origin != entity.end() &&
+        ParseVector3(origin->second, spawn.position)) {
+      spawn.position.y += 1.0f;
+    }
+    const auto angle = entity.find("angle");
+    if (angle != entity.end() && ParseFloat(angle->second, spawn.rotation)) {
       return true;
     }
   }
+
   return false;
 }
 

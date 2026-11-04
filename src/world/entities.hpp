@@ -5,6 +5,7 @@
 #include "box3d/box3d.h"
 #include "box3d/collision.h"
 #include "box3d/id.h"
+#include "box3d/math_functions.h"
 #include "box3d/types.h"
 #include "raylib.h"
 #include <cstddef>
@@ -77,6 +78,14 @@ struct info_trigger {
       }
     }
   }
+};
+struct info_zombie_spawn {
+  info_zombie_spawn(b3Vec3 _pos) : position(_pos) {};
+  b3Vec3 position;
+  int spawnrate = 1; // Spawn Zombie Rate
+  int limit = -1;    // Max Spawn Ammount | Special Case
+  int enabled = 1;   // Should Update
+  int spawned = 0;   // Spawn Count Tracker
 };
 
 struct info_reciever {

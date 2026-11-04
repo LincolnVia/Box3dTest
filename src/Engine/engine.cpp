@@ -1,6 +1,7 @@
 #include "engine.hpp"
 #include <algorithm>
 #include <cctype>
+#include <cstdio>
 #include <filesystem>
 #include <iostream>
 #include <raylib.h>
@@ -33,7 +34,9 @@ bool Engine::LoadBspLevel(const std::filesystem::path &path) {
     return false;
   }
   if (world.HasBspPlayerSpawn()) {
-    player.Teleport(world.GetBspPlayerSpawn());
+    player.Teleport(world.GetBspPlayerSpawn().position,
+                    world.GetBspPlayerSpawn().rotation);
+    printf("angle:%f", world.GetBspPlayerSpawn().rotation);
   }
   return true;
 }

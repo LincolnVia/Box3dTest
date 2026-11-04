@@ -64,7 +64,7 @@
 {
 "classname" "info_player_start"
 "origin" "-128 208 32"
-"angle" "45"
+"angle" "165"
 }
 // entity 2
 {
@@ -73,11 +73,6 @@
 "light" "500"
 }
 // entity 3
-{
-"classname" "info_enemy_spawn"
-"origin" "56 104 16"
-}
-// entity 4
 {
 "classname" "info_trigger"
 "target" "2"
@@ -91,23 +86,29 @@
 ( 784 672 16 ) ( 784 672 17 ) ( 784 673 16 ) Purple/texture_08 -112 0 0 1 1
 }
 }
-// entity 5
+// entity 4
 {
 "classname" "prop_static"
 "origin" "880 34 28"
 "model" "companion_cube.glb"
 "scale" "1"
 }
-// entity 6
+// entity 5
 {
 "classname" "prop_dynamic"
 "origin" "880 -64 56"
 "model" "portalgun.gltf"
 "scale" ".03"
 }
-// entity 7
+// entity 6
 {
 "classname" "weapon_remmington"
 "origin" "-144 336 72"
 "model" "companion_cube.glb"
+}
+// entity 7
+{
+"classname" "info_enemy_spawn"
+"origin" "184 72 16"
+"angles" "-90 0 0"
 }

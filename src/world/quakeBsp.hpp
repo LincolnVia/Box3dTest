@@ -22,6 +22,11 @@ using Entity = std::unordered_map<std::string, std::string>;
 
 constexpr int32_t kQuakeBspVersion = 29;
 
+struct SpawnData {
+  Vector3 position;
+  float rotation;
+};
+
 #pragma pack(push, 1)
 struct Lump {
   int32_t offset;
@@ -262,7 +267,7 @@ public:
   bool IsLoaded() const { return !models.empty(); }
   const std::string &GetPath() const { return sourcePath; }
   bool HasPlayerSpawn() const { return hasPlayerSpawn; }
-  Vector3 GetPlayerSpawn() const { return playerSpawn; }
+  SpawnData GetPlayerSpawn() const { return playerSpawn; }
   int GetTriangleCount() const { return triangleCount; }
   const std::vector<Entity> &getEntities() const { return entities; }
   void setEntities(std::vector<Entity> val) { entities = val; }
@@ -297,7 +302,7 @@ private:
   b3MeshData *collisionMesh = nullptr;
 
   std::string sourcePath;
-  Vector3 playerSpawn{};
+  SpawnData playerSpawn{};
   bool hasPlayerSpawn = false;
   int triangleCount = 0;
 };
