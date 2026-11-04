@@ -117,4 +117,11 @@ fi
 
 cmake "${build_args[@]}"
 
-./build/dev/Box3dGame
+if [[ "$platform" == "windows" ]]; then
+    ./build/Box3dGame.exe
+fi
+
+if [[ "$platform" == "linux" ]]; then
+    ./build/Box3dGame
+fi
+

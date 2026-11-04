@@ -26,12 +26,12 @@ Other targets:
 ./build.sh --all
 ```
 
-Executables are written to `build/windows-dev/`.
+Executables are written to `build/`.
 
 ## Run
 
 ```sh
-./build/windows-dev/Box3dGame.exe
+./build/Box3dGame.exe
 ```
 
 The game loads `resources/scenes/initial_box3d.bsp` by default. To load a
@@ -39,7 +39,7 @@ different BSP29 map, pass it on the command line or drag it onto the running
 window:
 
 ```sh
-./build/windows-dev/Box3dGame.exe path/to/map.bsp
+./build/Box3dGame.exe path/to/map.bsp
 ```
 
 Runtime resources are copied beside the executable after each build.

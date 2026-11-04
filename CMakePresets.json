@@ -10,7 +10,7 @@
       "name": "windows-dev",
       "displayName": "Windows development (MinGW-w64)",
       "generator": "Unix Makefiles",
-      "binaryDir": "${sourceDir}/build/windows-dev",
+      "binaryDir": "${sourceDir}/build",
       "toolchainFile": "${sourceDir}/cmake/toolchains/mingw-w64-x86_64.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
@@ -20,7 +20,7 @@
     {
       "name": "dev",
       "displayName": "Native development",
-      "binaryDir": "${sourceDir}/build/dev",
+      "binaryDir": "${sourceDir}/build",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"

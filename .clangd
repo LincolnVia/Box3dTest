@@ -1,8 +1,9 @@
 CompileFlags:
-  CompilationDatabase: build/dev
+  CompilationDatabase: build
   Add:
     - -Isrc
     - -Iexternal/box3d/include
+    - -Ibuild
     - -std=c++20
 
 Index:

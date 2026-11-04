@@ -55,4 +55,4 @@ if [[ "$build_requested" == true ]]; then
 fi
 
 echo "Box3dTest development environment is ready."
-echo "Compile database: $repo_root/build/windows-dev/compile_commands.json"
+echo "Compile database: $repo_root/build/compile_commands.json"

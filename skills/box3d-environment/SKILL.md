@@ -11,8 +11,8 @@ Run `scripts/setup.sh <repository-root>` from this skill directory. By default i
 
 The setup should leave these invariants in place:
 
-- CMake uses the `windows-dev` preset and writes generated state to `build/windows-dev`.
-- clangd reads `build/windows-dev/compile_commands.json` through the repository's `.clangd` file.
+- CMake uses the `windows-dev` preset and writes generated state to `build`.
+- clangd reads `build/compile_commands.json` through the repository's `.clangd` file. On macOS, configure the `dev` preset to generate the native compile database at the same location.
 - The game and editor can be built separately with the `windows-game` and `windows-editor` build presets.
 - Runtime resources remain copied by the project's existing post-build commands.
 
