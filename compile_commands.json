@@ -1,20 +1,20 @@
 [
 {
   "directory": "build",
-  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DUSE_LIBTYPE_SHARED -g -fmodules-ts -fmodule-mapper=CMakeFiles/Box3dTest.dir/src/main.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/Box3dTest.dir/src/main.cpp.o -c ../src/main.cpp",
+  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DUSE_LIBTYPE_SHARED -g -fmodules-ts -fmodule-mapper=CMakeFiles/VEngine.dir/src/main.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/VEngine.dir/src/main.cpp.o -c ../src/main.cpp",
   "file": "../src/main.cpp",
-  "output": "CMakeFiles/Box3dTest.dir/src/main.cpp.o"
+  "output": "CMakeFiles/VEngine.dir/src/main.cpp.o"
 },
 {
   "directory": "build",
-  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DUSE_LIBTYPE_SHARED -g -fmodules-ts -fmodule-mapper=CMakeFiles/Box3dTest.dir/src/player/player.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/Box3dTest.dir/src/player/player.cpp.o -c ../src/player/player.cpp",
+  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DUSE_LIBTYPE_SHARED -g -fmodules-ts -fmodule-mapper=CMakeFiles/VEngine.dir/src/player/player.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/VEngine.dir/src/player/player.cpp.o -c ../src/player/player.cpp",
   "file": "../src/player/player.cpp",
-  "output": "CMakeFiles/Box3dTest.dir/src/player/player.cpp.o"
+  "output": "CMakeFiles/VEngine.dir/src/player/player.cpp.o"
 },
 {
   "directory": "build",
-  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DUSE_LIBTYPE_SHARED -g -fmodules-ts -fmodule-mapper=CMakeFiles/Box3dTest.dir/src/world/world.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/Box3dTest.dir/src/world/world.cpp.o -c ../src/world/world.cpp",
+  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -DUSE_LIBTYPE_SHARED -g -fmodules-ts -fmodule-mapper=CMakeFiles/VEngine.dir/src/world/world.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/VEngine.dir/src/world/world.cpp.o -c ../src/world/world.cpp",
   "file": "../src/world/world.cpp",
-  "output": "CMakeFiles/Box3dTest.dir/src/world/world.cpp.o"
+  "output": "CMakeFiles/VEngine.dir/src/world/world.cpp.o"
 }
 ]

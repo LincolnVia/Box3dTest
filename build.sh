@@ -12,7 +12,7 @@ usage() {
     cat <<'EOF'
 Usage: ./build.sh [options]
 
-Configure and build Box3dTest for Windows by default.
+Configure and build VEngine for Windows by default.
 
 Options:
   --game             Build only Box3dGame

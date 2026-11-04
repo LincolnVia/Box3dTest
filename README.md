@@ -1,4 +1,4 @@
-# Box3dTest
+# VEngine
 
 A small first-person 3D sandbox built with C++20, Box3D, and raylib. The game
 can render Quake BSP29 maps, build static collision meshes from their world
@@ -83,7 +83,7 @@ collision.
 
 The game definition and example profiles are in `tools/trenchbroom/`.
 
-1. Configure TrenchBroom with `tools/trenchbroom/Box3dTest`.
+1. Configure TrenchBroom with `tools/trenchbroom/VEngine`.
 2. Export the map and compile it with QBSP, VIS, and LIGHT.
 3. Launch `Box3dGame.exe` with the generated BSP path.
 

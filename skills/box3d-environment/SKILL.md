@@ -1,11 +1,11 @@
 ---
 name: box3d-environment
-description: Set up and verify the local C++ development environment for the Box3dTest repository. Use for configuring, building, refreshing clangd metadata, or diagnosing project prerequisites; do not use for unrelated CMake projects.
+description: Set up and verify the local C++ development environment for the VEngine repository. Use for configuring, building, refreshing clangd metadata, or diagnosing project prerequisites; do not use for unrelated CMake projects.
 ---
 
-# Box3dTest environment
+# VEngine environment
 
-Work from the Box3dTest repository root. Preserve existing user changes, especially missing or modified source files.
+Work from the VEngine repository root. Preserve existing user changes, especially missing or modified source files.
 
 Run `scripts/setup.sh <repository-root>` from this skill directory. By default it checks prerequisites and configures the `windows-dev` CMake preset. Pass `--build` after the repository path when the user wants a compile verification. Use the repository's `build.sh`; it targets 64-bit Windows by default and accepts `--native` only when the user explicitly wants a host build.
 

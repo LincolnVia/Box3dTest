@@ -1,0 +1,13 @@
+---- vis / ericw-tools 2.0.0-alpha11 ----
+
+--- Options Summary ---
+
+LoadBSPFile: 'tools\trenchbroom\VEngine/initial_box3d.bsp'
+BSP is version Quake BSP bsp29
+INFO: using built-in palette.
+Loading extended texinfo flags from tools\trenchbroom\VEngine/initial_box3d.texinfo.json...
+************ ERROR ************
+LoadPrtFile: unknown header/empty portal file tools\trenchbroom\VEngine/initial_box3d.prt
+
+
+

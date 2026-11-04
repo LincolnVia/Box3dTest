@@ -28,8 +28,8 @@ for command_name in cmake x86_64-w64-mingw32-gcc x86_64-w64-mingw32-g++ x86_64-w
 done
 
 if [[ ! -f "$repo_root/CMakeLists.txt" ]] || \
-   ! grep -Eq 'project\([[:space:]]*Box3dTest' "$repo_root/CMakeLists.txt"; then
-    echo "Not a Box3dTest repository: $repo_root" >&2
+   ! grep -Eq 'project\([[:space:]]*VEngine' "$repo_root/CMakeLists.txt"; then
+    echo "Not a VEngine repository: $repo_root" >&2
     exit 1
 fi
 
@@ -54,5 +54,5 @@ if [[ "$build_requested" == true ]]; then
     cmake --build --preset windows-dev
 fi
 
-echo "Box3dTest development environment is ready."
+echo "VEngine development environment is ready."
 echo "Compile database: $repo_root/build/compile_commands.json"

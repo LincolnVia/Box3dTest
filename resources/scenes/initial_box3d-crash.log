@@ -3,13 +3,13 @@ Adding file system path "<TrenchBroom default assets>"
 Adding file system path ""
 Adding file system path "tools"
 Found 0 shaders
-Loaded entity definition file Box3dTest.fgd
+Loaded entity definition file VEngine.fgd
 Found 0 shaders
 Saving document to "resources/scenes/initial_box3d.map"
 Saved "resources/scenes/initial_box3d.map" in 3ms
 Reloading entity definitions
-Loaded entity definition file Box3dTest.fgd
+Loaded entity definition file VEngine.fgd
 Reloading material collections
 Found 0 shaders
 Reloading entity definitions
-Loaded entity definition file Box3dTest.fgd
+Loaded entity definition file VEngine.fgd

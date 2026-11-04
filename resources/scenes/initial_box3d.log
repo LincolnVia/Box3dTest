@@ -4,8 +4,8 @@
     "notex" was set to "1" (from command line)
     "missing_textures_as_zero_size" was set to "1" (from command line)
 
-Input file: /Users/lincoln/projects/Box3dTest/resources/scenes/initial_box3d-compile.map
-Output file: /Users/lincoln/projects/Box3dTest/resources/scenes/initial_box3d.bsp
+Input file: /Users/lincoln/projects/VEngine/resources/scenes/initial_box3d-compile.map
+Output file: /Users/lincoln/projects/VEngine/resources/scenes/initial_box3d.bsp
 
 INFO: using built-in palette.
 WARNING: No wad or _wad key exists in the worldmodel

@@ -1,5 +1,6 @@
-// Game: Box3dTest
+// Game: VEngine
 // Format: Standard
+// Generator: TrenchBroom 2026.2 (Build v2026.2 Release macOS)
 // entity 0
 {
 "classname" "worldspawn"
@@ -52,12 +53,12 @@
 }
 // brush 5
 {
-( -368 368 0 ) ( -368 369 0 ) ( -368 367.90000000000003 1 ) Box3dTest/metal_bare_2 8 -8.656563 0 1 1.1213365
-( -368 368 0 ) ( -368 367.90000000000003 1 ) ( -367 368 0 ) Box3dTest/metal_bare_2 0 -5.9637527 0 1 1.0805517
-( -368 368 0 ) ( -367 368 0 ) ( -368 369 0 ) Box3dTest/metal_bare_2 0 0 0 1 1
-( 64 592 160 ) ( 64 593 160 ) ( 65 592 160 ) Box3dTest/metal_bare_2 0 -16 0 1 1
-( 64 606.4 16 ) ( 65 606.4 16 ) ( 64 606.3000000000001 17 ) Box3dTest/metal_bare_2 0 -5.9637527 0 1 1.0805517
-( 64 606.4 16 ) ( 64 606.3000000000001 17 ) ( 64 607.4 16 ) Box3dTest/metal_bare_2 8 -8.656563 0 1 1.1213365
+( -368 368 0 ) ( -368 369 0 ) ( -368 367.90000000000003 1 ) VEngine/metal_bare_2 8 -8.656563 0 1 1.1213365
+( -368 368 0 ) ( -368 367.90000000000003 1 ) ( -367 368 0 ) VEngine/metal_bare_2 0 -5.9637527 0 1 1.0805517
+( -368 368 0 ) ( -367 368 0 ) ( -368 369 0 ) VEngine/metal_bare_2 0 0 0 1 1
+( 64 592 160 ) ( 64 593 160 ) ( 65 592 160 ) VEngine/metal_bare_2 0 -16 0 1 1
+( 64 606.4 16 ) ( 65 606.4 16 ) ( 64 606.3000000000001 17 ) VEngine/metal_bare_2 0 -5.9637527 0 1 1.0805517
+( 64 606.4 16 ) ( 64 606.3000000000001 17 ) ( 64 607.4 16 ) VEngine/metal_bare_2 8 -8.656563 0 1 1.1213365
 }
 }
 // entity 1
@@ -108,7 +109,21 @@
 }
 // entity 7
 {
-"classname" "info_enemy_spawn"
-"origin" "184 72 16"
+"classname" "info_zombie_spawn"
+"origin" "120 40 16"
 "angles" "-90 0 0"
+}
+// entity 8
+{
+"classname" "info_zombie_spawn"
+"origin" "56 -136 16"
+"angle" "-1"
+"property 1" ""
+"enabled" "1"
+}
+// entity 9
+{
+"classname" "info_zombie_spawn"
+"origin" "-72 -56 16"
+"angle" "-1"
 }

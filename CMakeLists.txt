@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 4.2)
-project(Box3dTest)
+project(VEngine)
 
 # Box3D's Apple sample sources are marked as Objective-C in a subdirectory.
 # Enable the language here so CMake has its compile rules when generating them.
