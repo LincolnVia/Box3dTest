@@ -31,20 +31,6 @@ World::World(Engine &engine) : engine(engine) {
   worldDef.maximumLinearSpeed = 30.0f;
   worldId = b3CreateWorld(&worldDef);
 
-  // Ground Plane
-  sceneObjects.push_back(createStaticObject({0, -5, 0}, {50, 10, 50}, worldId));
-  sceneObjects[0].name = "ground";
-
-  // Speed Gel
-  sceneObjects.push_back(createStaticObject({-5, 0.1, 0}, {3, .2, 20}, worldId,
-                                            SurfaceMaterial::SpeedGel));
-  // Speed Gel
-  sceneObjects.push_back(createStaticObject({-5, 0.1, 15}, {3, .3, 10}, worldId,
-                                            SurfaceMaterial::BounceGel));
-
-  sceneObjects.push_back(createStaticObject({0, 0, 20}, {10, 10, 5}, worldId));
-  sceneObjects[1].name = "portalable_wall";
-
   // END
 
   // Dynamic Box
@@ -121,22 +107,23 @@ void World::Update() {
   }
 }
 void World::DrawGameObjects() {
-  if (!quakeLevel.IsLoaded()) {
-    for (auto &object : GetSceneObjects()) {
-      if (object.type == ModelType::BRUSH) {
-        b3_DrawCubeTex(engine.getAssetManager().getTexture(object.name),
-                       b3Body_GetPosition(object.bodyId), object.halfExtents,
-                       WHITE);
-      }
-      if (object.type == ModelType::MODEL) {
-        b3_DrawModel(
-            engine.getAssetManager().getModel(object.name),
-            B3WorldTransformToMatrix(b3Body_GetTransform(object.bodyId),
-                                     object.halfExtents));
-      }
-    }
-  }
-
+  /*
+   if (!quakeLevel.IsLoaded()) {
+   for (auto &object : GetSceneObjects()) {
+     if (object.type == ModelType::BRUSH) {
+       b3_DrawCubeTex(engine.getAssetManager().getTexture(object.name),
+                      b3Body_GetPosition(object.bodyId), object.halfExtents,
+                      WHITE);
+     }
+     if (object.type == ModelType::MODEL) {
+       b3_DrawModel(
+           engine.getAssetManager().getModel(object.name),
+           B3WorldTransformToMatrix(b3Body_GetTransform(object.bodyId),
+                                    object.halfExtents));
+     }
+   }
+ }
+   */
   for (const prop_dynamic &prop : dynamicProps) {
     const b3Vec3 modelScale{prop.modelScale, prop.modelScale, prop.modelScale};
     b3_DrawModel(engine.getAssetManager().getModel(prop.boxdef.modelPath),
