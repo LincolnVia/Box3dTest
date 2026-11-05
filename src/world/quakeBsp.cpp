@@ -4,6 +4,7 @@
 #include "quakeBsp.hpp"
 
 #include "../physics/physics.hpp"
+#include "entityRegistry.hpp"
 #include "external/tinyobj_loader_c.h"
 #include "quakePalette.hpp"
 #include "raylib.h"
@@ -272,26 +273,22 @@ std::vector<Entity> ParseEntities(std::string_view text) {
   return entities;
 }
 
-bool ParseFloat(std::string_view text, float &result) {
-  std::istringstream stream(std::string{text});
-  return static_cast<bool>(stream >> result) && std::isfinite(result);
-}
-
 bool FindPlayerSpawn(const std::vector<Entity> &entities, SpawnData &spawn) {
   for (const Entity &entity : entities) {
-    const auto className = entity.find("classname");
-    if (className == entity.end() ||
-        (className->second != "info_player_start" &&
-         className->second != "info_player_deathmatch")) {
+    const EntityView properties(entity);
+    const std::string className = properties.ClassName();
+    if (className != "info_player_start" &&
+        className != "info_player_deathmatch") {
       continue;
     }
-    const auto origin = entity.find("origin");
-    if (origin != entity.end() &&
-        ParseVector3(origin->second, spawn.position)) {
+    Vector3 position{};
+    if (properties.TryVector("origin", position)) {
+      spawn.position = position;
       spawn.position.y += 1.0f;
     }
-    const auto angle = entity.find("angle");
-    if (angle != entity.end() && ParseFloat(angle->second, spawn.rotation)) {
+    float angle = 0.0f;
+    if (properties.TryFloat("angle", angle)) {
+      spawn.rotation = angle;
       return true;
     }
   }
@@ -341,39 +338,34 @@ std::vector<StaticPropDefinition>
 FindStaticProps(const std::vector<Entity> &entities) {
   std::vector<StaticPropDefinition> props;
   for (const Entity &entity : entities) {
-    const auto className = entity.find("classname");
-    if (className == entity.end() || className->second != "prop_static") {
+    const EntityView properties(entity);
+    if (properties.ClassName() != "prop_static") {
       continue;
     }
-    const auto model = entity.find("model");
-    if (model == entity.end() || model->second.empty() ||
-        model->second.front() == '*') {
+    const std::string *model = properties.Find("model");
+    if (model == nullptr || model->empty() || model->front() == '*') {
       continue;
     }
     StaticPropDefinition prop;
-    prop.path = ResolveBspModelPath(model->second);
+    prop.path = ResolveBspModelPath(*model);
     if (prop.path.empty()) {
       TraceLog(LOG_WARNING, "Ignored unsafe or unsupported BSP model: %s",
-               model->second.c_str());
+               model->c_str());
       continue;
     }
-    const auto origin = entity.find("origin");
-    if (origin != entity.end() &&
-        !ParseVector3(origin->second, prop.position)) {
+    if (properties.Has("origin") &&
+        !properties.TryVector("origin", prop.position)) {
       TraceLog(LOG_WARNING, "Ignored BSP model with invalid origin: %s",
-               model->second.c_str());
+               model->c_str());
       continue;
     }
-    const auto angle = entity.find("angle");
-    if (angle != entity.end()) {
-      ParseFloat(angle->second, prop.yaw);
+    float angle = 0.0f;
+    if (properties.TryFloat("angle", angle)) {
+      prop.yaw = angle;
     }
-    const auto scale = entity.find("scale");
-    if (scale != entity.end()) {
-      float parsedScale = 1.0f;
-      if (ParseFloat(scale->second, parsedScale) && parsedScale > 0.0f) {
-        prop.scale = parsedScale;
-      }
+    float scale = 1.0f;
+    if (properties.TryFloat("scale", scale) && scale > 0.0f) {
+      prop.scale = scale;
     }
     props.push_back(std::move(prop));
   }

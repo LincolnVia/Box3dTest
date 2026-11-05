@@ -201,7 +201,8 @@ void Player::HandlePlayerMovement() {
 // Refactor for walls instead of companion cube
 void Player::HandleMouseInput() {
   RayFireResult ray =
-      FireCameraRay(camera, *_world, 100.0f, CollisionCategory::World);
+      FireCameraRay(camera, *_world, 100.0f,
+                    CollisionCategory::World | CollisionCategory::Trigger);
 
   DrawRayDebug(ray.origin, ray.translation);
 
@@ -209,6 +210,7 @@ void Player::HandleMouseInput() {
     if (ray.hit.hit) {
       b3ShapeId shapeId = ray.hit.shapeId;
       b3BodyId bodyId = b3Shape_GetBody(shapeId);
+      _world->Interact(bodyId);
 
       const b3Vec3 hitPoint = b3ToVec3(ray.hit.point);
       if (debugMode) {

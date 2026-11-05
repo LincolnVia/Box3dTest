@@ -13,27 +13,47 @@
 #include <vector>
 enum EntityType { ZOMBIE, SKELETON };
 
+class RuntimeEntity {
+public:
+  RuntimeEntity() = default;
+  RuntimeEntity(const RuntimeEntity &) = delete;
+  RuntimeEntity &operator=(const RuntimeEntity &) = delete;
+  virtual ~RuntimeEntity() = default;
+  virtual void Update() {}
+  virtual void Interact() {}
+};
+
+inline void DestroyRuntimeBody(BoxDef &object) {
+  if (B3_IS_NON_NULL(object.bodyId)) {
+    b3DestroyBody(object.bodyId);
+  }
+}
+
 struct EntitySpawner {
   Vector3 position;
   EntityType type;
 };
 
-struct wallbuy {
+struct wallbuy : RuntimeEntity {
   BoxDef boxdef;
+  float modelScale = 1.0f;
   int cost = 0;
-  int purchaced = 0;
+  int purchased = 0;
   int enabled = 1;
-  wallbuy(BoxDef object) : boxdef(std::move(object)) {}
+  wallbuy(BoxDef object, float scale)
+      : boxdef(std::move(object)), modelScale(scale) {}
+  ~wallbuy() override { DestroyRuntimeBody(boxdef); }
 };
-struct prop_dynamic {
+struct prop_dynamic : RuntimeEntity {
   BoxDef boxdef;
   float modelScale = 1.0f;
   int enabled = 1;
   prop_dynamic(BoxDef object, float scale)
       : boxdef(std::move(object)), modelScale(scale) {}
+  ~prop_dynamic() override { DestroyRuntimeBody(boxdef); }
 };
 
-struct info_trigger {
+struct info_trigger : RuntimeEntity {
   BoxDef boxdef;
   int target = -1;
   int triggered = 0;
@@ -44,11 +64,13 @@ struct info_trigger {
         {halfExtents.x * 2.0f, halfExtents.y * 2.0f, halfExtents.z * 2.0f},
         worldId, SurfaceMaterial::Default, true);
   }
+  ~info_trigger() override { DestroyRuntimeBody(boxdef); }
   void on_trigger_collided() {
     if (enabled)
       triggered = 1;
   }
-  void Update() {
+  void Interact() override { on_trigger_collided(); }
+  void Update() override {
     // First determine the required array capacity to hold all the overlapping
     // shape ids.
     int capacity = b3Shape_GetSensorCapacity(boxdef.shapeId);

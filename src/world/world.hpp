@@ -5,8 +5,10 @@
 #include "../Engine/eventListener.hpp"
 #include "cubeBrush.hpp"
 #include "entities.hpp"
+#include "entityRegistry.hpp"
 #include "quakeBsp.hpp"
 #include <box3d/box3d.h>
+#include <memory>
 #include <raylib.h>
 #include <vector>
 class Engine;
@@ -22,9 +24,7 @@ public:
   void Draw();
   void DrawGameObjects();
   void SpawnEntities();
-  std::vector<prop_dynamic> SpawnDynamicObjects();
-  std::vector<info_trigger> SpawnTriggers();
-  std::vector<wallbuy> SpawnWallbuys();
+  void Interact(b3BodyId bodyId);
   b3WorldId GetWorldId() const { return worldId; }
   std::vector<BoxDef> &GetSceneObjects() { return sceneObjects; }
   bool LoadBspLevel(const std::filesystem::path &path);
@@ -34,8 +34,15 @@ public:
   bool HasBspPlayerSpawn() const { return quakeLevel.HasPlayerSpawn(); }
 
 private:
+  void RegisterEntitySpawners();
+  void ClearSpawnedEntities();
+  void SpawnTrigger(const Entity &entity);
+  void SpawnDynamicProp(const Entity &entity);
+  void SpawnWallbuy(const Entity &entity);
+
   Engine &engine; // why is this here it should not by im not touching it
   EventListener eventListener;
+  EntityRegistry entitySpawners;
   std::vector<cubeBrush> meshs;
 
   Model skyBox;
@@ -43,9 +50,7 @@ private:
   b3WorldId worldId{};
   std::vector<BoxDef> sceneObjects;
   QuakeBspLevel quakeLevel;
-  std::vector<info_trigger> triggers;
-  std::vector<prop_dynamic> dynamicProps;
-  std::vector<wallbuy> wallbuys;
+  std::vector<std::unique_ptr<RuntimeEntity>> runtimeEntities;
   std::string bspStatus = "Drop a Quake BSP29 file to load a level";
   bool isShutdown = false;
 
