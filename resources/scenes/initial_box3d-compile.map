@@ -62,7 +62,7 @@
 {
 "classname" "info_player_start"
 "origin" "-128 208 32"
-"angle" "165"
+"angle" "180"
 }
 // entity 2
 {
@@ -106,7 +106,15 @@
 }
 // entity 7
 {
-"classname" "info_enemy_spawn"
-"origin" "184 72 16"
+"classname" "info_zombie_spawn"
+"origin" "120 40 16"
 "angles" "-90 0 0"
+}
+// entity 8
+{
+"classname" "info_zombie_spawn"
+"origin" "56 -136 16"
+"angle" "-1"
+"property 1" ""
+"enabled" "1"
 }

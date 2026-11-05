@@ -65,7 +65,7 @@
 {
 "classname" "info_player_start"
 "origin" "-128 208 32"
-"angle" "165"
+"angle" "180"
 }
 // entity 2
 {
@@ -120,10 +120,4 @@
 "angle" "-1"
 "property 1" ""
 "enabled" "1"
-}
-// entity 9
-{
-"classname" "info_zombie_spawn"
-"origin" "-72 -56 16"
-"angle" "-1"
 }

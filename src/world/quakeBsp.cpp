@@ -6,6 +6,7 @@
 #include "../physics/physics.hpp"
 #include "external/tinyobj_loader_c.h"
 #include "quakePalette.hpp"
+#include "raylib.h"
 #include <box3d/collision.h>
 #include <box3d/types.h>
 #include <raymath.h>

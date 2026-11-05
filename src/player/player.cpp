@@ -44,7 +44,7 @@ void Player::Init(World &world, bool captureCursor) {
   CreatePhysicsBody();
 
   camera.position = B3PosToVector3(getPosition());
-  camera.target = {0.0f, 2.0f, 1.0f};
+  camera.target = {0.0f, 0.0f, 1.0f};
   camera.up = {0.0f, 1.0f, 0.0f};
   camera.fovy = 60.0f;
   camera.projection = CAMERA_PERSPECTIVE;
@@ -73,7 +73,7 @@ void Player::Teleport(Vector3 position, float angle) {
                       b3Quat_identity);
   b3Body_SetLinearVelocity(collider.bodyId, b3Vec3_zero);
   b3Body_SetAngularVelocity(collider.bodyId, b3Vec3_zero);
-  yaw = angle;
+  yaw = angle * DEG2RAD;
 }
 
 void Player::Input() {
