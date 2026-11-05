@@ -13,7 +13,6 @@
 #include <box3d/math_functions.h>
 #include <box3d/types.h>
 #include <cctype>
-#include <cmath>
 #include <raylib.h>
 #include <string>
 #include <utility>
@@ -32,12 +31,7 @@ World::World(Engine &engine) : engine(engine) {
   worldDef.contactSpeed = 10.0f;
   worldDef.maximumLinearSpeed = 30.0f;
   worldId = b3CreateWorld(&worldDef);
-
-  // END
-
-  // Dynamic Box
-
-  // End
+  RegisterEntitySpawners();
 }
 
 void World::Init() {
@@ -56,6 +50,7 @@ void World::Shutdown() {
   if (isShutdown) {
     return;
   }
+  ClearSpawnedEntities();
   quakeLevel.Unload();
   b3DestroyWorld(worldId);
   worldId = b3_nullWorldId;
@@ -104,10 +99,29 @@ void World::Update() {
     UnloadDroppedFiles(droppedFiles);
   }
   b3World_Step(worldId, timeStep, subStepCount);
-  for (auto &trigger : triggers) {
-    trigger.Update();
+  for (const auto &entity : runtimeEntities) {
+    entity->Update();
   }
 }
+
+void World::Interact(b3BodyId bodyId) {
+  for (const auto &entity : runtimeEntities) {
+    const BoxDef *object = nullptr;
+    if (const auto *trigger = dynamic_cast<const info_trigger *>(entity.get())) {
+      object = &trigger->boxdef;
+    } else if (const auto *prop =
+                   dynamic_cast<const prop_dynamic *>(entity.get())) {
+      object = &prop->boxdef;
+    } else if (const auto *buy = dynamic_cast<const wallbuy *>(entity.get())) {
+      object = &buy->boxdef;
+    }
+    if (object != nullptr && B3_ID_EQUALS(object->bodyId, bodyId)) {
+      entity->Interact();
+      return;
+    }
+  }
+}
+
 void World::DrawGameObjects() {
   /*
    if (!quakeLevel.IsLoaded()) {
@@ -126,11 +140,22 @@ void World::DrawGameObjects() {
    }
  }
    */
-  for (const prop_dynamic &prop : dynamicProps) {
-    const b3Vec3 modelScale{prop.modelScale, prop.modelScale, prop.modelScale};
-    b3_DrawModel(engine.getAssetManager().getModel(prop.boxdef.modelPath),
-                 B3WorldTransformToMatrix(
-                     b3Body_GetTransform(prop.boxdef.bodyId), modelScale));
+  for (const auto &entity : runtimeEntities) {
+    const BoxDef *object = nullptr;
+    float scale = 1.0f;
+    if (const auto *prop = dynamic_cast<const prop_dynamic *>(entity.get())) {
+      object = &prop->boxdef;
+      scale = prop->modelScale;
+    } else if (const auto *buy = dynamic_cast<const wallbuy *>(entity.get())) {
+      object = &buy->boxdef;
+      scale = buy->modelScale;
+    }
+    if (object != nullptr) {
+      const b3Vec3 modelScale{scale, scale, scale};
+      b3_DrawModel(engine.getAssetManager().getModel(object->modelPath),
+                   B3WorldTransformToMatrix(
+                       b3Body_GetTransform(object->bodyId), modelScale));
+    }
   }
 }
 void World::Draw() {
@@ -140,234 +165,108 @@ void World::Draw() {
 }
 
 void World::SpawnEntities() {
-  triggers = SpawnTriggers();
-
-  std::vector<prop_dynamic> spawnedProps = SpawnDynamicObjects();
-  for (const prop_dynamic &prop : dynamicProps) {
-    if (B3_IS_NON_NULL(prop.boxdef.bodyId)) {
-      b3DestroyBody(prop.boxdef.bodyId);
-    }
-  }
-  dynamicProps = std::move(spawnedProps);
+  ClearSpawnedEntities();
+  entitySpawners.SpawnAll(quakeLevel.getEntities());
 }
 
-std::vector<wallbuy> World::SpawnWallbuys() {
+void World::RegisterEntitySpawners() {
+  entitySpawners.Register("info_trigger", [this](const Entity &entity) {
+    SpawnTrigger(entity);
+  });
+  entitySpawners.Register("prop_dynamic", [this](const Entity &entity) {
+    SpawnDynamicProp(entity);
+  });
 
-  for (const Entity &entity : quakeLevel.getEntities()) {
-    const auto className = entity.find("classname");
-    if (className == entity.end() || className->second != "wallbuy") {
-      continue;
-    }
-    const auto model = entity.find("model");
-    if (model == entity.end()) {
-      TraceLog(LOG_WARNING, "Skipping wallbuy without a model");
-      continue;
-    }
-
-    const std::filesystem::path modelPath = ResolveBspModelPath(model->second);
-    if (modelPath.empty()) {
-      TraceLog(LOG_WARNING, "Skipping prop_dynamic with invalid model: %s",
-               model->second.c_str());
-      continue;
-    }
-
-    const auto origin = entity.find("origin");
-    Vector3 position{};
-    if (origin == entity.end() || !ParseVector3(origin->second, position)) {
-      TraceLog(LOG_WARNING, "Skipping prop_dynamic with invalid origin");
-      continue;
-    }
-
-    const std::string modelKey = modelPath.generic_string();
-    Model *loadedModel = engine.getAssetManager().LoadModelIfMissing(
-        modelKey, modelPath.string());
-    if (loadedModel == nullptr) {
-      TraceLog(LOG_WARNING, "Could not load prop_dynamic model: %s",
-               modelPath.string().c_str());
-      continue;
-    }
-
-    float entityScale = 1.0f;
-    if (const auto scale = entity.find("scale"); scale != entity.end()) {
-      try {
-        size_t parsedLength = 0;
-        entityScale = std::stof(scale->second, &parsedLength);
-        if (parsedLength != scale->second.size() ||
-            !std::isfinite(entityScale) || entityScale <= 0.0f) {
-          throw std::invalid_argument("invalid scale");
-        }
-      } catch (const std::exception &) {
-        TraceLog(LOG_WARNING, "Skipping prop_dynamic with invalid scale: %s",
-                 scale->second.c_str());
-        continue;
-      }
-    }
-
-    const BoundingBox bounds = GetModelBoundingBox(*loadedModel);
-    const b3Vec3 fullSize{(bounds.max.x - bounds.min.x) * entityScale,
-                          (bounds.max.y - bounds.min.y) * entityScale,
-                          (bounds.max.z - bounds.min.z) * entityScale};
-    if (fullSize.x <= 0.0f || fullSize.y <= 0.0f || fullSize.z <= 0.0f) {
-      TraceLog(LOG_WARNING, "Skipping prop_dynamic with empty model bounds: %s",
-               modelPath.string().c_str());
-      continue;
-    }
-
-    const b3Vec3 physicsPosition{position.x, position.y, position.z};
-    BoxDef object =
-        createDynamicObject(physicsPosition, fullSize, 0.63f, 0.63f, worldId);
-    object.type = ModelType::MODEL;
-    object.modelPath = modelKey;
-
-    if (const auto angle = entity.find("angle"); angle != entity.end()) {
-      try {
-        const float radians = std::stof(angle->second) * PI / 180.0f;
-        const b3Quat rotation =
-            b3MakeQuatFromAxisAngle({0.0f, 1.0f, 0.0f}, radians);
-        b3Body_SetTransform(object.bodyId, b3ToPos(physicsPosition), rotation);
-      } catch (const std::exception &) {
-        TraceLog(LOG_WARNING, "Ignoring invalid wallbuy angle: %s",
-                 angle->second.c_str());
-      }
-    }
-    wallbuys.emplace_back(std::move(object));
+  for (const char *className : {"wallbuy", "weapon_1911", "weapon_ak47",
+                                "weapon_remmington"}) {
+    entitySpawners.Register(className, [this](const Entity &entity) {
+      SpawnWallbuy(entity);
+    });
   }
-  return wallbuys;
 }
 
-std::vector<prop_dynamic> World::SpawnDynamicObjects() {
-
-  std::vector<prop_dynamic> dynamicProps;
-
-  for (const Entity &entity : quakeLevel.getEntities()) {
-    const auto className = entity.find("classname");
-    if (className == entity.end() || className->second != "prop_dynamic") {
-      continue;
-    }
-    const auto model = entity.find("model");
-    if (model == entity.end()) {
-      TraceLog(LOG_WARNING, "Skipping prop_dynamic without a model");
-      continue;
-    }
-
-    const std::filesystem::path modelPath = ResolveBspModelPath(model->second);
-    if (modelPath.empty()) {
-      TraceLog(LOG_WARNING, "Skipping prop_dynamic with invalid model: %s",
-               model->second.c_str());
-      continue;
-    }
-
-    const auto origin = entity.find("origin");
-    Vector3 position{};
-    if (origin == entity.end() || !ParseVector3(origin->second, position)) {
-      TraceLog(LOG_WARNING, "Skipping prop_dynamic with invalid origin");
-      continue;
-    }
-
-    const std::string modelKey = modelPath.generic_string();
-    Model *loadedModel = engine.getAssetManager().LoadModelIfMissing(
-        modelKey, modelPath.string());
-    if (loadedModel == nullptr) {
-      TraceLog(LOG_WARNING, "Could not load prop_dynamic model: %s",
-               modelPath.string().c_str());
-      continue;
-    }
-
-    float entityScale = 1.0f;
-    if (const auto scale = entity.find("scale"); scale != entity.end()) {
-      try {
-        size_t parsedLength = 0;
-        entityScale = std::stof(scale->second, &parsedLength);
-        if (parsedLength != scale->second.size() ||
-            !std::isfinite(entityScale) || entityScale <= 0.0f) {
-          throw std::invalid_argument("invalid scale");
-        }
-      } catch (const std::exception &) {
-        TraceLog(LOG_WARNING, "Skipping prop_dynamic with invalid scale: %s",
-                 scale->second.c_str());
-        continue;
-      }
-    }
-
-    const BoundingBox bounds = GetModelBoundingBox(*loadedModel);
-    const b3Vec3 fullSize{(bounds.max.x - bounds.min.x) * entityScale,
-                          (bounds.max.y - bounds.min.y) * entityScale,
-                          (bounds.max.z - bounds.min.z) * entityScale};
-    if (fullSize.x <= 0.0f || fullSize.y <= 0.0f || fullSize.z <= 0.0f) {
-      TraceLog(LOG_WARNING, "Skipping prop_dynamic with empty model bounds: %s",
-               modelPath.string().c_str());
-      continue;
-    }
-
-    const b3Vec3 physicsPosition{position.x, position.y, position.z};
-    BoxDef object =
-        createDynamicObject(physicsPosition, fullSize, 0.63f, 0.63f, worldId);
-    object.type = ModelType::MODEL;
-    object.modelPath = modelKey;
-
-    if (const auto angle = entity.find("angle"); angle != entity.end()) {
-      try {
-        const float radians = std::stof(angle->second) * PI / 180.0f;
-        const b3Quat rotation =
-            b3MakeQuatFromAxisAngle({0.0f, 1.0f, 0.0f}, radians);
-        b3Body_SetTransform(object.bodyId, b3ToPos(physicsPosition), rotation);
-      } catch (const std::exception &) {
-        TraceLog(LOG_WARNING, "Ignoring invalid prop_dynamic angle: %s",
-                 angle->second.c_str());
-      }
-    }
-
-    dynamicProps.emplace_back(std::move(object), entityScale);
-  }
-  return dynamicProps;
+void World::ClearSpawnedEntities() {
+  runtimeEntities.clear();
 }
 
-std::vector<info_trigger> World::SpawnTriggers() {
+namespace {
+b3Vec3 ToPhysicsPosition(const Vector3 &position) {
+  return {position.x, position.y, position.z};
+}
 
-  std::vector<info_trigger> triggers;
-  for (const Entity &entity : quakeLevel.getEntities()) {
-    const auto className = entity.find("classname");
-    if (className == entity.end() || (className->second != "info_trigger")) {
-      continue;
-    }
-    const auto model = entity.find("model");
-    if (model == entity.end() || model->second.size() < 2 ||
-        model->second.front() != '*') {
-      TraceLog(LOG_WARNING, "Skipping info_trigger with invalid model key");
-      continue;
-    }
+void ApplyYaw(const BoxDef &object, const EntityTransform &transform) {
+  if (transform.yaw == 0.0f) {
+    return;
+  }
+  const b3Quat rotation = b3MakeQuatFromAxisAngle(
+      {0.0f, 1.0f, 0.0f}, transform.yaw * PI / 180.0f);
+  b3Body_SetTransform(object.bodyId,
+                      b3ToPos(ToPhysicsPosition(transform.position)), rotation);
+}
 
-    BspModel bspModel{};
-    try {
-      size_t parsedLength = 0;
-      const int modelIndex = std::stoi(model->second.substr(1), &parsedLength);
-      if (parsedLength != model->second.size() - 1 || modelIndex <= 0) {
-        TraceLog(LOG_WARNING,
-                 "Skipping info_trigger with invalid model key: %s",
-                 model->second.c_str());
-        continue;
-      }
-      bspModel = quakeLevel.GetModel(static_cast<size_t>(modelIndex));
-    } catch (const std::exception &) {
+BoxDef CreateModelObject(b3WorldId worldId, const ModelEntity &model) {
+  const b3Vec3 position = ToPhysicsPosition(model.transform.position);
+  BoxDef object =
+      createDynamicObject(position, model.size, 0.63f, 0.63f, worldId);
+  object.type = ModelType::MODEL;
+  object.modelPath = model.key;
+  ApplyYaw(object, model.transform);
+  return object;
+}
+} // namespace
+
+void World::SpawnDynamicProp(const Entity &entity) {
+  const auto model =
+      ParseModelEntity(engine, EntityView(entity), "prop_dynamic");
+  if (!model) {
+    return;
+  }
+  runtimeEntities.push_back(std::make_unique<prop_dynamic>(
+      CreateModelObject(worldId, *model), model->transform.scale));
+}
+
+void World::SpawnWallbuy(const Entity &entity) {
+  const EntityView view(entity);
+  const auto model = ParseModelEntity(engine, view, "wallbuy");
+  if (!model) {
+    return;
+  }
+
+  auto buy = std::make_unique<wallbuy>(CreateModelObject(worldId, *model),
+                                       model->transform.scale);
+  buy->cost = view.Int("cost", 0);
+  buy->purchased = view.Int("purchased", 0);
+  runtimeEntities.push_back(std::move(buy));
+}
+
+void World::SpawnTrigger(const Entity &entity) {
+  const EntityView view(entity);
+  const std::string *model = view.Find("model");
+  if (model == nullptr || model->size() < 2 || model->front() != '*') {
+    TraceLog(LOG_WARNING, "Skipping info_trigger with invalid model key");
+    return;
+  }
+
+  BspModel bspModel{};
+  try {
+    size_t parsedLength = 0;
+    const int modelIndex = std::stoi(model->substr(1), &parsedLength);
+    if (parsedLength != model->size() - 1 || modelIndex <= 0) {
       TraceLog(LOG_WARNING, "Skipping info_trigger with invalid model key: %s",
-               model->second.c_str());
-      continue;
+               model->c_str());
+      return;
     }
-
-    const Vector3 center = centerFromQuake(bspModel);
-    const Vector3 halfExtents = halfFromQuake(bspModel);
-    info_trigger trigger(center, halfExtents, worldId);
-    if (auto it = entity.find("target"); it != entity.end()) {
-      trigger.target = std::stoi(it->second);
-    }
-    if (auto it = entity.find("triggered"); it != entity.end()) {
-      trigger.triggered = std::stoi(it->second);
-    }
-    if (auto it = entity.find("enabled"); it != entity.end()) {
-      trigger.enabled = std::stoi(it->second);
-    }
-
-    triggers.push_back(trigger);
+    bspModel = quakeLevel.GetModel(static_cast<size_t>(modelIndex));
+  } catch (const std::exception &) {
+    TraceLog(LOG_WARNING, "Skipping info_trigger with invalid model key: %s",
+             model->c_str());
+    return;
   }
-  return triggers;
+
+  auto trigger = std::make_unique<info_trigger>(
+      centerFromQuake(bspModel), halfFromQuake(bspModel), worldId);
+  trigger->target = view.Int("target", -1);
+  trigger->triggered = view.Int("triggered", 0);
+  trigger->enabled = view.Int("enabled", 1);
+  runtimeEntities.push_back(std::move(trigger));
 }

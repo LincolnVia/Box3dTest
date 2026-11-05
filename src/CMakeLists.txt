@@ -12,6 +12,8 @@ target_sources(Box3dEngine
         player/player.hpp
         utils.hpp
         world/cubeBrush.hpp
+        world/entityRegistry.cpp
+        world/entityRegistry.hpp
         world/quakeBsp.cpp
         world/quakeBsp.hpp
         world/quakePalette.hpp

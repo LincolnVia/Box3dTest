@@ -1,30 +1,21 @@
 #include "zombieManager.hpp"
 
+#include "../../world/entityRegistry.hpp"
 #include "../../world/quakeBsp.hpp"
 void ZombieManager::ReadLevelData(QuakeBspLevel &quakeLevel) {
   for (const Entity &entity : quakeLevel.getEntities()) {
-    const auto className = entity.find("classname");
-    if (className == entity.end() ||
-        (className->second != "info_zombie_spawn")) {
+    const EntityView properties(entity);
+    if (properties.ClassName() != "info_zombie_spawn") {
       continue;
     }
 
-    info_zombie_spawn _info_zombie_spawn{};
+    const Vector3 position = properties.Vector("origin", Vector3{});
+    info_zombie_spawn _info_zombie_spawn{{position.x, position.y, position.z}};
+    _info_zombie_spawn.spawnrate = properties.Int("spawnrate", 1);
+    _info_zombie_spawn.enabled = properties.Int("enabled", 1);
+    _info_zombie_spawn.limit = properties.Int("limit", -1);
 
-    if (auto it = entity.find("target"); it != entity.end()) {
-      _info_zombie_spawn.spawned = std::stoi(it->second);
-    }
-    if (auto it = entity.find("triggered"); it != entity.end()) {
-      _info_zombie_spawn.spawnrate = std::stoi(it->second);
-    }
-    if (auto it = entity.find(""); it != entity.end()) {
-      _info_zombie_spawn.enabled = std::stoi(it->second);
-    }
-    if (auto it = entity.find("limit"); it != entity.end()) {
-      _info_zombie_spawn.limit = std::stoi(it->second);
-    }
-
-    triggers.push_back(trigger);
+    zombieSpawners.push_back(_info_zombie_spawn);
   }
 }
 
