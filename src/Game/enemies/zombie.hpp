@@ -2,6 +2,8 @@
 
 #include "box3d/id.h"
 #include "box3d/math_functions.h"
+
+namespace game {
 class Zombie {
   enum class STATE { IDLE, WALK, CHASE, DEAD };
 
@@ -19,3 +21,5 @@ private:
   b3Vec3 rotation;
   b3BodyId bodyid;
 };
+
+} // namespace game

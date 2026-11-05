@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+namespace game {
+
 struct BspModel {
   float mins[3];
   float maxs[3];
@@ -267,3 +269,5 @@ createDynamicObject(b3Vec3 position, b3Vec3 scale, float density,
 
   return dynamicObject;
 };
+
+} // namespace game

@@ -1,11 +1,14 @@
 #pragma once
-#include "Engine/global.hpp"
+#include "../engine/global.hpp"
 
 #include <box3d/math_functions.h>
 #include <box3d/types.h>
 #include <raylib.h>
 #include <raymath.h>
 #include <rlgl.h>
+
+namespace game {
+using engine::useHDR;
 
 inline Vector3 B3Vec3ToVector3(const b3Vec3 &v) {
   return Vector3{v.x, v.y, v.z};
@@ -490,3 +493,5 @@ inline void DrawSkybox(Model &skybox) {
   rlEnableBackfaceCulling();
   rlEnableDepthMask();
 }
+
+} // namespace game

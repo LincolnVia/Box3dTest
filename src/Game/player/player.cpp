@@ -1,5 +1,6 @@
 #include "player.hpp"
-#include "../Engine/global.hpp"
+#include "../engine/global.hpp"
+#include "../global.hpp"
 #include "../graphics.hpp"
 #include "../utils.hpp"
 #include "box3d/math_functions.h"
@@ -9,6 +10,9 @@
 #include <box3d/types.h>
 #include <cstring>
 #include <raylib.h>
+
+namespace game {
+using engine::debugMode;
 
 void Player::CreatePhysicsBody() {
   b3BodyDef bodyDef = b3DefaultBodyDef();
@@ -368,3 +372,5 @@ void Player::PickupPhysicsObject() {
     cooldownTimer -= GetFrameTime();
   }
 }
+
+} // namespace game

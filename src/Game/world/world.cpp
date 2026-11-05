@@ -1,9 +1,9 @@
 #include "world.hpp"
-#include "../Engine/engine.hpp"
+#include "../engine/engine.hpp"
 #include "../graphics.hpp"
 #include "cubeBrush.hpp"
 
-#include "../rlights.h"
+#include "../../rlights.h"
 #include "../utils.hpp"
 #include "entities.hpp"
 #include "quakeUtil.hpp"
@@ -17,6 +17,8 @@
 #include <string>
 #include <utility>
 #include <vector>
+
+namespace game {
 
 enum Materials {
 
@@ -270,3 +272,5 @@ void World::SpawnTrigger(const Entity &entity) {
   trigger->enabled = view.Int("enabled", 1);
   runtimeEntities.push_back(std::move(trigger));
 }
+
+} // namespace game

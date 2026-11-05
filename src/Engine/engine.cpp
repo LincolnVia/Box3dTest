@@ -8,6 +8,8 @@
 #define RLIGHTS_IMPLEMENTATION
 #include "../rlights.h"
 
+namespace engine {
+
 Engine::Engine(const char *title, bool enablePlayerInput)
     : winTitle(title), enablePlayerInput(enablePlayerInput), world(*this) {
   SetConfigFlags(FLAG_MSAA_4X_HINT);
@@ -88,3 +90,5 @@ void Engine::ProcessFrame(const std::function<void()> &drawOverlay) {
 
   EndDrawing();
 }
+
+} // namespace engine

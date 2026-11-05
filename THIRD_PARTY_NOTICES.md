@@ -2,8 +2,8 @@
 
 ## quake-level-viewer
 
-The Quake BSP loading and palette code in `src/world/quakeBsp.cpp` and
-`src/world/quakePalette.hpp` is adapted from
+The Quake BSP loading and palette code in `src/game/world/quakeBsp.cpp` and
+`src/game/world/quakePalette.hpp` is adapted from
 [bytesiz3d/quake-level-viewer](https://github.com/bytesiz3d/quake-level-viewer).
 
 MIT License

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "box3d/id.h"
+namespace engine {
 #ifdef BUILD_DEBUG
 inline constexpr bool debugMode = true;
 #else
@@ -14,5 +14,6 @@ inline constexpr bool useHDR = true;
 #define GLSL_VERSION 100
 #endif
 
-inline b3ShapeId globalPlayerShapeId{};
 
+
+} // namespace engine

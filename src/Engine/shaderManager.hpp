@@ -1,9 +1,13 @@
 #include "global.hpp"
 
+#pragma once
+
 #include <cstdio>
 #include <raylib.h>
 #include <string>
 #include <unordered_map>
+
+namespace engine {
 
 #pragma once
 
@@ -53,3 +57,5 @@ private:
   std::unordered_map<std::string, Shader> shaders;
   Vector4 ambient = {1.0f, 1.0f, 1.0f, 1.0f};
 };
+
+} // namespace engine

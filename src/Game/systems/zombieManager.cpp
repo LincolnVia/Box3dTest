@@ -2,6 +2,8 @@
 
 #include "../../world/entityRegistry.hpp"
 #include "../../world/quakeBsp.hpp"
+
+namespace game {
 void ZombieManager::ReadLevelData(QuakeBspLevel &quakeLevel) {
   for (const Entity &entity : quakeLevel.getEntities()) {
     const EntityView properties(entity);
@@ -22,3 +24,5 @@ void ZombieManager::ReadLevelData(QuakeBspLevel &quakeLevel) {
 void ZombieManager::UpdateSpawners() {}
 
 void ZombieManager::UpdateZombies() {}
+
+} // namespace game

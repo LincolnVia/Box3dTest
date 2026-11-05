@@ -2,7 +2,7 @@
 
 This guide describes how TrenchBroom entities move through this project: from
 their FGD definitions, into the compiled BSP, and then into the game. Entity
-properties in a BSP are strings. `EntityView` in `src/world/entityRegistry.*`
+properties in a BSP are strings. `EntityView` in `src/game/world/entityRegistry.*`
 provides typed access, while `EntityRegistry` dispatches runtime entities by
 their `classname`.
 
@@ -43,7 +43,7 @@ yaw in degrees, and uniform size. For example:
 "scale" "1"
 ```
 
-Static props are found in `FindStaticProps` in `src/world/quakeBsp.cpp`, not in
+Static props are found in `FindStaticProps` in `src/game/world/quakeBsp.cpp`, not in
 the runtime registry. Use this path for scenery that does not need a Box3D body
 or per-frame game behavior.
 
@@ -115,7 +115,7 @@ Point entities also receive an `origin` from their placement in the editor.
 ### B. Register its classname
 
 Add a registration in `World::RegisterEntitySpawners` in
-`src/world/world.cpp`:
+`src/game/world/world.cpp`:
 
 ```cpp
 entitySpawners.Register("item_health", [this](const Entity &entity) {
@@ -123,7 +123,7 @@ entitySpawners.Register("item_health", [this](const Entity &entity) {
 });
 ```
 
-Declare `SpawnHealthPickup(const Entity &entity)` in `src/world/world.hpp` and
+Declare `SpawnHealthPickup(const Entity &entity)` in `src/game/world/world.hpp` and
 implement it in `world.cpp`. `SpawnEntities()` clears previously spawned
 runtime objects, then dispatches all BSP entities to their registered
 handlers.

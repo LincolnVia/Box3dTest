@@ -95,7 +95,9 @@ be adjusted.
 ## Project layout
 
 ```text
-src/                 Engine, game, editor, player, and world code
+src/engine/          Engine runtime and shared engine services
+src/game/            Game entry point, player, world, physics, and gameplay
+src/Editor/          Editor application and debugging UI
 resources/           Runtime models, scenes, shaders, and textures
 tools/trenchbroom/   TrenchBroom game configuration and map tools
 cmake/               Toolchain and compatibility files

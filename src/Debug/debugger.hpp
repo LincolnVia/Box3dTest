@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../world/world.hpp"
+#include "../game/world/world.hpp"
 #include <rlImGui.h>
 
 
@@ -9,7 +9,7 @@ public:
   void Init();
   ~Debugger();
 
-  World *world = nullptr;
+  game::World *world = nullptr;
 
   void Update();
   void Render();

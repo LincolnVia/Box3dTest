@@ -1,8 +1,11 @@
+#pragma once
+
 #include <cstdio>
 #include <raylib.h>
 #include <string>
 #include <unordered_map>
-#pragma once
+
+namespace engine {
 
 class AssetManager {
 public:
@@ -61,3 +64,5 @@ private:
   std::unordered_map<std::string, Texture2D> textures;
   std::unordered_map<std::string, Model> models;
 };
+
+} // namespace engine

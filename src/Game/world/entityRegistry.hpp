@@ -10,7 +10,11 @@
 #include <unordered_map>
 #include <vector>
 
-class Engine;
+namespace engine { class Engine; }
+
+namespace game {
+using engine::Engine;
+
 
 class EntityView {
 public:
@@ -62,3 +66,5 @@ public:
 private:
   std::unordered_map<std::string, Handler> handlers;
 };
+
+} // namespace game

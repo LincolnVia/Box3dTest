@@ -17,6 +17,8 @@
 #include <string_view>
 #include <unordered_map>
 #include <vector>
+
+namespace game {
 struct b3MeshData;
 using Entity = std::unordered_map<std::string, std::string>;
 
@@ -306,3 +308,5 @@ private:
   bool hasPlayerSpawn = false;
   int triangleCount = 0;
 };
+
+} // namespace game

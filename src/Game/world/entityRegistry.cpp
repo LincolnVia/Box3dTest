@@ -1,11 +1,13 @@
 #include "entityRegistry.hpp"
 
-#include "../Engine/engine.hpp"
+#include "../engine/engine.hpp"
 #include <cerrno>
 #include <cmath>
 #include <cstdlib>
 #include <limits>
 #include <utility>
+
+namespace game {
 
 namespace {
 
@@ -204,3 +206,5 @@ void EntityRegistry::SpawnAll(const std::vector<Entity> &entities) const {
     Spawn(entity);
   }
 }
+
+} // namespace game

@@ -6,6 +6,8 @@
 #include <unordered_map>
 #include <vector>
 
+namespace engine {
+
 // Each target name is a channel. Receivers get changes for their named channel.
 using ChangeCallBack = void (*)(void *context, const std::string &target,
                                 bool new_state);
@@ -92,3 +94,5 @@ private:
   std::unordered_map<std::string, std::vector<Receiver>> channels;
   uint64_t next_token = 1;
 };
+
+} // namespace engine

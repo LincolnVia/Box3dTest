@@ -1,4 +1,4 @@
-#include "../Engine/engine.hpp"
+#include "../engine/engine.hpp"
 #include <filesystem>
 
 namespace {
@@ -20,7 +20,7 @@ void SetProjectWorkingDirectory(const char *executablePath) {
 
 int main(int argc, char **argv) {
   SetProjectWorkingDirectory(argv[0]);
-  Engine engine("Box3D Game");
+  engine::Engine engine("Box3D Game");
   engine.LoadBspLevel(argc > 1 ? argv[1] : kDefaultBspPath);
   engine.Process();
 

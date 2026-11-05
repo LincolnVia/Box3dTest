@@ -4,6 +4,8 @@
 #include <array>
 #include <raylib.h>
 
+namespace game {
+
 inline constexpr std::array<Color, 256> kQuakePalette = {{
     Color{0, 0, 0, 255},       Color{15, 15, 15, 255},
     Color{31, 31, 31, 255},    Color{47, 47, 47, 255},
@@ -134,3 +136,5 @@ inline constexpr std::array<Color, 256> kQuakePalette = {{
     Color{255, 243, 147, 255}, Color{255, 247, 199, 255},
     Color{255, 255, 255, 255}, Color{159, 91, 83, 255},
 }};
+
+} // namespace game

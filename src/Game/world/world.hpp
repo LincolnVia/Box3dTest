@@ -2,7 +2,7 @@
 
 #include "../physics/physics.hpp"
 
-#include "../Engine/eventListener.hpp"
+#include "../engine/eventListener.hpp"
 #include "cubeBrush.hpp"
 #include "entities.hpp"
 #include "entityRegistry.hpp"
@@ -11,7 +11,12 @@
 #include <memory>
 #include <raylib.h>
 #include <vector>
-class Engine;
+
+namespace engine { class Engine; }
+
+namespace game {
+using engine::Engine;
+using engine::EventListener;
 
 class World {
 public:
@@ -57,3 +62,5 @@ private:
   float timeStep = 1.0f / 60.0f;
   int subStepCount = 8;
 };
+
+} // namespace game

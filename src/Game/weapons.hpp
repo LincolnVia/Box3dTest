@@ -2,6 +2,7 @@
 
 #include "box3d/math_functions.h"
 #include <string>
+namespace game {
 enum WEAPON_NAME {
   M1911,
   AK47,
@@ -14,3 +15,5 @@ struct weapon_stats {
   float fire_speed = 2;
   b3Vec2 recoil_pattern[];
 };
+
+} // namespace game

@@ -25,6 +25,8 @@
 #include <string_view>
 #include <unordered_map>
 
+namespace game {
+
 constexpr float kQuakeToWorldScale = 0.05f;
 
 Vector3 FromQuake(const BspVertex &vertex) {
@@ -588,3 +590,5 @@ void QuakeBspLevel::Draw(Shader shader) {
                 {instance.scale, instance.scale, instance.scale}, WHITE);
   }
 }
+
+} // namespace game

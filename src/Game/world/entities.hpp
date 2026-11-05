@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../Engine/global.hpp"
+#include "../../engine/global.hpp"
+#include "../global.hpp"
 #include "../physics/physics.hpp"
 #include "box3d/box3d.h"
 #include "box3d/collision.h"
@@ -11,6 +12,8 @@
 #include <cstddef>
 #include <utility>
 #include <vector>
+
+namespace game {
 enum EntityType { ZOMBIE, SKELETON };
 
 class RuntimeEntity {
@@ -114,3 +117,5 @@ struct info_reciever {
   int recieverID = -1;
   int triggered = 0;
 };
+
+} // namespace game

@@ -1,12 +1,16 @@
 #pragma once
 
-#include "Engine/global.hpp"
-#include "graphics.hpp"
+#include "../engine/global.hpp"
+#include "global.hpp"
+#include "../graphics.hpp"
 #include "world/world.hpp"
 #include <box3d/box3d.h>
 #include <box3d/id.h>
 #include <box3d/math_functions.h>
 #include <raylib.h>
+
+namespace game {
+using engine::debugMode;
 
 struct RayFireResult {
   b3RayResult hit{};
@@ -111,3 +115,5 @@ FireCameraSphereRay(const Camera3D &camera, const World &world, float distance,
 
   return result;
 }
+
+} // namespace game

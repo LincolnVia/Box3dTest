@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Debug/debugger.hpp"
-#include "../Engine/engine.hpp"
+#include "../engine/engine.hpp"
 
 class Editor {
 public:
@@ -9,6 +9,6 @@ public:
   void Process();
 
 private:
-  Engine engine;
+  engine::Engine engine;
   Debugger debugger;
 };

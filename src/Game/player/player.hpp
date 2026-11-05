@@ -4,6 +4,8 @@
 #include <box3d/box3d.h>
 #include <raylib.h>
 
+namespace game {
+
 class Player {
 public:
   Player() = default;
@@ -136,3 +138,5 @@ private:
              ///< tumbling; lower keeps thrown cubes calmer.
   /// @}
 };
+
+} // namespace game

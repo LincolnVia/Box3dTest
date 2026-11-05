@@ -4,6 +4,8 @@
 #include "../../world/quakeBsp.hpp"
 #include "../Enemies/zombie.hpp"
 #include <vector>
+
+namespace game {
 class ZombieManager {
 public:
   void ReadLevelData(QuakeBspLevel &quakeLevel);
@@ -15,3 +17,5 @@ private:
   std::vector<Zombie> ActiveZombies;
   std::vector<Zombie> inActiveZombies;
 };
+
+} // namespace game
