@@ -67,36 +67,13 @@ void Player::Init(World &world, bool captureCursor) {
 }
 Player::~Player() { UnloadModel(gunModel); }
 
-void Player::RotateCameraByDegree(float angle) {
-  Vector3 forward = Vector3Subtract(camera.target, camera.position);
-  float distance = Vector3Length(forward);
-
-  // 45 degrees in radians
-  float yawAngle = angle * DEG2RAD;
-
-  // Rotate the offset around the Y axis
-  float cosAngle = cosf(yawAngle);
-  float sinAngle = sinf(yawAngle);
-
-  Vector3 offset = Vector3Subtract(camera.position, camera.target);
-
-  // Apply rotation around Y-axis
-  float newX = offset.x * cosAngle - offset.z * sinAngle;
-  float newZ = offset.x * sinAngle + offset.z * cosAngle;
-
-  camera.position = (Vector3){camera.target.x + newX, camera.position.y,
-                              camera.target.z + newZ};
-}
-
 void Player::Teleport(Vector3 position, float angle) {
-  b3Quat rotation = b3Quat_identity;
-  printf("angle: %f", angle);
   b3Body_SetTransform(collider.bodyId,
                       b3ToPos({position.x, position.y, position.z}),
                       b3Quat_identity);
   b3Body_SetLinearVelocity(collider.bodyId, b3Vec3_zero);
   b3Body_SetAngularVelocity(collider.bodyId, b3Vec3_zero);
-  RotateCameraByDegree(angle);
+  yaw = angle;
 }
 
 void Player::Input() {

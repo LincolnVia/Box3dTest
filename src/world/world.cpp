@@ -94,7 +94,7 @@ void World::Update() {
                        return static_cast<char>(std::tolower(character));
                      });
       if (extension == ".bsp") {
-        LoadBspLevel(path);
+        engine.LoadBspLevel(path);
       } else if (extension != ".bsp") {
         TraceLog(LOG_WARNING, "Dropped file is not a .bsp: %s",
                  path.string().c_str());

@@ -18,7 +18,7 @@ public:
 
   void HandlePlayerMovement();
   void HandleCameraLook();
-  void RotateCameraByDegree(float angle);
+
   void HandleMouseInput();
 
   void PickupPhysicsObject();

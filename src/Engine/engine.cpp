@@ -36,7 +36,8 @@ bool Engine::LoadBspLevel(const std::filesystem::path &path) {
   if (world.HasBspPlayerSpawn()) {
     player.Teleport(world.GetBspPlayerSpawn().position,
                     world.GetBspPlayerSpawn().rotation);
-    printf("angle:%f", world.GetBspPlayerSpawn().rotation);
+    TraceLog(LOG_INFO, "Player spawn angle: %f",
+             world.GetBspPlayerSpawn().rotation);
   }
   return true;
 }
