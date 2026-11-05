@@ -90,7 +90,7 @@ void Player::RotateCameraByDegree(float angle) {
 
 void Player::Teleport(Vector3 position, float angle) {
   b3Quat rotation = b3Quat_identity;
-  printf("%s", strrchr("angle: ", angle));
+  printf("angle: %f", angle);
   b3Body_SetTransform(collider.bodyId,
                       b3ToPos({position.x, position.y, position.z}),
                       b3Quat_identity);

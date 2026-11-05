@@ -10,7 +10,7 @@ public:
   Zombie(Zombie &&) = default;
   Zombie &operator=(const Zombie &) = default;
   Zombie &operator=(Zombie &&) = default;
-  Zombie(b3Vec3 position, b3WorldId worldid);
+  Zombie(b3Vec3 position, b3Vec3 rotation, b3WorldId worldid);
   void Update();
   void CheckPlayerDistance();
 

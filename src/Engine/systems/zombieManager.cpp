@@ -1,4 +1,5 @@
 #include "zombieManager.hpp"
+
 #include "../../world/quakeBsp.hpp"
 void ZombieManager::ReadLevelData(QuakeBspLevel &quakeLevel) {
   for (const Entity &entity : quakeLevel.getEntities()) {
@@ -8,7 +9,7 @@ void ZombieManager::ReadLevelData(QuakeBspLevel &quakeLevel) {
       continue;
     }
 
-    info_zombie_spawn _info_zombie_spawn;
+    info_zombie_spawn _info_zombie_spawn{};
 
     if (auto it = entity.find("target"); it != entity.end()) {
       _info_zombie_spawn.spawned = std::stoi(it->second);

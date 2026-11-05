@@ -3,7 +3,11 @@ info_triggers broadcast across the EventListener
 
 
 player spawn rotation
-update camera you dumb fuck
+Player Rotation on start
+update camera you dumb fuck | FUCAAAA quit getting distracted by other shit
+
+
+
 Zombie Spawning sync and spawn with trencbroom & raylib + codebase
 files used in
 zombieManager.dynamicProps

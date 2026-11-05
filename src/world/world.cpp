@@ -8,9 +8,11 @@
 #include "entities.hpp"
 #include "quakeUtil.hpp"
 #include "raymath.h"
+#include <algorithm>
 #include <box3d/box3d.h>
 #include <box3d/math_functions.h>
 #include <box3d/types.h>
+#include <cctype>
 #include <cmath>
 #include <raylib.h>
 #include <string>

@@ -4,6 +4,7 @@ set -euo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 platform="windows"
 target="all"
+run=false
 configure_only=false
 clean_first=false
 jobs=""
@@ -24,6 +25,7 @@ Options:
   --clean-first      Clean the selected targets before building
   -j, --jobs N       Run N build jobs in parallel
   -h, --help         Show this help
+  --run              Run The Game Also    
 EOF
 }
 
@@ -49,6 +51,9 @@ while (($# > 0)); do
             ;;
         --clean-first)
             clean_first=true
+            ;;
+        --run)
+            run=true
             ;;
         -j|--jobs)
             if (($# < 2)) || [[ ! "$2" =~ ^[1-9][0-9]*$ ]]; then
@@ -117,7 +122,7 @@ fi
 
 cmake "${build_args[@]}"
 
-if [[ "$platform" == "windows" ]]; then
+if [[ "$platform" == "windows" && "$run" ]]; then
     ./build/Box3dGame.exe
 fi
 
