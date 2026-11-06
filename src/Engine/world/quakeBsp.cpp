@@ -3,7 +3,7 @@
 
 #include "quakeBsp.hpp"
 
-#include "../physics/physics.hpp"
+#include <engine/physics/physics.hpp>
 #include "entityRegistry.hpp"
 #include "external/tinyobj_loader_c.h"
 #include "quakePalette.hpp"

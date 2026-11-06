@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../world/world.hpp"
 #include <box3d/box3d.h>
+#include <game/world/world.hpp>
 #include <raylib.h>
 
 namespace game {
@@ -31,8 +31,10 @@ public:
 
   // Getter Setters for player variables
   b3Pos getPosition() const { return b3Body_GetPosition(collider.bodyId); }
-  BoxDef *setHeldObject(BoxDef *object) { return heldObject = object; }
-  BoxDef *getHeldObject() const { return heldObject; }
+  EnitityData *setHeldObject(EnitityData *object) {
+    return heldObject = object;
+  }
+  EnitityData *getHeldObject() const { return heldObject; }
   b3Vec3 GetHoldPosition() const {
     const b3CosSin pitchTrig = b3ComputeCosSin(pitch);
     const b3CosSin yawTrig = b3ComputeCosSin(yaw);
@@ -59,9 +61,9 @@ public:
 private:
   Camera3D camera{};
   World *_world = nullptr;
-  BoxDef collider;
+  EnitityData collider;
   Model gunModel;
-  BoxDef *heldObject = nullptr;
+  EnitityData *heldObject = nullptr;
   float heldObjectGravityScale = 1.0f;
   float heldObjectLinearDamping = 0.0f;
   float heldObjectAngularDamping = 0.0f;

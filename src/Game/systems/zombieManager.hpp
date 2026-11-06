@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../world/entities.hpp"
-#include "../../world/quakeBsp.hpp"
-#include "../Enemies/zombie.hpp"
+#include <game/world/entities.hpp>
+#include <engine/world/quakeBsp.hpp>
+#include <game/enemies/zombie.hpp>
 #include <vector>
 
 namespace game {

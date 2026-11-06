@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../physics/physics.hpp"
+#include <engine/physics/physics.hpp>
 #include "quakePalette.hpp"
 #include <array>
 #include <box3d/box3d.h>
@@ -18,11 +18,22 @@
 #include <unordered_map>
 #include <vector>
 
-namespace game {
 struct b3MeshData;
+
+namespace game {
 using Entity = std::unordered_map<std::string, std::string>;
 
 constexpr int32_t kQuakeBspVersion = 29;
+
+struct BspModel {
+  float mins[3];
+  float maxs[3];
+  float origin[3];
+  int32_t headNodes[4];
+  int32_t visibleLeaves;
+  int32_t firstFace;
+  int32_t faceCount;
+};
 
 struct SpawnData {
   Vector3 position;

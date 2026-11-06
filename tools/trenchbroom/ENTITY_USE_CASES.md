@@ -2,7 +2,7 @@
 
 This guide describes how TrenchBroom entities move through this project: from
 their FGD definitions, into the compiled BSP, and then into the game. Entity
-properties in a BSP are strings. `EntityView` in `src/game/world/entityRegistry.*`
+properties in a BSP are strings. `EntityView` in `src/engine/world/entityRegistry.*`
 provides typed access, while `EntityRegistry` dispatches runtime entities by
 their `classname`.
 
@@ -43,7 +43,7 @@ yaw in degrees, and uniform size. For example:
 "scale" "1"
 ```
 
-Static props are found in `FindStaticProps` in `src/game/world/quakeBsp.cpp`, not in
+Static props are found in `FindStaticProps` in `src/engine/world/quakeBsp.cpp`, not in
 the runtime registry. Use this path for scenery that does not need a Box3D body
 or per-frame game behavior.
 

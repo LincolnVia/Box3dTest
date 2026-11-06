@@ -1,18 +1,21 @@
 #pragma once
 
-#include "../physics/physics.hpp"
+#include <engine/physics/physics.hpp>
 
-#include "../engine/eventListener.hpp"
-#include "cubeBrush.hpp"
 #include "entities.hpp"
-#include "entityRegistry.hpp"
-#include "quakeBsp.hpp"
+#include "game/systems/zombieManager.hpp"
 #include <box3d/box3d.h>
+#include <engine/eventListener.hpp>
+#include <engine/world/cubeBrush.hpp>
+#include <engine/world/entityRegistry.hpp>
+#include <engine/world/quakeBsp.hpp>
 #include <memory>
 #include <raylib.h>
 #include <vector>
 
-namespace engine { class Engine; }
+namespace engine {
+class Engine;
+}
 
 namespace game {
 using engine::Engine;
@@ -31,12 +34,18 @@ public:
   void SpawnEntities();
   void Interact(b3BodyId bodyId);
   b3WorldId GetWorldId() const { return worldId; }
-  std::vector<BoxDef> &GetSceneObjects() { return sceneObjects; }
+  std::vector<EnitityData> &GetSceneObjects() { return sceneObjects; }
   bool LoadBspLevel(const std::filesystem::path &path);
   bool HasBspLevel() const { return quakeLevel.IsLoaded(); }
   const std::string &GetBspStatus() const { return bspStatus; }
   SpawnData GetBspPlayerSpawn() const { return quakeLevel.GetPlayerSpawn(); }
   bool HasBspPlayerSpawn() const { return quakeLevel.HasPlayerSpawn(); }
+  std::vector<std::unique_ptr<RuntimeEntity>> &getRuntimeEntities() {
+    return runtimeEntities;
+  }
+  void setRuntimeEntities(int index, std::unique_ptr<RuntimeEntity> val) {
+    runtimeEntities[index].swap(val);
+  }
 
 private:
   void RegisterEntitySpawners();
@@ -47,15 +56,17 @@ private:
 
   Engine &engine; // why is this here it should not by im not touching it
   EventListener eventListener;
+  ZombieManager zombieManager;
   EntityRegistry entitySpawners;
   std::vector<cubeBrush> meshs;
 
   Model skyBox;
 
   b3WorldId worldId{};
-  std::vector<BoxDef> sceneObjects;
+  std::vector<EnitityData> sceneObjects;
   QuakeBspLevel quakeLevel;
   std::vector<std::unique_ptr<RuntimeEntity>> runtimeEntities;
+
   std::string bspStatus = "Drop a Quake BSP29 file to load a level";
   bool isShutdown = false;
 

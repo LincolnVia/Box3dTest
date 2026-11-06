@@ -65,7 +65,7 @@
 {
 "classname" "info_player_start"
 "origin" "-128 208 32"
-"angle" "180"
+"angle" "0"
 }
 // entity 2
 {
@@ -76,7 +76,7 @@
 // entity 3
 {
 "classname" "info_trigger"
-"target" "2"
+"target" "6"
 // brush 0
 {
 ( 224 208 0 ) ( 224 209 0 ) ( 224 208 1 ) Purple/texture_08 -112 0 0 1 1
@@ -89,8 +89,8 @@
 }
 // entity 4
 {
-"classname" "prop_static"
-"origin" "880 34 28"
+"classname" "prop_dynamic"
+"origin" "-80 130 28"
 "model" "companion_cube.glb"
 "scale" "1"
 }
@@ -103,17 +103,11 @@
 }
 // entity 6
 {
-"classname" "weapon_remmington"
-"origin" "-144 336 72"
-"model" "companion_cube.glb"
-}
-// entity 7
-{
 "classname" "info_zombie_spawn"
 "origin" "120 40 16"
 "angles" "-90 0 0"
 }
-// entity 8
+// entity 7
 {
 "classname" "info_zombie_spawn"
 "origin" "56 -136 16"

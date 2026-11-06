@@ -1,8 +1,8 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "../game/player/player.hpp"
-#include "../game/world/world.hpp"
+#include <game/player/player.hpp>
+#include <game/world/world.hpp>
 #include "assetManager.hpp"
 #include "eventListener.hpp"
 #include "shaderManager.hpp"

@@ -1,7 +1,11 @@
 #include "zombieManager.hpp"
+#include "box3d/math_functions.h"
+#include "engine/graphics/graphics.hpp"
+#include "game/world/entities.hpp"
+#include "raylib.h"
 
-#include "../../world/entityRegistry.hpp"
-#include "../../world/quakeBsp.hpp"
+#include <engine/world/entityRegistry.hpp>
+#include <engine/world/quakeBsp.hpp>
 
 namespace game {
 void ZombieManager::ReadLevelData(QuakeBspLevel &quakeLevel) {
@@ -21,7 +25,11 @@ void ZombieManager::ReadLevelData(QuakeBspLevel &quakeLevel) {
   }
 }
 
-void ZombieManager::UpdateSpawners() {}
+void ZombieManager::UpdateSpawners() {
+  for (info_zombie_spawn &_info_zombie_spawn : zombieSpawners) {
+    DrawCube(B3Vec3ToVector3(_info_zombie_spawn.position), 5, 5, 5, RED);
+  }
+}
 
 void ZombieManager::UpdateZombies() {}
 

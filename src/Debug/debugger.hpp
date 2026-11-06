@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../game/world/world.hpp"
+#include <game/world/world.hpp>
 #include <rlImGui.h>
 
 

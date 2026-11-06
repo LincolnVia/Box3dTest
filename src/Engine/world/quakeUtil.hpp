@@ -1,6 +1,5 @@
 #pragma once
 
-#include "entities.hpp"
 #include "quakeBsp.hpp"
 #include <iostream>
 #include <sstream>

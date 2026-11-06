@@ -1,5 +1,5 @@
 #pragma once
-#include "../engine/global.hpp"
+#include <engine/global.hpp>
 
 #include <box3d/math_functions.h>
 #include <box3d/types.h>

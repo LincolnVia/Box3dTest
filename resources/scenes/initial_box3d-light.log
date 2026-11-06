@@ -11,7 +11,7 @@ ConvertTextures: WARNING: invalid size data for texture_08
 Loading extended texinfo flags from initial_box3d.texinfo.json...
 Loading extended content flags from initial_box3d.content.json...
 WARNING: entity at (56 -136 16) (info_zombie_spawn) has empty key/value "property 1" ""
-9 entities read, 1 are lights.
+8 entities read, 1 are lights.
 
 --- Options Summary ---
 

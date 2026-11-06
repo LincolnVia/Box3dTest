@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../engine/global.hpp"
+#include <engine/global.hpp>
 #include "global.hpp"
-#include "../graphics.hpp"
+#include <engine/graphics/graphics.hpp>
 #include "world/world.hpp"
 #include <box3d/box3d.h>
 #include <box3d/id.h>

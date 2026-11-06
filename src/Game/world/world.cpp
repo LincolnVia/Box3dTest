@@ -1,19 +1,20 @@
 #include "world.hpp"
-#include "../engine/engine.hpp"
-#include "../graphics.hpp"
-#include "cubeBrush.hpp"
+#include <engine/engine.hpp>
+#include <engine/graphics/graphics.hpp>
+#include <engine/world/cubeBrush.hpp>
 
-#include "../../rlights.h"
-#include "../utils.hpp"
+#include "engine/entities.hpp"
 #include "entities.hpp"
-#include "quakeUtil.hpp"
 #include "raymath.h"
 #include <algorithm>
 #include <box3d/box3d.h>
 #include <box3d/math_functions.h>
 #include <box3d/types.h>
 #include <cctype>
+#include <engine/world/quakeUtil.hpp>
+#include <game/utils.hpp>
 #include <raylib.h>
+#include <rlights.h>
 #include <string>
 #include <utility>
 #include <vector>
@@ -72,7 +73,7 @@ bool World::LoadBspLevel(const std::filesystem::path &path) {
   bspStatus =
       TextFormat("%s (%d collision triangles)", quakeLevel.GetPath().c_str(),
                  quakeLevel.GetTriangleCount());
-  for (BoxDef &object : sceneObjects) {
+  for (EnitityData &object : sceneObjects) {
     b3Body_Disable(object.bodyId);
   }
   TraceLog(LOG_INFO, "Loaded BSP level: %s", bspStatus.c_str());
@@ -92,6 +93,7 @@ void World::Update() {
                      });
       if (extension == ".bsp") {
         engine.LoadBspLevel(path);
+        zombieManager.ReadLevelData(quakeLevel);
       } else if (extension != ".bsp") {
         TraceLog(LOG_WARNING, "Dropped file is not a .bsp: %s",
                  path.string().c_str());
@@ -104,13 +106,15 @@ void World::Update() {
   for (const auto &entity : runtimeEntities) {
     entity->Update();
   }
+  zombieManager.UpdateSpawners();
 }
 
 void World::Interact(b3BodyId bodyId) {
   for (const auto &entity : runtimeEntities) {
-    const BoxDef *object = nullptr;
-    if (const auto *trigger = dynamic_cast<const info_trigger *>(entity.get())) {
-      object = &trigger->boxdef;
+    const EnitityData *object = nullptr;
+    if (const auto *trigger =
+            dynamic_cast<const info_trigger *>(entity.get())) {
+      object = &trigger->entityData;
     } else if (const auto *prop =
                    dynamic_cast<const prop_dynamic *>(entity.get())) {
       object = &prop->boxdef;
@@ -143,7 +147,7 @@ void World::DrawGameObjects() {
  }
    */
   for (const auto &entity : runtimeEntities) {
-    const BoxDef *object = nullptr;
+    const EnitityData *object = nullptr;
     float scale = 1.0f;
     if (const auto *prop = dynamic_cast<const prop_dynamic *>(entity.get())) {
       object = &prop->boxdef;
@@ -155,8 +159,8 @@ void World::DrawGameObjects() {
     if (object != nullptr) {
       const b3Vec3 modelScale{scale, scale, scale};
       b3_DrawModel(engine.getAssetManager().getModel(object->modelPath),
-                   B3WorldTransformToMatrix(
-                       b3Body_GetTransform(object->bodyId), modelScale));
+                   B3WorldTransformToMatrix(b3Body_GetTransform(object->bodyId),
+                                            modelScale));
     }
   }
 }
@@ -172,43 +176,39 @@ void World::SpawnEntities() {
 }
 
 void World::RegisterEntitySpawners() {
-  entitySpawners.Register("info_trigger", [this](const Entity &entity) {
-    SpawnTrigger(entity);
-  });
+  entitySpawners.Register(
+      "info_trigger", [this](const Entity &entity) { SpawnTrigger(entity); });
   entitySpawners.Register("prop_dynamic", [this](const Entity &entity) {
     SpawnDynamicProp(entity);
   });
 
-  for (const char *className : {"wallbuy", "weapon_1911", "weapon_ak47",
-                                "weapon_remmington"}) {
-    entitySpawners.Register(className, [this](const Entity &entity) {
-      SpawnWallbuy(entity);
-    });
+  for (const char *className :
+       {"wallbuy", "weapon_1911", "weapon_ak47", "weapon_remmington"}) {
+    entitySpawners.Register(
+        className, [this](const Entity &entity) { SpawnWallbuy(entity); });
   }
 }
 
-void World::ClearSpawnedEntities() {
-  runtimeEntities.clear();
-}
+void World::ClearSpawnedEntities() { runtimeEntities.clear(); }
 
 namespace {
 b3Vec3 ToPhysicsPosition(const Vector3 &position) {
   return {position.x, position.y, position.z};
 }
 
-void ApplyYaw(const BoxDef &object, const EntityTransform &transform) {
+void ApplyYaw(const EnitityData &object, const EntityTransform &transform) {
   if (transform.yaw == 0.0f) {
     return;
   }
-  const b3Quat rotation = b3MakeQuatFromAxisAngle(
-      {0.0f, 1.0f, 0.0f}, transform.yaw * PI / 180.0f);
+  const b3Quat rotation =
+      b3MakeQuatFromAxisAngle({0.0f, 1.0f, 0.0f}, transform.yaw * PI / 180.0f);
   b3Body_SetTransform(object.bodyId,
                       b3ToPos(ToPhysicsPosition(transform.position)), rotation);
 }
 
-BoxDef CreateModelObject(b3WorldId worldId, const ModelEntity &model) {
+EnitityData CreateModelObject(b3WorldId worldId, const ModelEntity &model) {
   const b3Vec3 position = ToPhysicsPosition(model.transform.position);
-  BoxDef object =
+  EnitityData object =
       createDynamicObject(position, model.size, 0.63f, 0.63f, worldId);
   object.type = ModelType::MODEL;
   object.modelPath = model.key;

@@ -9,16 +9,6 @@
 
 namespace game {
 
-struct BspModel {
-  float mins[3];
-  float maxs[3];
-  float origin[3];
-  int32_t headNodes[4];
-  int32_t visibleLeaves;
-  int32_t firstFace;
-  int32_t faceCount;
-};
-
 namespace CollisionCategory {
 constexpr uint64_t Static = 1ull << 0;
 constexpr uint64_t Dynamic = 1ull << 1;
@@ -182,7 +172,7 @@ enum ModelType {
   MODEL,
 };
 
-struct BoxDef {
+struct EnitityData {
   std::string name;
   std::string modelPath;
   SurfaceMaterial material = SurfaceMaterial::Default;
@@ -202,11 +192,11 @@ struct BoxDef {
  * @return BoxDef
  */
 
-inline BoxDef
+inline EnitityData
 createStaticObject(b3Vec3 position, b3Vec3 scale, b3WorldId worldID,
                    SurfaceMaterial material = SurfaceMaterial::Default,
                    bool isSensor = false) {
-  BoxDef staticObject{};
+  EnitityData staticObject{};
   b3BodyDef staticBodyDef = b3DefaultBodyDef();
   staticBodyDef.position = b3ToPos(position);
   staticBodyDef.type = b3_staticBody;
@@ -241,11 +231,11 @@ createStaticObject(b3Vec3 position, b3Vec3 scale, b3WorldId worldID,
  * @return BoxDef
  */
 
-inline BoxDef
+inline EnitityData
 createDynamicObject(b3Vec3 position, b3Vec3 scale, float density,
                     float friction, b3WorldId worldID,
                     SurfaceMaterial material = SurfaceMaterial::CompanionCube) {
-  BoxDef dynamicObject{};
+  EnitityData dynamicObject{};
 
   b3BodyDef bodyDef = b3DefaultBodyDef();
   bodyDef.type = b3_dynamicBody;

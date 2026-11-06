@@ -1,14 +1,18 @@
 #include "player.hpp"
-#include "../engine/global.hpp"
-#include "../global.hpp"
-#include "../graphics.hpp"
-#include "../utils.hpp"
 #include "box3d/math_functions.h"
+#include "engine/physics/physics.hpp"
+#include "engine/world/entityRegistry.hpp"
+#include "game/world/entities.hpp"
 #include "movement.hpp"
 #include <box3d/box3d.h>
 #include <box3d/id.h>
 #include <box3d/types.h>
+#include <cstdio>
 #include <cstring>
+#include <engine/global.hpp>
+#include <engine/graphics/graphics.hpp>
+#include <game/global.hpp>
+#include <game/utils.hpp>
 #include <raylib.h>
 
 namespace game {
@@ -82,9 +86,9 @@ void Player::Teleport(Vector3 position, float angle) {
 
 void Player::Input() {
   HandleCameraLook();
-  PickupPhysicsObject();
   HandlePlayerMovement();
   HandleMouseInput();
+  PickupPhysicsObject();
 }
 
 void Player::Update() {
@@ -206,7 +210,8 @@ void Player::HandlePlayerMovement() {
 void Player::HandleMouseInput() {
   RayFireResult ray =
       FireCameraRay(camera, *_world, 100.0f,
-                    CollisionCategory::World | CollisionCategory::Trigger);
+                    CollisionCategory::World | CollisionCategory::Trigger |
+                        CollisionCategory::Dynamic);
 
   DrawRayDebug(ray.origin, ray.translation);
 
@@ -225,7 +230,7 @@ void Player::HandleMouseInput() {
                ray.hit.normal.z);
       }
       // Get BoxDef from bodyId
-      BoxDef *hitBox = nullptr;
+      EnitityData *hitBox = nullptr;
 
       for (auto &box : _world->GetSceneObjects()) {
         if (B3_ID_EQUALS(box.bodyId, bodyId)) {
@@ -282,17 +287,20 @@ void Player::PickupPhysicsObject() {
       b3ShapeId shapeId = ray.hit.shapeId;
       b3BodyId bodyId = b3Shape_GetBody(shapeId);
 
-      BoxDef *hitBox = nullptr;
+      EnitityData *hitBox = nullptr;
+
+      printf("Hit boxId =%i \n", bodyId.index1);
       // simplify this by using a function in world to get the boxdef from
       // bodyid
-      for (auto &box : _world->GetSceneObjects()) {
-        if (B3_ID_EQUALS(box.bodyId, bodyId)) {
-          hitBox = &box;
-          break;
+
+      for (const auto &entity : _world->getRuntimeEntities()) {
+        if (auto *dynamicBox = dynamic_cast<prop_dynamic *>(entity.get())) {
+
+          hitBox = &dynamicBox->boxdef;
         }
       }
 
-      if (hitBox && hitBox->name == "companion_cube") {
+      if (hitBox != nullptr) {
         printf("Holding companion cube\n");
         setHeldObject(hitBox);
 

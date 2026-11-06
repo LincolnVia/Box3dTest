@@ -1,4 +1,4 @@
-#include "../engine/engine.hpp"
+#include <engine/engine.hpp>
 #include <filesystem>
 
 namespace {

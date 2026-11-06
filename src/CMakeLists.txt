@@ -1,10 +1,8 @@
 set(BOX3D_GAME_SOURCES
     game/enemies/zombie.cpp
     game/enemies/zombie.hpp
-    game/graphics.hpp
     game/global.hpp
     game/components/health.hpp
-    game/physics/physics.hpp
     game/player/movement.hpp
     game/player/player.cpp
     game/player/player.hpp
@@ -12,20 +10,27 @@ set(BOX3D_GAME_SOURCES
     game/systems/zombieManager.hpp
     game/utils.hpp
     game/weapons.hpp
-    game/world/cubeBrush.hpp
     game/world/entities.hpp
-    game/world/entityRegistry.cpp
-    game/world/entityRegistry.hpp
-    game/world/quakeBsp.cpp
-    game/world/quakeBsp.hpp
-    game/world/quakePalette.hpp
-    game/world/quakeUtil.hpp
     game/world/world.cpp
     game/world/world.hpp
 )
 
+# Make project headers importable from the src root (for example,
+# #include <engine/engine.hpp> from game code).
+target_include_directories(Box3dEngine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
 target_sources(Box3dEngine
     PRIVATE
+        engine/physics/physics.hpp
+        engine/graphics/graphics.hpp
+        engine/world/cubeBrush.hpp
+        engine/world/entity.hpp
+        engine/world/entityRegistry.cpp
+        engine/world/entityRegistry.hpp
+        engine/world/quakeBsp.cpp
+        engine/world/quakeBsp.hpp
+        engine/world/quakePalette.hpp
+        engine/world/quakeUtil.hpp
         engine/assetManager.hpp
         engine/engine.cpp
         engine/engine.hpp

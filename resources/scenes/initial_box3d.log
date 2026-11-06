@@ -9,7 +9,7 @@ Output file: /Users/lincoln/projects/VEngine/resources/scenes/initial_box3d.bsp
 
 INFO: using built-in palette.
 WARNING: No wad or _wad key exists in the worldmodel
-     9 entities
+     8 entities
      6 unique textures
     30 texinfos
     68 unique planes
@@ -44,7 +44,7 @@ INFO: calculating BSP for 6 brushes with 37 sides
     17 max tree height
      9 avg tree height
     306 tree portals
-WARNING: Reached occupant "prop_static" at (880 34 28), no filling performed.
+WARNING: Reached occupant "prop_dynamic" at (880 -64 56), no filling performed.
 Leak file written to initial_box3d.pts
             3 portals written to initial_box3d.leak.prt
     306 tree portals
@@ -86,7 +86,7 @@ count   lump name    byte size
       6 textures            268
         lightdata             0
         visdata               0
-        entdata             666
+        entdata             578
 
 0.013s seconds elapsed
 

@@ -1,6 +1,6 @@
 #include "entityRegistry.hpp"
 
-#include "../engine/engine.hpp"
+#include <engine/engine.hpp>
 #include <cerrno>
 #include <cmath>
 #include <cstdlib>
